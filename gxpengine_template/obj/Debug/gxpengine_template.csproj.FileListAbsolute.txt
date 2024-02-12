@@ -5,3 +5,10 @@ C:\Saxion\Courses\Game Programming\gxpengine_template\gxpengine_template\obj\Deb
 C:\Saxion\Courses\Game Programming\gxpengine_template\gxpengine_template\obj\Debug\gxpengine_template.csproj.CoreCompileInputs.cache
 C:\Saxion\Courses\Game Programming\gxpengine_template\gxpengine_template\obj\Debug\gxpengine_template.exe
 C:\Saxion\Courses\Game Programming\gxpengine_template\gxpengine_template\obj\Debug\gxpengine_template.pdb
+C:\Users\Birka\OneDrive\Documents\GitHub\Liftoff\gxpengine_template\bin\Debug\gxpengine_template.exe.config
+C:\Users\Birka\OneDrive\Documents\GitHub\Liftoff\gxpengine_template\bin\Debug\gxpengine_template.exe
+C:\Users\Birka\OneDrive\Documents\GitHub\Liftoff\gxpengine_template\bin\Debug\gxpengine_template.pdb
+C:\Users\Birka\OneDrive\Documents\GitHub\Liftoff\gxpengine_template\obj\Debug\gxpengine_template.csproj.AssemblyReference.cache
+C:\Users\Birka\OneDrive\Documents\GitHub\Liftoff\gxpengine_template\obj\Debug\gxpengine_template.csproj.CoreCompileInputs.cache
+C:\Users\Birka\OneDrive\Documents\GitHub\Liftoff\gxpengine_template\obj\Debug\gxpengine_template.exe
+C:\Users\Birka\OneDrive\Documents\GitHub\Liftoff\gxpengine_template\obj\Debug\gxpengine_template.pdb

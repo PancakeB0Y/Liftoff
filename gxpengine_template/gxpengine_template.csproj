@@ -84,7 +84,13 @@
     <Compile Include="GXPEngine\Utils\Mathf.cs" />
     <Compile Include="GXPEngine\Utils\Time.cs" />
     <Compile Include="GXPEngine\Utils\Utils.cs" />
+    <Compile Include="MyClasses\INonDestructable.cs" />
+    <Compile Include="MyClasses\IPrefab.cs" />
+    <Compile Include="MyClasses\IStartable.cs" />
+    <Compile Include="MyClasses\Level.cs" />
     <Compile Include="MyClasses\MyGame.cs" />
+    <Compile Include="MyClasses\MyUtils.cs" />
+    <Compile Include="MyClasses\SceneConfigs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
