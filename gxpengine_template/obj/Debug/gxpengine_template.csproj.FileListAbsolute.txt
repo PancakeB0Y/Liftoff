@@ -1,0 +1,7 @@
+C:\Saxion\Courses\Game Programming\gxpengine_template\gxpengine_template\bin\Debug\gxpengine_template.exe.config
+C:\Saxion\Courses\Game Programming\gxpengine_template\gxpengine_template\bin\Debug\gxpengine_template.exe
+C:\Saxion\Courses\Game Programming\gxpengine_template\gxpengine_template\bin\Debug\gxpengine_template.pdb
+C:\Saxion\Courses\Game Programming\gxpengine_template\gxpengine_template\obj\Debug\gxpengine_template.csproj.AssemblyReference.cache
+C:\Saxion\Courses\Game Programming\gxpengine_template\gxpengine_template\obj\Debug\gxpengine_template.csproj.CoreCompileInputs.cache
+C:\Saxion\Courses\Game Programming\gxpengine_template\gxpengine_template\obj\Debug\gxpengine_template.exe
+C:\Saxion\Courses\Game Programming\gxpengine_template\gxpengine_template\obj\Debug\gxpengine_template.pdb
