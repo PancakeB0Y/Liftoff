@@ -7,7 +7,6 @@ namespace gxpengine_template
 {
     public class Level : GameObject
     {
-
         public event Action<Level> LevelStarted;
         public event Action BackgroundLoaded;
         public event Action UILoaded;
@@ -16,9 +15,8 @@ namespace gxpengine_template
         public Level(string fileName)
         {
             Name = fileName;
-
         }
-        
+
         //not in constructor because level has to be parent of game first
         public void Init()
         {
@@ -34,7 +32,7 @@ namespace gxpengine_template
                 loader.addColliders = false;
                 loader.LoadObjectGroups(index);
                 sceneConfigs = game.FindObjectOfType<SceneConfigs>();
-                sceneConfigs.Init(this);
+                sceneConfigs?.Init(this);
             }
 
             //background
@@ -88,7 +86,7 @@ namespace gxpengine_template
                 startable.Start();
             }
             LevelStarted?.Invoke(this);
-        }    
+        }
 
     }
 }

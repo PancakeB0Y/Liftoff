@@ -5,9 +5,9 @@ using System.Text.Json;
 
 namespace gxpengine_template.MyClasses
 {
-    public abstract class FileData 
+    public abstract class FileData
     {
-        public FileData() 
+        public FileData()
         {
             Console.WriteLine("typeName " + GetType());
         }
@@ -20,8 +20,6 @@ namespace gxpengine_template.MyClasses
     {
         public int Health { get; set; } = 5;
         public string Name { get; set; } = "blower";
-
-
 
         public override string SerializeSelf()
         {
@@ -39,13 +37,13 @@ namespace gxpengine_template.MyClasses
     public class SaveManager
     {
         public List<FileData> _fileData = new List<FileData>();
-        public SaveManager() 
+        public SaveManager()
         {
-        
+
         }
         void LoadFromFile(string format)
         {
-            
+
         }
         public void SaveOnFile(FileData data)
         {
