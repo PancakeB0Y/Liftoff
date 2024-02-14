@@ -6,7 +6,14 @@
  <objectgroup id="10" name="WorldText"/>
  <objectgroup id="6" name="UI"/>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="92" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="302.667" y="261.333" width="135" height="102.333"/>
+  <object id="92" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="58.6667" y="201.333" width="135" height="102.333">
+   <properties>
+    <property name="BarMoveDownSpeed" type="float" value="0.3"/>
+    <property name="BarMoveUpSpeed" type="float" value="0.3"/>
+    <property name="ChargeZoneSize" type="float" value="0.1"/>
+    <property name="TimerSeconds" type="int" value="100"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="8" name="Managers"/>
  <objectgroup id="18" name="SceneConfig"/>

@@ -1,4 +1,6 @@
 /gxpengine_template/bin/Debug/*.dll
+/gxpengine_template/bin/Debug/*.pdb
+/gxpengine_template/bin/Debug/*.exe
 /gxpengine_template/bin/Debug/*.xml
 /gxpengine_template/bin/Debug/*.cache
 /packages
