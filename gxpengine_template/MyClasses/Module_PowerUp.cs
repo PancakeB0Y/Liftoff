@@ -11,8 +11,6 @@ namespace gxpengine_template.MyClasses
 {
     internal class Module_PowerUp : Module
     {
-        //Charging logic variables
-
         //from 0 to 1
         public float CurrentCharge {  get; private set; }
         readonly float _chargeSpeed;
@@ -21,8 +19,8 @@ namespace gxpengine_template.MyClasses
 
         //from 0 to 1
         public float CurrentBarPersentage { get; private set; }
-        public float BarRandomPosition { get; private set; }
-        public float ChargeZoneSize { get; private set; }
+        public float ChargeZoneRandomPosition { get; private set; }
+        public float ChargeZonePersentage { get; private set; }
 
         readonly float _barMoveUpSpeed;
         readonly float _barMoveDownSpeed;
@@ -30,13 +28,15 @@ namespace gxpengine_template.MyClasses
         readonly Module_PowerUp_Visual visual;
         public Module_PowerUp(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
         {
-            _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 10f);
+            _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 0.1f);
 
             _barMoveUpSpeed = data.GetFloatProperty("BarMoveUpSpeed", 0.06f);
             _barMoveDownSpeed = data.GetFloatProperty("BarMoveDownSpeed", 0.04f);
 
-            ChargeZoneSize = data.GetFloatProperty("ChargeZoneSize", 0.2f);
-            BarRandomPosition = Utils.Random(ChargeZoneSize, 1 - ChargeZoneSize);
+            ChargeZonePersentage = data.GetFloatProperty("ChargeZoneSize", 0.2f);
+            ChargeZoneRandomPosition = Utils.Random(ChargeZonePersentage, 1 - ChargeZonePersentage);
+            
+            
 
             visual = new Module_PowerUp_Visual(this);
             AddChild(visual);
@@ -48,15 +48,19 @@ namespace gxpengine_template.MyClasses
             if(Input.GetKey(Key.S))
             {
                 CurrentBarPersentage += _barMoveUpSpeed * deltaInSeconds;
+
             }
             else
             {
                 CurrentBarPersentage -= _barMoveDownSpeed * deltaInSeconds;
             }
+            CurrentBarPersentage = Mathf.Clamp(CurrentBarPersentage, 0, 1);
 
             if (InsideChargeZone(CurrentBarPersentage))
             {
                 CurrentCharge += _chargeSpeed * deltaInSeconds;
+                Console.WriteLine("charging " + CurrentCharge);
+
                 if (CurrentCharge >= 1)
                 {
                     RaiseSuccesEvent();
@@ -64,14 +68,12 @@ namespace gxpengine_template.MyClasses
                 }
             }
             
-            //Console.WriteLine("current charge " + _currentCharge);
-
         }
         bool InsideChargeZone(float position)
         {
-            return position > BarRandomPosition - ChargeZoneSize
+            return position > ChargeZoneRandomPosition - ChargeZonePersentage/2
                     &&
-                   position < BarRandomPosition + ChargeZoneSize;
+                   position < ChargeZoneRandomPosition + ChargeZonePersentage/2;
         }
         protected override void OnTimeEnd()
         {
@@ -89,9 +91,11 @@ namespace gxpengine_template.MyClasses
 
         EasyDraw chargeZone;
 
+        EasyDraw battery;
+
         Module_PowerUp powerUp;
 
-        public Module_PowerUp_Visual(Module_PowerUp powerUp, int barSize = 10)
+        public Module_PowerUp_Visual(Module_PowerUp powerUp, int barSize = 2)
         {
             this.powerUp = powerUp;
             var w = 50;
@@ -100,23 +104,34 @@ namespace gxpengine_template.MyClasses
             bg = new EasyDraw(w, h, false);
             bg.Clear(Color.Red);
 
-            chargeZone = new EasyDraw(w, (int)(powerUp.ChargeZoneSize * h), false);
-            chargeZone.y = (int)(h * powerUp.BarRandomPosition);
-            bg.Clear(Color.Green);
+            var chargeZoneHeight = (int)(powerUp.ChargeZonePersentage * h);
+            chargeZone = new EasyDraw(w, chargeZoneHeight, false);
+            chargeZone.SetOrigin(0, chargeZoneHeight / 2);
+            chargeZone.y = (int)(h * powerUp.ChargeZoneRandomPosition);
+            chargeZone.Clear(Color.Green);
 
 
 
             bar = new EasyDraw(w, barSize, false);
             bar.Clear(Color.Blue);
-            Console.WriteLine("aaaa");
-            AddChild(bar);
+            var bat_w = 10;
+            var bat_h = 30;
+            battery = new EasyDraw(bat_w, bat_h, false);
+            battery.SetXY(w + 10, 0);
+            battery.SetScaleXY(1, -1);
+
             AddChild(bg);
             AddChild(chargeZone);
+            AddChild(bar);
+            AddChild(battery);
         }
         void Update()
         {
-            bar.y = powerUp.CurrentBarPersentage * bg.height;
-
+            bar.y = bg.y + powerUp.CurrentBarPersentage * bg.height;
+            battery.Clear(Color.Red);
+            battery.ShapeAlign(CenterMode.Min, CenterMode.Min);
+            battery.Fill(Color.Green);
+            battery.Rect(0,0,battery.width,battery.height * powerUp.CurrentCharge);
         }
     }
 }

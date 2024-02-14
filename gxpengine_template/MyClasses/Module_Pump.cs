@@ -6,19 +6,16 @@ namespace gxpengine_template.MyClasses
 {
     public class Module_Pump : Module
     {
+        //clamp 0 to 1
         public float ChargePersentage { get; private set; }
 
-        readonly float _maxCapacity;
         readonly float _chargeSpeed;
         readonly float _dischargeSpeed;
-        float _currentCharge = 0;
         
         public Module_Pump(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
         {
-            _maxCapacity = data.GetFloatProperty("MaxCapacity",10);
-            _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 10);
+            _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 0.1f);
             _dischargeSpeed = data.GetFloatProperty("DishargeSpeed", 0.04f);
-            _currentCharge = _maxCapacity;
         }
 
         void Update()
@@ -27,27 +24,26 @@ namespace gxpengine_template.MyClasses
             {
                 var deltaInSeconds = Mathf.Min(Time.deltaTime * 0.001f, 0.04f);
 
-                _currentCharge += _chargeSpeed * deltaInSeconds;
+                ChargePersentage += _chargeSpeed * deltaInSeconds;
 
-                if (_currentCharge >= _maxCapacity)
+                if (ChargePersentage >= 1)
                 {
-                    _currentCharge = _maxCapacity;
+                    ChargePersentage = 1;
                 }   
                     
             }
             else
             {
-                _currentCharge -= _dischargeSpeed;
+                ChargePersentage -= _dischargeSpeed;
 
-                if(_currentCharge <= 0)   RaiseFailEvent();
+                if(ChargePersentage <= 0)   RaiseFailEvent();
             }
 
-            ChargePersentage = _currentCharge / _chargeSpeed;
         }
 
         protected override void OnTimeEnd()
         {
-            if(_currentCharge > 0)
+            if(ChargePersentage > 0)
             {
                 RaiseSuccesEvent();
             }
