@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using TiledMapParser;
 
-
 namespace gxpengine_template.MyClasses
 {
+
     public class MyGame : Game
     {
         public Dictionary<string, IPrefab> Prefabs { get; }
@@ -13,6 +13,7 @@ namespace gxpengine_template.MyClasses
         public Level CurrentScene { get; private set; }
         private string _newSceneName = null;
 
+        ArduinoReciever _arduinoReciever = new ArduinoReciever();
         public MyGame() : base(600,600,false)
         {
             //constructor in custom classes serve as unity Awake function
@@ -29,9 +30,13 @@ namespace gxpengine_template.MyClasses
 
         static void Main()
         {
+
             new MyGame().Start();
         }
-
+        void Update()
+        {
+            _arduinoReciever.Update();
+        }
         private void LoadSceneIfNotNull()
         {
             if (_newSceneName == null) return;
@@ -54,7 +59,10 @@ namespace gxpengine_template.MyClasses
         {
             _newSceneName = CurrentScene.Name;
         }
-
+        protected override void OnDestroy()
+        {
+            OnAfterStep -= LoadSceneIfNotNull;
+        }
         private void DestroyAll()
         {
             foreach (var child in GetChildren())

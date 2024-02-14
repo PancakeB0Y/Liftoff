@@ -1,0 +1,7 @@
+/gxpengine_template/bin/Debug/*.dll
+/gxpengine_template/bin/Debug/*.xml
+/gxpengine_template/bin/Debug/*.cache
+/packages
+/gxpengine_template/packages.config
+/gxpengine_template/obj
+/.vs
