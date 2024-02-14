@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using System;
 using System.Collections.Generic;
 using TiledMapParser;
@@ -11,9 +11,9 @@ namespace gxpengine_template.MyClasses
         public Dictionary<string, IPrefab> Prefabs { get; }
 
         public Level CurrentScene { get; private set; }
-        private string _newSceneName = null;
+        private string _newSceneName = "assets/LVL2.tmx";
 
-       // ArduinoReciever _arduinoReciever = new ArduinoReciever();
+        //ArduinoReciever _arduinoReciever = new ArduinoReciever();
         public MyGame() : base(600,600,false)
         {
             //constructor in custom classes serve as unity Awake function
@@ -30,7 +30,6 @@ namespace gxpengine_template.MyClasses
 
         static void Main()
         {
-
             new MyGame().Start();
         }
         void Update()
@@ -68,7 +67,7 @@ namespace gxpengine_template.MyClasses
             foreach (var child in GetChildren())
             {
 
-                if(!(child is INonDestructable))   child.Destroy();
+                if (!(child is INonDestructable)) child.Destroy();
 
             }
         }
@@ -88,7 +87,7 @@ namespace gxpengine_template.MyClasses
                         prefabsDictionary.Add(obj.name, prefab);
                     }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 Console.WriteLine("No Prefabs.tmx file, check spelling or if file exists");
             }

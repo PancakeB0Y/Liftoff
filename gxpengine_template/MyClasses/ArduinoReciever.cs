@@ -16,11 +16,22 @@ namespace gxpengine_template.MyClasses
             _port.BaudRate = 9600;
             _port.RtsEnable = true;
             _port.DtrEnable = true;
-            _port.Open();
+
+            try
+            {
+                _port.Open();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
         }
 
         public void Update()
         {
+            if (!_port.IsOpen) { return; }
+
             string a = _port.ReadExisting();
             if (a != "")
                 Console.WriteLine(a);
