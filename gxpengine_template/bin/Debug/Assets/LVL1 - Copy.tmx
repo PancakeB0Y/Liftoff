@@ -6,7 +6,8 @@
  <objectgroup id="10" name="WorldText"/>
  <objectgroup id="6" name="UI"/>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="92" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="302.667" y="261.333" width="135" height="102.333"/>
+  <object id="92" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="302.667" y="261.333" width="135" height="102.333"/>
+  <object id="93" name="Module_Pump" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="532.5" y="238.167" width="135" height="102.333"/>
  </objectgroup>
  <objectgroup id="8" name="Managers"/>
  <objectgroup id="18" name="SceneConfig"/>

@@ -136,15 +136,22 @@
     <Compile Include="GXPEngine\Utils\Mathf.cs" />
     <Compile Include="GXPEngine\Utils\Time.cs" />
     <Compile Include="GXPEngine\Utils\Utils.cs" />
+    <Compile Include="MyClasses\Coroutines\Coroutine.cs" />
+    <Compile Include="MyClasses\Coroutines\ICoroutineStepper.cs" />
+    <Compile Include="MyClasses\Coroutines\WaitForSeconds.cs" />
     <Compile Include="MyClasses\INonDestructable.cs" />
     <Compile Include="MyClasses\ArduinoReciever.cs" />
     <Compile Include="MyClasses\IPrefab.cs" />
     <Compile Include="MyClasses\IStartable.cs" />
     <Compile Include="MyClasses\Level.cs" />
+    <Compile Include="MyClasses\Module.cs" />
+    <Compile Include="MyClasses\Module_PowerUp.cs" />
+    <Compile Include="MyClasses\Module_Pump.cs" />
     <Compile Include="MyClasses\MyGame.cs" />
     <Compile Include="MyClasses\MyUtils.cs" />
     <Compile Include="MyClasses\SaveManager.cs" />
     <Compile Include="MyClasses\SceneConfigs.cs" />
+    <Compile Include="MyClasses\UI\TextMesh.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

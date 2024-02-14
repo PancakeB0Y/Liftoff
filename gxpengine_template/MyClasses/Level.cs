@@ -34,7 +34,7 @@ namespace gxpengine_template
                 loader.addColliders = false;
                 loader.LoadObjectGroups(index);
                 sceneConfigs = game.FindObjectOfType<SceneConfigs>();
-                sceneConfigs.Init(this);
+                sceneConfigs?.Init(this);
             }
 
             //background

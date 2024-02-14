@@ -10,6 +10,8 @@ namespace gxpengine_template.MyClasses
 
         public ArduinoReciever()
         {
+            //configuration
+            //every time you connect arduino, you should change to the apropriate com
             _port.PortName = "COM9";
             _port.BaudRate = 9600;
             _port.RtsEnable = true;
