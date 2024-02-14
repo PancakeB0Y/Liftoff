@@ -14,7 +14,7 @@ namespace gxpengine_template.MyClasses
         //Charging logic variables
 
         //from 0 to 1
-        public float CurrentCharge {  get; private set; }
+        public float CurrentCharge { get; private set; }
         readonly float _chargeSpeed;
 
         //Bar positioning logic variables
@@ -45,7 +45,7 @@ namespace gxpengine_template.MyClasses
         {
             var deltaInSeconds = Mathf.Min(Time.deltaTime * 0.001f, 0.04f);
 
-            if(Input.GetKey(Key.S))
+            if (Input.GetKey(Key.S))
             {
                 CurrentBarPersentage += _barMoveUpSpeed * deltaInSeconds;
             }
@@ -63,7 +63,7 @@ namespace gxpengine_template.MyClasses
                     CurrentCharge = 1;
                 }
             }
-            
+
             //Console.WriteLine("current charge " + _currentCharge);
 
         }
@@ -103,8 +103,6 @@ namespace gxpengine_template.MyClasses
             chargeZone = new EasyDraw(w, (int)(powerUp.ChargeZoneSize * h), false);
             chargeZone.y = (int)(h * powerUp.BarRandomPosition);
             bg.Clear(Color.Green);
-
-
 
             bar = new EasyDraw(w, barSize, false);
             bar.Clear(Color.Blue);

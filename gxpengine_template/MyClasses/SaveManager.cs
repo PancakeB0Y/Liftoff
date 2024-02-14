@@ -1,7 +1,7 @@
-﻿
+﻿/*
 using System;
 using System.Collections.Generic;
-using System.Text.Json;
+//using System.Text.Json;
 
 namespace gxpengine_template.MyClasses
 {
@@ -23,14 +23,15 @@ namespace gxpengine_template.MyClasses
 
         public override string SerializeSelf()
         {
-            return JsonSerializer.Serialize(this);
+            //return JsonSerializer.Serialize(this);
+            return "";
         }
 
         protected override void DeserializeSelf(string json)
         {
-            PlayerData data = JsonSerializer.Deserialize<PlayerData>(json);
-            Health = data.Health;
-            Name = data.Name;
+            //PlayerData data = JsonSerializer.Deserialize<PlayerData>(json);
+            //Health = data.Health;
+            //Name = data.Name;
         }
     }
 
@@ -66,3 +67,4 @@ namespace gxpengine_template.MyClasses
     }
 
 }
+*/

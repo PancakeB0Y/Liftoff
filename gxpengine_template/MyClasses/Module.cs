@@ -9,7 +9,7 @@ namespace gxpengine_template.MyClasses
 {
     public abstract class Module : AnimationSprite
     {
-        public event Action Succes;
+        public event Action Success;
         public event Action Fail;
 
         protected readonly int timer;
@@ -24,12 +24,12 @@ namespace gxpengine_template.MyClasses
             var timeRoutine = new Coroutine(Timer());
 
             Fail += OnFail;
-            Succes += OnSuccess;
+            Success += OnSuccess;
 
             AddChild(timeRoutine);
 
             _timerText = new TextMesh("4", 400, 400);
-            AddChild(_timerText);
+            //AddChild(_timerText);
         }
         IEnumerator Timer()
         {
@@ -57,10 +57,10 @@ namespace gxpengine_template.MyClasses
         }
         protected void RaiseSuccesEvent()
         {
-            Succes?.Invoke();
+            Success?.Invoke();
         }
 
-        protected void RaiseFailEvent() 
+        protected void RaiseFailEvent()
         {
             Fail?.Invoke();
         }
