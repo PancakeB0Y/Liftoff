@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using System;
 using System.Collections.Generic;
 using TiledMapParser;
@@ -13,8 +13,8 @@ namespace gxpengine_template.MyClasses
         public Level CurrentScene { get; private set; }
         private string _newSceneName = "assets/LVL2.tmx";
 
-        ArduinoReciever _arduinoReciever = new ArduinoReciever();
-        public MyGame() : base(600, 600, false)
+        //ArduinoReciever _arduinoReciever = new ArduinoReciever();
+        public MyGame() : base(600,600,false)
         {
             //constructor in custom classes serve as unity Awake function
             //this is where object initialization should take place
@@ -24,7 +24,7 @@ namespace gxpengine_template.MyClasses
             //via FindObjectOfType or other methods
 
             Prefabs = LoadPrefabs();
-
+            LoadScene("Assets/LVL1.tmx");
             OnAfterStep += LoadSceneIfNotNull;
         }
 
@@ -34,7 +34,7 @@ namespace gxpengine_template.MyClasses
         }
         void Update()
         {
-            _arduinoReciever.Update();
+            //_arduinoReciever.Update();
         }
         private void LoadSceneIfNotNull()
         {
