@@ -19,7 +19,7 @@ namespace gxpengine_template.MyClasses
         public Module_Dials(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
         {
 
-            (int minValue, int maxValue) winRange = (data.GetIntProperty("MinWinRange", 40), data.GetIntProperty("MaxWinRange", 60));
+            int winRange = data.GetIntProperty("WinRange", 20);
             dials = new List<Dial>
             {
                 new Dial(data.GetFloatProperty("Speed1", 0.5f), 65, winRange), //65 = A
@@ -57,7 +57,6 @@ namespace gxpengine_template.MyClasses
                 }
             }
 
-            Console.WriteLine(isWon);
             return isWon;
         }
 
@@ -80,14 +79,19 @@ namespace gxpengine_template.MyClasses
         public float percent;
         readonly float speed;
         public bool isComplete;
-        public readonly (int minValue, int maxValue) winRange;
+        readonly int winRange;
         readonly int button;
 
-        public Dial(float speed, int button, (int minValue, int maxValue) winRange)
+        public int MinWinRange;
+        public int MaxWinRange;
+
+        public Dial(float speed, int button, int winRange)
         {
             this.speed = speed;
             this.button = button;
             this.winRange = winRange;
+            MinWinRange = Utils.Random(0, 100 - winRange);
+            MaxWinRange = MinWinRange + winRange;
             percent = 0;
         }
 
@@ -105,7 +109,7 @@ namespace gxpengine_template.MyClasses
         {
             if (Input.GetKeyDown(button))
             {
-                if (percent >= winRange.minValue && percent <= winRange.maxValue)
+                if (percent >= MinWinRange && percent <= MaxWinRange)
                 {
                     isComplete = true;
                 }
@@ -117,14 +121,14 @@ namespace gxpengine_template.MyClasses
     {
         EasyDraw bar;
         EasyDraw bg;
-        EasyDraw winRangeBar;
 
         Dial dial;
+
+        int w = 50;
+        int h = 50;
         public Dial_Visual(Dial dial, int y)
         {
             this.dial = dial;
-            var w = 50;
-            var h = 50;
             this.y = y;
 
             bg = new EasyDraw(w, h, false);
@@ -134,27 +138,21 @@ namespace gxpengine_template.MyClasses
             bar.SetXY(0, 0);
             bar.NoStroke();
 
-
-            float winRangeWidth = Mathf.Ceiling((dial.winRange.maxValue - dial.winRange.minValue) / 100f * w);
-            winRangeBar = new EasyDraw((int)winRangeWidth, 10, false);
-            winRangeBar.SetXY(dial.winRange.minValue / 100f * w, 0);
-            winRangeBar.Clear(Color.Yellow);
-
             AddChild(bg);
             AddChild(bar);
-            AddChild(winRangeBar);
         }
 
         void Update()
         {
             bar.Clear(Color.White);
-            bar.Fill(Color.Blue);
 
+            bar.Fill(Color.Yellow);
+            float winRangeWidth = Mathf.Ceiling((dial.MaxWinRange - dial.MinWinRange) / 100f * w);
+            bar.Rect(dial.MinWinRange / 100f * w + ((int)winRangeWidth / 2), 5, (int)winRangeWidth, 10);
+
+            bar.Fill(Color.Blue);
             float moverX = bar.width * (dial.percent - 0) / (99);
             bar.Rect(moverX, 2.5f, 5, 19);
-
-            /*           bar.Fill(Color.Yellow);
-                       bar.Rect(bar.width - 5, 2.5f, 5, 10);*/
         }
     }
 }
