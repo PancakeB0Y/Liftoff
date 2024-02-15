@@ -28,6 +28,8 @@ namespace gxpengine_template.MyClasses
         readonly Module_PowerUp_Visual visual;
         public Module_PowerUp(TiledObject data) : base(data)
         {
+            modulePos = modulePosition.Top;
+
             _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 0.1f);
 
             _barMoveUpSpeed = data.GetFloatProperty("BarMoveUpSpeed", 0.06f);

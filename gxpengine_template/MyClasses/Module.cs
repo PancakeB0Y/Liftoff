@@ -17,16 +17,17 @@ namespace gxpengine_template.MyClasses
 
         TextMesh _timerText;
 
+        public enum modulePosition { Left, Right, Top, Bottom }
+        public modulePosition modulePos = modulePosition.Left;
         public Module(TiledObject data) : base("Assets/square.png")
         {
-            timer = data.GetIntProperty("TimerSeconds", 10);
+            timer = data.GetIntProperty("TimerSeconds", 5);
             currTime = timer;
-            var timeRoutine = new Coroutine(Timer());
+            /*var timeRoutine = new Coroutine(Timer());
+            AddChild(timeRoutine);*/
 
             Fail += OnFail;
             Success += OnSuccess;
-
-            AddChild(timeRoutine);
 
             _timerText = new TextMesh("4", 400, 400);
             alpha = 0f;
@@ -44,6 +45,13 @@ namespace gxpengine_template.MyClasses
             }
             OnTimeEnd();
         }
+
+        public void StartTimer()
+        {
+            var timeRoutine = new Coroutine(Timer());
+            AddChild(timeRoutine);
+        }
+
         protected virtual void OnTimeEnd()
         {
 

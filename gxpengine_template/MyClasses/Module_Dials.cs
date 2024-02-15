@@ -21,9 +21,10 @@ namespace gxpengine_template.MyClasses
 
         string dialFilename;
         string moverFilename;
-
         public Module_Dials(TiledObject data) : base(data)
         {
+            modulePos = modulePosition.Left;
+
             int winRange = data.GetIntProperty("WinRange", 10);
             dialFilename = data.GetStringProperty("dialFilename", "Assets/dial.png");
             moverFilename = data.GetStringProperty("moverFilename", "Assets/square.png");
@@ -94,7 +95,7 @@ namespace gxpengine_template.MyClasses
         public int MinWinRange { get; private set; }
         public int MaxWinRange { get; private set; }
 
-        bool rotateRight;
+        public bool RotateRight { get; private set; }
 
         public Dial(float speed, int keyCode, int winRange)
         {
@@ -106,15 +107,15 @@ namespace gxpengine_template.MyClasses
             MaxWinRange = MinWinRange + winRange;
             CurrentPercent = 0;
 
-            //rotateRight = Utils.Random(0, 2) == 0 ? false : true;
-            rotateRight = true;
+            RotateRight = Utils.Random(0, 2) == 0 ? false : true;
+            //rotateRight = true;
         }
 
         public void Move()
         {
             if (IsComplete) { return; }
 
-            CurrentPercent += rotateRight ? speed : -speed;
+            CurrentPercent += speed;
 
             if (CurrentPercent >= 100)
             {
@@ -172,7 +173,14 @@ namespace gxpengine_template.MyClasses
 
         void Update()
         {
-            dialVisual.rotation = (dial.CurrentPercent + 1) * 3.6f - (dial.WinRange / 2 * 3.6f);
+            if (dial.RotateRight)
+            {
+                dialVisual.rotation = (dial.CurrentPercent + 1) * 3.6f - (dial.WinRange / 2 * 3.6f);
+            }
+            else
+            {
+                dialVisual.rotation = -((dial.CurrentPercent + 1) * 3.6f - (dial.WinRange / 2 * 3.6f));
+            }
         }
     }
 }

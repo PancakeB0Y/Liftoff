@@ -45,7 +45,6 @@ namespace gxpengine_template.MyClasses
             AddChild(level);
             level.Init();
 
-
             _newSceneName = null;
         }
 
