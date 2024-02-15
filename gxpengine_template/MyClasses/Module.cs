@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace gxpengine_template.MyClasses
 {
-    public abstract class Module : AnimationSprite
+    public abstract class Module : Sprite
     {
         public event Action Success;
         public event Action Fail;
@@ -17,9 +17,9 @@ namespace gxpengine_template.MyClasses
 
         TextMesh _timerText;
 
-        public Module(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows)
+        public Module(TiledObject data) : base("Assets/square.png")
         {
-            timer = data.GetIntProperty("TimerSeconds", 5);
+            timer = data.GetIntProperty("TimerSeconds", 10);
             currTime = timer;
             var timeRoutine = new Coroutine(Timer());
 
@@ -29,6 +29,7 @@ namespace gxpengine_template.MyClasses
             AddChild(timeRoutine);
 
             _timerText = new TextMesh("4", 400, 400);
+            alpha = 0f;
             //AddChild(_timerText);
         }
         IEnumerator Timer()
@@ -49,10 +50,12 @@ namespace gxpengine_template.MyClasses
         }
         protected void OnFail()
         {
+            Console.WriteLine("Module failed");
             Destroy();
         }
         protected void OnSuccess()
         {
+            Console.WriteLine("Module success");
             Destroy();
         }
         protected void RaiseSuccesEvent()

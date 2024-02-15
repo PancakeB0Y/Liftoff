@@ -26,7 +26,7 @@ namespace gxpengine_template.MyClasses
         readonly float _barMoveDownSpeed;
 
         readonly Module_PowerUp_Visual visual;
-        public Module_PowerUp(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
+        public Module_PowerUp(TiledObject data) : base(data)
         {
             _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 0.1f);
 
@@ -35,8 +35,6 @@ namespace gxpengine_template.MyClasses
 
             ChargeZonePersentage = data.GetFloatProperty("ChargeZoneSize", 0.2f);
             ChargeZoneRandomPosition = Utils.Random(ChargeZonePersentage, 1 - ChargeZonePersentage);
-            
-            
 
             visual = new Module_PowerUp_Visual(this);
             AddChild(visual);
@@ -67,13 +65,13 @@ namespace gxpengine_template.MyClasses
                     CurrentCharge = 1;
                 }
             }
-            
+
         }
         bool InsideChargeZone(float position)
         {
-            return position > ChargeZoneRandomPosition - ChargeZonePersentage/2
+            return position > ChargeZoneRandomPosition - ChargeZonePersentage / 2
                     &&
-                   position < ChargeZoneRandomPosition + ChargeZonePersentage/2;
+                   position < ChargeZoneRandomPosition + ChargeZonePersentage / 2;
         }
         protected override void OnTimeEnd()
         {
@@ -129,7 +127,7 @@ namespace gxpengine_template.MyClasses
             battery.Clear(Color.Red);
             battery.ShapeAlign(CenterMode.Min, CenterMode.Min);
             battery.Fill(Color.Green);
-            battery.Rect(0,0,battery.width,battery.height * powerUp.CurrentCharge);
+            battery.Rect(0, 0, battery.width, battery.height * powerUp.CurrentCharge);
         }
     }
 }
