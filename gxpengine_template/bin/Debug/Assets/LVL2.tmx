@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="94">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="101">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
  <objectgroup id="10" name="WorldText"/>
  <objectgroup id="6" name="UI"/>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="92" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="1" x="302.667" y="261.333" width="135" height="102.333"/>
+  <object id="94" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" x="436" y="2" width="100" height="100"/>
+  <object id="99" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" x="1" y="12" width="100" height="100"/>
  </objectgroup>
  <objectgroup id="8" name="Managers"/>
  <objectgroup id="18" name="SceneConfig"/>

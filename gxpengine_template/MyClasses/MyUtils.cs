@@ -22,6 +22,14 @@ namespace gxpengine_template.MyClasses
             return startObjs.ToList();
         }
 
+        public static bool IndexIsOnGridCorner<T>(this IEnumerable<T> collection, int columns, int index)
+        {
+            return index == 0 || 
+                ( index == columns - 1 ) || 
+                ( index == collection.Count() - columns ) || 
+                index == collection.Count() - 1;
+        }
+
         private static void FindInterfaces<T>(this GameObject obj, List<T> interfaces) 
         {
             if (obj.GetChildCount() == 0) return;

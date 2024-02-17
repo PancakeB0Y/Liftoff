@@ -14,7 +14,7 @@ namespace gxpengine_template.MyClasses
         private string _newSceneName = null;
 
         //ArduinoReciever _arduinoReciever = new ArduinoReciever();
-        public MyGame() : base(600, 600, false)
+        public MyGame() : base(1366, 768, false)
         {
             //constructor in custom classes serve as unity Awake function
             //this is where object initialization should take place
@@ -24,7 +24,7 @@ namespace gxpengine_template.MyClasses
             //via FindObjectOfType or other methods
 
             Prefabs = LoadPrefabs();
-            LoadScene("Assets/LVL2.tmx");
+            LoadScene("Assets/LVL1.tmx");
             OnAfterStep += LoadSceneIfNotNull;
         }
 
@@ -44,7 +44,6 @@ namespace gxpengine_template.MyClasses
             CurrentScene = level;
             AddChild(level);
             level.Init();
-
 
             _newSceneName = null;
         }
