@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="94">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="96">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
- <objectgroup id="10" name="WorldText"/>
+ <objectgroup id="10" name="WorldText">
+  <object id="95" name="dino" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="1" x="568.667" y="398" width="174.667" height="92">
+   <properties>
+    <property name="CactiFilePathsCSV" value="Assets/square.png"/>
+    <property name="DinoFilePath" value="Assets/square.png"/>
+    <property name="DinoJumpPower" type="float" value="5"/>
+    <property name="DinoTerminalVel" type="float" value="10"/>
+    <property name="ScorePenalty" type="int" value="1"/>
+    <property name="ScoreReward" type="int" value="10"/>
+    <property name="SpawnDistance" type="int" value="96"/>
+    <property name="TimerSeconds" type="int" value="20"/>
+    <property name="WinScore" type="int" value="100"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="6" name="UI"/>
  <objectgroup id="2" name="Object Layer 1">
   <object id="92" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="302.667" y="261.333" width="135" height="102.333"/>

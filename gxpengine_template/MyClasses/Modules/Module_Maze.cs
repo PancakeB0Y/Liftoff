@@ -77,6 +77,7 @@ namespace gxpengine_template.MyClasses
         {
             RaiseFailEvent();
         }
+
         #region Testing
 
         IEnumerator TestCreateMaze()

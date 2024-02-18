@@ -21,9 +21,8 @@ namespace gxpengine_template.MyClasses
         readonly float _barMoveDownSpeed;
 
         readonly Module_PowerUp_Visual visual;
-        public Module_PowerUp(TiledObject data) : base(data)
+        public Module_PowerUp(string fn, int c, int r, TiledObject data) : base(fn,c,r,data)
         {
-            modulePos = modulePosition.Top;
 
             _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 0.1f);
 
@@ -32,7 +31,7 @@ namespace gxpengine_template.MyClasses
 
             ChargeZonePersentage = data.GetFloatProperty("ChargeZoneSize", 0.2f);
             ChargeZoneRandomPosition = Utils.Random(ChargeZonePersentage, 1 - ChargeZonePersentage);
-
+            alpha = 0;
             visual = new Module_PowerUp_Visual(this);
             AddChild(visual);
         }
@@ -79,56 +78,4 @@ namespace gxpengine_template.MyClasses
                 RaiseFailEvent();
         }
     }
-<<<<<<< HEAD:gxpengine_template/MyClasses/Modules/Module_PowerUp.cs
-=======
-
-    internal class Module_PowerUp_Visual : GameObject
-    {
-        EasyDraw bar;
-        EasyDraw bg;
-
-        EasyDraw chargeZone;
-
-        EasyDraw battery;
-
-        Module_PowerUp powerUp;
-
-        public Module_PowerUp_Visual(Module_PowerUp powerUp, int barSize = 2)
-        {
-            this.powerUp = powerUp;
-            var w = 50;
-            var h = 100;
-
-            bg = new EasyDraw(w, h, false);
-            bg.Clear(Color.Red);
-
-            var chargeZoneHeight = (int)(powerUp.ChargeZonePersentage * h);
-            chargeZone = new EasyDraw(w, chargeZoneHeight, false);
-            chargeZone.SetOrigin(0, chargeZoneHeight / 2);
-            chargeZone.y = (int)(h * powerUp.ChargeZoneRandomPosition);
-            chargeZone.Clear(Color.Green);
-
-            bar = new EasyDraw(w, barSize, false);
-            bar.Clear(Color.Blue);
-            var bat_w = 10;
-            var bat_h = 30;
-            battery = new EasyDraw(bat_w, bat_h, false);
-            battery.SetXY(w + 10, 0);
-            battery.SetScaleXY(1, -1);
-
-            AddChild(bg);
-            AddChild(chargeZone);
-            AddChild(bar);
-            AddChild(battery);
-        }
-        void Update()
-        {
-            bar.y = bg.y + powerUp.CurrentBarPersentage * bg.height;
-            battery.Clear(Color.Red);
-            battery.ShapeAlign(CenterMode.Min, CenterMode.Min);
-            battery.Fill(Color.Green);
-            battery.Rect(0, 0, battery.width, battery.height * powerUp.CurrentCharge);
-        }
-    }
->>>>>>> b582a8cca3771668464bdd36d2222dedc1dbed23:gxpengine_template/MyClasses/Module_PowerUp.cs
 }

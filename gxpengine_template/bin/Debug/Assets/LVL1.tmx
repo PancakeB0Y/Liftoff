@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="96">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="103">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
  <objectgroup id="10" name="WorldText"/>
  <objectgroup id="6" name="UI"/>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="94" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" x="2" y="5" width="100" height="100"/>
+  <object id="98" name="SimonSays" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="1" x="217.333" y="204" width="32" height="32">
+   <properties>
+    <property name="TimerSeconds" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="100" name="dino" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="1" x="140.667" y="411.333" width="174.667" height="92">
+   <properties>
+    <property name="CactiFilePathsCSV" value="Assets/square.png"/>
+    <property name="DinoFilePath" value="Assets/square.png"/>
+    <property name="DinoJumpPower" type="float" value="5"/>
+    <property name="DinoTerminalVel" type="float" value="10"/>
+    <property name="ScorePenalty" type="int" value="1"/>
+    <property name="ScoreReward" type="int" value="10"/>
+    <property name="SpawnDistance" type="int" value="96"/>
+    <property name="TimerSeconds" type="int" value="20"/>
+    <property name="WinScore" type="int" value="100"/>
+   </properties>
+  </object>
+  <object id="102" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="697.833" y="290.167" width="27" height="27.6663">
+   <properties>
+    <property name="TimerSeconds" type="int" value="20"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="8" name="Managers"/>
  <objectgroup id="18" name="SceneConfig"/>
