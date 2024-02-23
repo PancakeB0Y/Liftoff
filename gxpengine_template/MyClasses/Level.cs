@@ -15,7 +15,7 @@ namespace gxpengine_template
         public event Action UILoaded;
         public string Name { get; }
 
-        ModuleManager ModuleManager { get; set; }
+        ModuleManager ModuleManager;
 
         public Level(string fileName)
         {
@@ -75,7 +75,7 @@ namespace gxpengine_template
                 {
                     ModuleManager.AddModule(module);
                 }
-                ModuleManager.UpdateModulesOn();
+                ModuleManager.SetStartingModules();
             }
 
             //ui

@@ -28,7 +28,7 @@ namespace gxpengine_template.MyClasses
         readonly Module_PowerUp_Visual visual;
         public Module_PowerUp(TiledObject data) : base(data)
         {
-            modulePos = modulePosition.Top;
+            moduleType = moduleTypes.Switch;
 
             _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 0.1f);
 
@@ -39,7 +39,6 @@ namespace gxpengine_template.MyClasses
             ChargeZoneRandomPosition = Utils.Random(ChargeZonePersentage, 1 - ChargeZonePersentage);
 
             visual = new Module_PowerUp_Visual(this);
-            AddChild(visual);
         }
         void Update()
         {
@@ -48,7 +47,6 @@ namespace gxpengine_template.MyClasses
             if (Input.GetKey(Key.S))
             {
                 CurrentBarPersentage += _barMoveUpSpeed * deltaInSeconds;
-
             }
             else
             {
@@ -81,6 +79,11 @@ namespace gxpengine_template.MyClasses
                 RaiseSuccesEvent();
             else
                 RaiseFailEvent();
+        }
+
+        protected override void LoadVisuals()
+        {
+            AddChild(visual);
         }
     }
 

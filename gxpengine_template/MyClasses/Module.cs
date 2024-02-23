@@ -12,13 +12,15 @@ namespace gxpengine_template.MyClasses
         public event Action Success;
         public event Action Fail;
 
+        public event Action<moduleTypes> End;
+
         protected readonly int timer;
         protected float currTime;
 
         TextMesh _timerText;
 
-        public enum modulePosition { Left, Right, Top, Bottom }
-        public modulePosition modulePos = modulePosition.Left;
+        public enum moduleTypes { Switch, Dpad, ThreeButtons, OneButton }
+        public moduleTypes moduleType = moduleTypes.Switch;
         public Module(TiledObject data) : base("Assets/square.png")
         {
             timer = data.GetIntProperty("TimerSeconds", 5);
@@ -46,34 +48,49 @@ namespace gxpengine_template.MyClasses
             OnTimeEnd();
         }
 
-        public void StartTimer()
+        protected virtual void StartTimer()
         {
             var timeRoutine = new Coroutine(Timer());
             AddChild(timeRoutine);
+        }
+
+        protected virtual void LoadVisuals()
+        {
+
+        }
+
+        public virtual void StartModule()
+        {
+            StartTimer();
+            LoadVisuals();
         }
 
         protected virtual void OnTimeEnd()
         {
 
         }
-        protected void OnFail()
+        public void OnFail()
         {
-            Console.WriteLine("Module failed");
+            Console.WriteLine("Module failed " + moduleType);
+            Fail -= OnFail;
             Destroy();
         }
-        protected void OnSuccess()
+        public void OnSuccess()
         {
-            Console.WriteLine("Module success");
+            Console.WriteLine("Module success " + moduleType);
+            Success -= OnSuccess;
             Destroy();
         }
         protected void RaiseSuccesEvent()
         {
             Success?.Invoke();
+            End?.Invoke(moduleType);
         }
 
         protected void RaiseFailEvent()
         {
             Fail?.Invoke();
+            End?.Invoke(moduleType);
         }
 
     }

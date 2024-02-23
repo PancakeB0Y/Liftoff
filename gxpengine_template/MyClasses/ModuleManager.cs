@@ -10,16 +10,17 @@ namespace gxpengine_template.MyClasses
 {
     public class ModuleManager : GameObject
     {
-        List<Module> modulesLeft;
-
-        Module[] modulesOn = new Module[]
-        {
-            null, null, null, null
-        };
+        readonly Dictionary<Module.moduleTypes, Module> modulesOn;
+        readonly List<Module> modulesLeft;
 
         public ModuleManager()
         {
             modulesLeft = new List<Module>();
+            modulesOn = new Dictionary<Module.moduleTypes, Module>();
+            modulesOn.Add(Module.moduleTypes.Switch, null);
+            modulesOn.Add(Module.moduleTypes.Dpad, null);
+            modulesOn.Add(Module.moduleTypes.ThreeButtons, null);
+            modulesOn.Add(Module.moduleTypes.OneButton, null);
         }
 
         public void AddModule(Module module)
@@ -32,32 +33,50 @@ namespace gxpengine_template.MyClasses
             return modulesLeft;
         }
 
-        public void UpdateModulesOn()
+        void ReplaceModule(int moduleLeftIndex, Module newModule)
         {
-            for (int i = modulesLeft.Count - 1; i >= 0; i--)
+            modulesOn[newModule.moduleType] = newModule;
+            modulesOn[newModule.moduleType].StartModule();
+            modulesOn[newModule.moduleType].End += UpdateModule;
+            modulesLeft.RemoveAt(moduleLeftIndex);
+        }
+
+        void UpdateModule(Module.moduleTypes moduleType)
+        {
+            int index = GetFirstModuleByType(moduleType);
+
+            if(index == -1)
             {
-                switch (modulesLeft[i].modulePos)
+                Console.WriteLine("No modules left from type " + moduleType);
+                return;
+            }
+
+            ReplaceModule(index, modulesLeft[index]);
+        }
+
+        int GetFirstModuleByType(Module.moduleTypes moduleType)
+        {
+            for (int i = 0; i < modulesLeft.Count; i++)
+            {
+                if (modulesLeft[i].moduleType == moduleType)
                 {
-                    case Module.modulePosition.Left:
-                        modulesOn[0] = modulesLeft[i];
-                        modulesLeft[i].StartTimer();
-                        modulesLeft.RemoveAt(0);
-                        break;
-                    case Module.modulePosition.Right:
-                        modulesOn[1] = modulesLeft[i];
-                        modulesLeft[i].StartTimer();
-                        modulesLeft.RemoveAt(0);
-                        break;
-                    case Module.modulePosition.Top:
-                        modulesOn[2] = modulesLeft[i];
-                        modulesLeft[i].StartTimer();
-                        modulesLeft.RemoveAt(0);
-                        break;
-                    case Module.modulePosition.Bottom:
-                        modulesOn[3] = modulesLeft[i];
-                        modulesLeft[i].StartTimer();
-                        modulesLeft.RemoveAt(0);
-                        break;
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public void SetStartingModules()
+        {
+            for(int i = 0; i < modulesLeft.Count; i++)
+            {
+                Module curModule = modulesLeft[i];
+
+                if(modulesOn[curModule.moduleType] == null)
+                {
+                    ReplaceModule(i, curModule);
+                    i--;
                 }
             }
         }

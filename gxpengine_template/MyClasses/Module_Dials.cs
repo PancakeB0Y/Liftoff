@@ -23,7 +23,7 @@ namespace gxpengine_template.MyClasses
         string moverFilename;
         public Module_Dials(TiledObject data) : base(data)
         {
-            modulePos = modulePosition.Left;
+            moduleType = moduleTypes.ThreeButtons;
 
             int winRange = data.GetIntProperty("WinRange", 10);
             dialFilename = data.GetStringProperty("dialFilename", "Assets/dial.png");
@@ -39,12 +39,12 @@ namespace gxpengine_template.MyClasses
             DialHeight = data.GetIntProperty("DialHeight", 150);
 
             _visuals = new List<Dial_Visual>();
-            for (int i = 0; i < _dials.Count; i++)
+            /*for (int i = 0; i < _dials.Count; i++)
             {
                 Dial_Visual curVisual = new Dial_Visual(dialFilename, moverFilename, _dials[i], i * (int)(DialWidth * 1.3f) + (DialWidth / 2), DialWidth, DialHeight);
                 _visuals.Add(curVisual);
                 AddChild(curVisual);
-            }
+            }*/
         }
 
         void UpdateDials()
@@ -55,7 +55,7 @@ namespace gxpengine_template.MyClasses
                 dial.ReadInputs();
             }
         }
-        bool CheckIfComplete()
+        bool IsComplete()
         {
             bool isWon = true;
             foreach (Dial dial in _dials)
@@ -70,6 +70,16 @@ namespace gxpengine_template.MyClasses
             return isWon;
         }
 
+        protected override void LoadVisuals()
+        {
+            for (int i = 0; i < _dials.Count; i++)
+            {
+                Dial_Visual curVisual = new Dial_Visual(dialFilename, moverFilename, _dials[i], i * (int)(DialWidth * 1.3f) + (DialWidth / 2), DialWidth, DialHeight);
+                _visuals.Add(curVisual);
+                AddChild(curVisual);
+            }
+        }
+
         void Update()
         {
             UpdateDials();
@@ -77,7 +87,7 @@ namespace gxpengine_template.MyClasses
 
         protected override void OnTimeEnd()
         {
-            if (CheckIfComplete())
+            if (IsComplete())
                 RaiseSuccesEvent();
             else
                 RaiseFailEvent();
