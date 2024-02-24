@@ -149,6 +149,7 @@
     <Compile Include="MyClasses\Module_PowerUp.cs" />
     <Compile Include="MyClasses\Module_Pump.cs" />
     <Compile Include="MyClasses\Module_Dials.cs" />
+    <Compile Include="MyClasses\Module_Waves.cs" />
     <Compile Include="MyClasses\MyGame.cs" />
     <Compile Include="MyClasses\MyUtils.cs" />
     <Compile Include="MyClasses\SaveManager.cs" />

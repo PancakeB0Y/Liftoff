@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace gxpengine_template.MyClasses
 {
-    public abstract class Module : Sprite
+    public abstract class Module : AnimationSprite
     {
         public event Action Success;
         public event Action Fail;
@@ -21,7 +21,7 @@ namespace gxpengine_template.MyClasses
 
         public enum moduleTypes { Switch, Dpad, ThreeButtons, OneButton }
         public moduleTypes moduleType = moduleTypes.Switch;
-        public Module(TiledObject data) : base("Assets/square.png")
+        public Module(TiledObject data) : base("Assets/square.png", 1, 1)
         {
             timer = data.GetIntProperty("TimerSeconds", 5);
             currTime = timer;
