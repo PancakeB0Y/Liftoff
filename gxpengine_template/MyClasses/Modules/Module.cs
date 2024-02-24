@@ -12,21 +12,24 @@ namespace gxpengine_template.MyClasses
         public event Action Success;
         public event Action Fail;
 
+        public event Action<moduleTypes> End;
+
         protected readonly int timer;
         protected float currTime;
 
         readonly TextMesh _timerText;
 
-        public Module(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, addCollider:false)
+        public enum moduleTypes { Switch, Dpad, ThreeButtons, OneButton }
+        public moduleTypes moduleType = moduleTypes.Switch;
+        public Module(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, addCollider: false)
         {
             timer = data.GetIntProperty("TimerSeconds", 5);
             currTime = timer;
-            var timeRoutine = new Coroutine(Timer());
+            /*var timeRoutine = new Coroutine(Timer());
+            AddChild(timeRoutine);*/
 
             Fail += OnFail;
             Success += OnSuccess;
-
-            AddChild(timeRoutine);
 
             _timerText = new TextMesh("4", 400, 400);
             AddChild(new Coroutine(Initi()));
@@ -60,6 +63,23 @@ namespace gxpengine_template.MyClasses
             OnTimeEnd();
         }
 
+        protected virtual void StartTimer()
+        {
+            var timeRoutine = new Coroutine(Timer());
+            AddChild(timeRoutine);
+        }
+
+        protected virtual void LoadVisuals()
+        {
+
+        }
+
+        public virtual void StartModule()
+        {
+            StartTimer();
+            LoadVisuals();
+        }
+
         protected virtual void OnTimeEnd()
         {
 
@@ -68,6 +88,8 @@ namespace gxpengine_template.MyClasses
         //these need to be removed
         protected virtual void OnFail()
         {
+            Console.WriteLine("Module failed " + moduleType);
+            Fail -= OnFail;
             Destroy();
             Fail -= OnFail;
             Success -= OnSuccess;
@@ -75,6 +97,8 @@ namespace gxpengine_template.MyClasses
         }
         protected virtual void OnSuccess()
         {
+            Console.WriteLine("Module success " + moduleType);
+            Success -= OnSuccess;
             Destroy();
             Success -= OnSuccess;
             Fail -= OnFail;
@@ -84,11 +108,13 @@ namespace gxpengine_template.MyClasses
         protected void RaiseSuccesEvent()
         {
             Success?.Invoke();
+            End?.Invoke(moduleType);
         }
 
         protected void RaiseFailEvent()
         {
             Fail?.Invoke();
+            End?.Invoke(moduleType);
         }
 
     }

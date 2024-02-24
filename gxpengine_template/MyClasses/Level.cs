@@ -15,12 +15,12 @@ namespace gxpengine_template
         public event Action UILoaded;
         public string Name { get; }
 
-        //ModuleManager ModuleManager { get; set; }
+        ModuleManager ModuleManager;
 
         public Level(string fileName)
         {
             Name = fileName;
-           // ModuleManager = new ModuleManager();
+            ModuleManager = new ModuleManager();
         }
 
         //not in constructor because level has to be parent of game first
@@ -31,7 +31,7 @@ namespace gxpengine_template
             int index;
             SceneConfigs sceneConfigs = null;
 
-           // AddChild(ModuleManager);
+            AddChild(ModuleManager);
 
             //sceneConfigs
             if (loader.map.ObjectGroups.TryGetIndex(x => x.Name == "SceneConfig", out index))
@@ -76,6 +76,15 @@ namespace gxpengine_template
                 loader.addColliders = true;
                 loader.LoadObjectGroups(index);
 
+                if (ModuleManager != null && ModuleManager.GetModules() == null) { return; }
+
+                Module[] modules = FindObjectsOfType<Module>();
+
+                foreach (Module module in modules)
+                {
+                    ModuleManager.AddModule(module);
+                }
+                ModuleManager.SetStartingModules();
             }
             
             //ui

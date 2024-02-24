@@ -16,7 +16,7 @@ namespace gxpengine_template.MyClasses
         readonly float _dischargeSpeed;
         public Module_Pump(string fn, int c, int r, TiledObject data) : base(fn, c, r, data)
         {
-            //modulePos = modulePosition.Right;
+            moduleType = moduleTypes.OneButton;
 
             _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 0.1f);
             _dischargeSpeed = data.GetFloatProperty("DishargeSpeed", 0.04f);
