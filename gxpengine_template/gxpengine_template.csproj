@@ -148,6 +148,7 @@
     <Compile Include="MyClasses\Level.cs" />
     <Compile Include="MyClasses\Modules\MazePiece.cs" />
     <Compile Include="MyClasses\Modules\Module.cs" />
+    <Compile Include="MyClasses\Modules\ModuleManager.cs" />
     <Compile Include="MyClasses\Modules\Module_Dino.cs" />
     <Compile Include="MyClasses\Modules\Module_Maze.cs" />
     <Compile Include="MyClasses\Modules\Module_Maze_Selector.cs" />

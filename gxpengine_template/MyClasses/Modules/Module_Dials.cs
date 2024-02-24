@@ -21,7 +21,7 @@ namespace gxpengine_template.MyClasses
 
         string dialFilename;
         string moverFilename;
-        public Module_Dials(TiledObject data) : base(data)
+        public Module_Dials(string fn, int c, int r, TiledObject data) : base(fn, c, r, data)
         {
             moduleType = moduleTypes.ThreeButtons;
 
