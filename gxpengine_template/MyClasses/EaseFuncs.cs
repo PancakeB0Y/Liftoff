@@ -20,6 +20,8 @@ namespace gxpengine_template.MyClasses
             {
                 case "EaseOutBack":
                     return EaseOutBack;
+                case "Linear":
+                    return Linear;
                 default:
                     Console.WriteLine("Warning! there's no ease func with name: " + easeFuncName);
                     return Linear;

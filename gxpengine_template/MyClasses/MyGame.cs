@@ -34,6 +34,10 @@ namespace gxpengine_template.MyClasses
         }
         void Update()
         {
+            if(Input.GetKeyDown(Key.R))
+            {
+                LoadScene("Assets/LVL1.tmx");
+            }
             //_arduinoReciever.Update();
         }
         private void LoadSceneIfNotNull()

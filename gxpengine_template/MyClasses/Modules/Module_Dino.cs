@@ -6,9 +6,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TiledMapParser;
 
 namespace gxpengine_template.MyClasses.Modules
@@ -29,7 +26,8 @@ namespace gxpengine_template.MyClasses.Modules
 
         readonly string[] _cactiFilePaths;
         List<Cactus> _cacti = new List<Cactus>();
-        int _cactusSpawnDistance;
+        int _cactusMinSpawnDistance;
+        int _cactusMaxSpawnDistance;
         float _moveSpeed;
 
 
@@ -51,6 +49,7 @@ namespace gxpengine_template.MyClasses.Modules
         TextMesh _scoreDisplay;
         
         Pivot _container;
+        int _currentSpawnDistance;
 
         public Module_Dino(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
         {
@@ -59,7 +58,8 @@ namespace gxpengine_template.MyClasses.Modules
 
             string dinoFilePath = data.GetStringProperty("DinoFilePath");
             _cactiFilePaths = data.GetStringProperty("CactiFilePathsCSV").Split(',');
-            _cactusSpawnDistance = data.GetIntProperty("SpawnDistance");
+            _cactusMinSpawnDistance = data.GetIntProperty("MinSpawnDistance", 96);
+            _cactusMaxSpawnDistance = data.GetIntProperty("MaxSpawnDistance", 126);
             _moveSpeed = data.GetFloatProperty("CactusMoveSpeed",1);
             
             _dino = new Sprite(dinoFilePath);
@@ -89,20 +89,21 @@ namespace gxpengine_template.MyClasses.Modules
         IEnumerator Init()
         {
             yield return null;
+            SetOrigin(0, 0);
             _container.SetXY(x, y);
 
             _dino.color = (uint)Color.Green.ToArgb();
+            _dino.x = 20;
             _dino.SetScaleXY(0.1f);
 
-            _ground.y = 10;
-            _ground.x = -width/2;
-            _ground.width *= 2;
-            _ground.height = 32;
+            _ground.y = height/2;
+            _ground.width = width;
+            _ground.height = height/2;
             _ground.color = (uint)Color.Brown.ToArgb();
 
             _scoreDisplay.SetOrigin(0, 0);
             _scoreDisplay.HorizontalAlign = CenterMode.Min;
-            _scoreDisplay.SetXY(-width / 2, -height / 2);
+            _scoreDisplay.SetXY(0, 0);
             _scoreDisplay.TextColor = Color.Wheat;
         }
 
@@ -121,12 +122,13 @@ namespace gxpengine_template.MyClasses.Modules
         void CactusSpawner()
         {
             var randomCactusIndex = Utils.Random(0, _cactiFilePaths.Length);
-            if (CheckCanSpawnCactus())
+            if ( CheckCanSpawnCactus() )
             {
                 var newCactus = new Cactus(_cactiFilePaths[randomCactusIndex], true);
                 _container.AddChild(newCactus);
                 _cacti.Add(newCactus);
-                newCactus.SetXY(width / 2, 0);
+                newCactus.SetXY(width, height/2 - 10);
+                _currentSpawnDistance = Utils.Random(_cactusMinSpawnDistance, _cactusMaxSpawnDistance);
             }
         }
 
@@ -134,7 +136,7 @@ namespace gxpengine_template.MyClasses.Modules
         {
             if (_cacti.Count == 0) return true;
 
-            return (width / 2) - _cacti[_cacti.Count - 1].x > _cactusSpawnDistance;
+            return width - _cacti[_cacti.Count - 1].x > _currentSpawnDistance;
         }
 
         void HandleCacti()
@@ -151,7 +153,7 @@ namespace gxpengine_template.MyClasses.Modules
                     _scoreDisplay.Text = _currentScore.ToString();
                 }
 
-                if (cactus.x < -width / 2)
+                if (cactus.x < 0)
                     cactus.LateDestroy();
 
                 if (col == null) continue;

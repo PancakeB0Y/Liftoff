@@ -1,12 +1,10 @@
 ﻿using GXPEngine;
 using gxpengine_template.MyClasses.Coroutines;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using TiledMapParser;
 
-namespace gxpengine_template.MyClasses
+namespace gxpengine_template.MyClasses.Modules
 {
     public enum PieceType
     {
@@ -17,7 +15,7 @@ namespace gxpengine_template.MyClasses
     }
     public class Module_Maze : Module
     {
-        public event Action<MazePiece> OnPieceRotate;
+        public event Action<MazePiece> PieceRotated;
         public MazePiece[] Pieces => _mPieces;
         public int Columns => _mColumns;
         readonly int _mColumns;
@@ -26,16 +24,14 @@ namespace gxpengine_template.MyClasses
 
         readonly MazePiece[] _mPieces;
         readonly MazePiece[] _mPiecesPrototypes;
-        readonly TiledObject _data;
+        List<int> _searchList = new List<int>();
 
         public Module_Maze(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
         {
             _mColumns = data.GetIntProperty("ModuleColumns", 3);
             _mRows = data.GetIntProperty("ModuleRows", 2);
-            _data = data;
             _mPieces = new MazePiece[_mColumns * _mRows];
-            alpha = 0;
-
+            //SetColor(1, 0, 0);
             _mPiecesPrototypes = new MazePiece[]
             {
                 new MazePiece(data.GetFloatProperty("CornerChance", 1f), new bool[] { false,true,true,false }, PieceType.Corner),
@@ -50,103 +46,44 @@ namespace gxpengine_template.MyClasses
             } 
             while (IsPossiblePath());
 
-
-            var visual = new Module_Maze_Visual(this, data);
-            
+            var selector = new Module_Maze_Selector(this);
+            var visual = new Module_Maze_Visual(this, data, selector);
             AddChild(visual);
-            AddChild(new Coroutine(TestCreateMaze()));
+            AddChild(selector);
+            //AddChild(new Coroutine(TestCreateMaze()));
 
         }
 
-        public bool IsPossiblePath()
+        bool IsPossiblePath()
         {
-            //list can be used to color the found path
-            return _mPieces[0].SearchForEnd(new List<int>());
+            _searchList.Clear();
+            return _mPieces[0].SearchForEnd(_searchList);
         }
 
-        public void RotatePieceAndCheckPath(int index)
+        public void RotatePiece(int index)
         {
             MazePiece piece = _mPieces[index];
             piece.RotateRight();
-            OnPieceRotate?.Invoke(piece);
+            PieceRotated?.Invoke(piece);
+            
+        }
 
-            if ( IsPossiblePath() )
+        public void CheckPath()
+        {
+            if (IsPossiblePath())
                 RaiseSuccesEvent();
         }
+
         protected override void OnTimeEnd()
         {
             RaiseFailEvent();
         }
 
-        #region Testing
-
-        IEnumerator TestCreateMaze()
-        {
-            while (true)
-            {
-                
-
-                //CreateRandomPieces(_mPiecesPrototypes);
-                ////CreatePieces(_mPiecesPrototypes);
-
-                //var visual = new Module_Maze_Visual(this, _data);
-                //AddChild(visual);
-                //Console.WriteLine("beffore rotation " + IsPossiblePath());
-
-                ////_mPieces[4].TestCheckConnections();
-                //visual._pieces[1].color = (uint)Color.Red.ToArgb();
-                //RotatePiece(1);
-                //visual._pieces[1].Turn(90);
-
-                //Console.WriteLine("after " + IsPossiblePath());
-
-                yield return new WaitForSeconds(5f);
-
-                Console.WriteLine("Repeat");
-
-                foreach (var item in GetChildren())
-                {
-                    if (!(item is Coroutine))
-                        item.Destroy();
-                }
-                Array.Clear(_mPieces, 0, _mPieces.Length);
-                CreateRandomPieces( _mPiecesPrototypes );
-                //CreatePieces(_mPiecesPrototypes);
-                Console.WriteLine(IsPossiblePath());
-
-                var visual = new Module_Maze_Visual(this, _data);
-                AddChild(visual);
-
-                RotatePieceAndCheckPath(1);
-                visual._pieces[1].color = (uint)Color.Red.ToArgb();
-                visual._pieces[1].Turn(90);
-
-                Console.WriteLine(IsPossiblePath());
-            }
-        }
-        //corner cross line t
-        void CreatePieces(MazePiece[] pieces)
-        {
-            _mPieces[0] = pieces[0].Clone();
-            _mPieces[1] = pieces[3].Clone();
-            _mPieces[2] = pieces[3].Clone();
-            _mPieces[3] = pieces[0].Clone();
-            _mPieces[4] = pieces[3].Clone();
-            _mPieces[5] = pieces[0].Clone();
-
-            _mPieces[5].IsEnd = true;
-            for (int i = 0; i < _mPieces.Length; i++)
-            {
-                _mPieces[i].Index = i;
-            }
-
-            SetNeighboursOfPieces();
-        }
-        #endregion
-
         void CreateRandomPieces(MazePiece[] piecesPrototype)
         {
             Random randomGenerator = new Random(Time.time);
+            
+            Array.Clear(_mPieces, 0, _mPieces.Length);
 
             for (int i = 0; i < _mPieces.Length; i++)
             {

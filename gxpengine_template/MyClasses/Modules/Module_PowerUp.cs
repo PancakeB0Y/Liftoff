@@ -54,7 +54,6 @@ namespace gxpengine_template.MyClasses
             if (InsideChargeZone(CurrentBarPersentage))
             {
                 CurrentCharge += _chargeSpeed * deltaInSeconds;
-                Console.WriteLine("charging " + CurrentCharge);
 
                 if (CurrentCharge >= 1)
                 {

@@ -1,6 +1,9 @@
 ﻿using GXPEngine;
+using gxpengine_template.MyClasses.Coroutines;
 using gxpengine_template.MyClasses.UI;
 using System;
+using System.Collections;
+using System.Drawing;
 using System.Linq;
 using TiledMapParser;
 
@@ -29,33 +32,51 @@ namespace gxpengine_template.MyClasses.Modules
         readonly SimonBall[] _simonBalls;
         readonly int _swapSpeedMillis;
         readonly string _easeFuncName;
+        readonly Pivot _container;
+        readonly int _textSize;
 
         public Module_SimonSays_Visual(Module_SimonSays logic, Module_SimonSays_Selector selector , TiledObject data)
         {
             string simonBallPath = data.GetStringProperty("SimonBallPath", "Assets/square.png");
             _swapSpeedMillis = data.GetIntProperty("SwapSpeedMilllis", 400);
             _easeFuncName = data.GetStringProperty("EaseFuncName", "EaseOutBack");
+            _textSize = data.GetIntProperty("TextSize", 20);
 
             _moduleLogic = logic;
             _moduleSelector = selector;
+
             selector.Selected += OnBallSelect;
             selector.Deselected += OnBallDeselect;
             logic.OrderChanged += ChangeBalls;
 
+            _container = new Pivot();
+            MyUtils.MyGame.CurrentScene.AddChild(_container);
+
             _simonBalls = new SimonBall[_moduleLogic.RandomNumers.Count];
+
+
+            AddChild(new Coroutine(Init(simonBallPath)));
+        }
+
+        IEnumerator Init(string simonBallPath)
+        {
+            yield return null;
+            _container.SetXY(_moduleLogic.x, _moduleLogic.y);
+
             for (int i = 0; i < _moduleLogic.RandomNumers.Count; i++)
             {
                 var ball = new SimonBall(simonBallPath, true, false);
-                AddChild(ball);
+                _container.AddChild(ball);
+                ball.width = _moduleLogic.width / _simonBalls.Length;
+                ball.height = _moduleLogic.height;
                 ball.TextMesh.Text = _moduleLogic.RandomNumers[i].ToString();
+                ball.TextMesh.TextSize = _textSize;
                 _simonBalls[i] = ball;
 
                 ball.x = i * (ball.width + 10);
 
             }
-
         }
-
         private void OnBallDeselect(int index)
         {
             _simonBalls[index].SetColor(1, 1, 1);
@@ -68,6 +89,7 @@ namespace gxpengine_template.MyClasses.Modules
         
         protected override void OnDestroy()
         {
+            _container.Destroy();
             _moduleLogic.OrderChanged -= ChangeBalls;
             _moduleSelector.Selected -= OnBallSelect;
             _moduleSelector.Deselected -= OnBallDeselect;
@@ -75,7 +97,7 @@ namespace gxpengine_template.MyClasses.Modules
 
         void Update()
         {
-            _moduleSelector.CanUse = _simonBalls.All(b=> b.IsDoneMoving);
+            _moduleSelector.CanUse = _simonBalls.All(b=> b != null && b.IsDoneMoving);
         }
 
         void ChangeBalls(int from, int to)

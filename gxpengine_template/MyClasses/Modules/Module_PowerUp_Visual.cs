@@ -1,4 +1,6 @@
 ﻿using GXPEngine;
+using gxpengine_template.MyClasses.Coroutines;
+using System.Collections;
 using System.Drawing;
 
 namespace gxpengine_template.MyClasses
@@ -10,9 +12,13 @@ namespace gxpengine_template.MyClasses
         readonly EasyDraw chargeZone;
         readonly EasyDraw battery;
         readonly Module_PowerUp powerUp;
+        readonly Pivot _container;
 
         public Module_PowerUp_Visual(Module_PowerUp powerUp, int barSize = 2)
         {
+            _container = new Pivot();
+            MyUtils.MyGame.CurrentScene.AddChild(_container);
+
             this.powerUp = powerUp;
             var w = 50;
             var h = 100;
@@ -34,10 +40,23 @@ namespace gxpengine_template.MyClasses
             battery.SetXY(w + 10, 0);
             battery.SetScaleXY(1, -1);
 
-            AddChild(bg);
-            AddChild(chargeZone);
-            AddChild(bar);
-            AddChild(battery);
+            _container.AddChild(bg);
+            _container.AddChild(chargeZone);
+            _container.AddChild(bar);
+            _container.AddChild(battery);
+            AddChild(new Coroutine(Init()));
+        }
+
+        IEnumerator Init()
+        {
+            yield return null;
+
+            _container.SetXY(powerUp.x, powerUp.y);
+
+        }
+        protected override void OnDestroy()
+        {
+            _container.Destroy();
         }
         void Update()
         {

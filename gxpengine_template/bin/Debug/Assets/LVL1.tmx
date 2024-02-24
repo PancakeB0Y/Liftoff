@@ -1,32 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="103">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="118">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
+ <tileset firstgid="10" name="Maze_Bg" tilewidth="303" tileheight="183" tilecount="1" columns="1">
+  <image source="Maze/CreateTheWay_3.3.PNG" width="303" height="183"/>
+ </tileset>
+ <tileset firstgid="11" name="Maze3x2" tilewidth="299" tileheight="127" tilecount="1" columns="1">
+  <image source="Maze/IMG_2566.PNG" width="299" height="127"/>
+ </tileset>
+ <tileset firstgid="12" name="GameBackground" tilewidth="1366" tileheight="768" tilecount="1" columns="1">
+  <image source="Background_Game.PNG" width="1366" height="768"/>
+ </tileset>
  <objectgroup id="10" name="WorldText"/>
  <objectgroup id="6" name="UI"/>
+ <objectgroup id="20" name="ObjectBackgrounds">
+  <object id="117" name="bg" gid="12" x="1" y="768" width="1366" height="768"/>
+ </objectgroup>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="98" name="SimonSays" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="1" x="217.333" y="204" width="32" height="32">
+  <object id="104" name="SimonSays" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="1" x="493.333" y="714.667" width="378.666" height="185.333">
    <properties>
-    <property name="TimerSeconds" type="int" value="20"/>
+    <property name="EaseFuncName" value="EaseOutBack"/>
+    <property name="MaxValue" type="int" value="11"/>
+    <property name="MinValue" type="int" value="0"/>
+    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
+    <property name="SwapSpeedMilllis" type="int" value="400"/>
+    <property name="TextSize" type="int" value="20"/>
+    <property name="TimerSeconds" type="int" value="40"/>
    </properties>
   </object>
-  <object id="100" name="dino" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="1" x="140.667" y="411.333" width="174.667" height="92">
+  <object id="105" name="dino" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="1" x="43.3337" y="481.333" width="378.666" height="192">
    <properties>
     <property name="CactiFilePathsCSV" value="Assets/square.png"/>
     <property name="DinoFilePath" value="Assets/square.png"/>
     <property name="DinoJumpPower" type="float" value="5"/>
     <property name="DinoTerminalVel" type="float" value="10"/>
+    <property name="MaxSpawnDistance" type="int" value="126"/>
+    <property name="MinSpawnDistance" type="int" value="70"/>
     <property name="ScorePenalty" type="int" value="1"/>
     <property name="ScoreReward" type="int" value="10"/>
-    <property name="SpawnDistance" type="int" value="96"/>
-    <property name="TimerSeconds" type="int" value="20"/>
+    <property name="TimerSeconds" type="int" value="40"/>
     <property name="WinScore" type="int" value="100"/>
    </properties>
   </object>
-  <object id="102" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="697.833" y="290.167" width="27" height="27.6663">
+  <object id="106" name="Module_Pump" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="704" y="197.334" width="135" height="102.333">
    <properties>
+    <property name="ChargeSpeed" type="float" value="0.1"/>
+    <property name="DishargeSpeed" type="float" value="0.1"/>
     <property name="TimerSeconds" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="107" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="496" y="225.333" width="184.333" height="164">
+   <properties>
+    <property name="BarMoveDownSpeed" type="float" value="0.03"/>
+    <property name="BarMoveUpSpeed" type="float" value="0.06"/>
+    <property name="ChargeSpeed" type="float" value="0.1"/>
+    <property name="ChargeZoneSize" type="float" value="0.2"/>
+    <property name="TimerSeconds" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="110" name="maze3" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="11" x="901.667" y="485.43" width="429.832" height="190.43">
+   <properties>
+    <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.PNG"/>
+    <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
+    <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
+    <property name="ModuleColumns" type="int" value="3"/>
+    <property name="ModuleRows" type="int" value="2"/>
+    <property name="PaddingX" type="float" value="0.51"/>
+    <property name="PaddingY" type="float" value="0.245"/>
+    <property name="SpacingX" type="float" value="0.047"/>
+    <property name="SpacingY" type="float" value="0.14"/>
+    <property name="TimerSeconds" type="int" value="42"/>
    </properties>
   </object>
  </objectgroup>

@@ -60,6 +60,15 @@ namespace gxpengine_template
                 loader.LoadObjectGroups(index);
             }
 
+            //background objects
+            if (loader.map.ObjectGroups.TryGetIndex(x => x.Name == "ObjectBackgrounds", out index))
+            {
+                loader.rootObject = this;
+                loader.addColliders = false;
+                loader.LoadObjectGroups(index);
+
+            }
+
             //level objects
             if (loader.map.ObjectGroups.TryGetIndex(x => x.Name == "Object Layer 1", out index))
             {
@@ -67,17 +76,8 @@ namespace gxpengine_template
                 loader.addColliders = true;
                 loader.LoadObjectGroups(index);
 
-                //if (ModuleManager != null && ModuleManager.GetModules() == null) { return; }
-
-                //Module[] modules = FindObjectsOfType<Module>();
-
-                //foreach (Module module in modules)
-                //{
-                //    ModuleManager.AddModule(module);
-                //}
-                //ModuleManager.UpdateModulesOn();
             }
-
+            
             //ui
             if (loader.map.ObjectGroups.TryGetIndex(x => x.Name == "UI", out index))
             {

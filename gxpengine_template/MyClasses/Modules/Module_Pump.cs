@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using GXPEngine;
+using gxpengine_template.MyClasses.Coroutines;
+using gxpengine_template.MyClasses.Modules;
 using TiledMapParser;
 
 namespace gxpengine_template.MyClasses
@@ -7,7 +10,7 @@ namespace gxpengine_template.MyClasses
     public class Module_Pump : Module
     {
         //clamp 0 to 1
-        public float ChargePersentage { get; private set; }
+        public float ChargePersentage { get; private set; } = 1f;
 
         readonly float _chargeSpeed;
         readonly float _dischargeSpeed;
@@ -17,15 +20,17 @@ namespace gxpengine_template.MyClasses
 
             _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 0.1f);
             _dischargeSpeed = data.GetFloatProperty("DishargeSpeed", 0.04f);
-
+            alpha = 0;
             //need visual
+            Module_Pump_Visual visual = new Module_Pump_Visual(this);
+            AddChild(visual);
         }
-
         void Update()
         {
+            var deltaInSeconds = Mathf.Min(Time.deltaTime * 0.001f, 0.04f);
+
             if (Input.GetKey(Key.A))//whatever key
             {
-                var deltaInSeconds = Mathf.Min(Time.deltaTime * 0.001f, 0.04f);
 
                 ChargePersentage += _chargeSpeed * deltaInSeconds;
 
@@ -37,7 +42,7 @@ namespace gxpengine_template.MyClasses
             }
             else
             {
-                ChargePersentage -= _dischargeSpeed;
+                ChargePersentage -= _dischargeSpeed * deltaInSeconds;
 
                 if (ChargePersentage <= 0) RaiseFailEvent();
             }

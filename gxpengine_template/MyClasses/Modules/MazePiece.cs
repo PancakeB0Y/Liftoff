@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace gxpengine_template.MyClasses
+namespace gxpengine_template.MyClasses.Modules
 {
     public class MazePiece
     {

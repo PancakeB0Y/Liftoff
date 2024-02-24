@@ -1,69 +1,29 @@
-/*
+
 using System;
 using System.Collections.Generic;
-//using System.Text.Json;
+using System.IO;
 
 namespace gxpengine_template.MyClasses
 {
-    //public abstract class FileData
-    //{
-    //    public FileData()
-    //    {
-    //        Console.WriteLine("typeName " + GetType());
-    //    }
-    //    public abstract string SerializeSelf();
-    //    protected abstract void DeserializeSelf(string json);
-
-    //}
-
-    //public class PlayerData : FileData
-    //{
-    //    public int Health { get; set; } = 5;
-    //    public string Name { get; set; } = "blower";
-
-    //    public override string SerializeSelf()
-    //    {
-    //        return JsonSerializer.Serialize(this);
-    //    }
-
-    //    protected override void DeserializeSelf(string json)
-    //    {
-    //        PlayerData data = JsonSerializer.Deserialize<PlayerData>(json);
-    //        Health = data.Health;
-    //        Name = data.Name;
-    //    }
-    //}
-
+    
     //public class SaveManager
     //{
-    //    public List<FileData> _fileData = new List<FileData>();
-    //    public SaveManager()
+    //    public void SaveHighScore()
     //    {
-
-    //    }
-    //    void LoadFromFile(string format)
-    //    {
-
-    //    }
-    //    public void SaveOnFile(FileData data)
-    //    {
-    //        if (!_fileData.Contains(data))
+    //        int score = ScoreManager.Instance.Score;
+    //        string input = "";
+    //        using(StreamReader reader = new StreamReader("Assets/HighScores.txt"))
     //        {
-    //            _fileData.Add(data);
+    //            //get desired scores
+    //            reader.Close();
     //        }
-    //    }
-
-    //    public void LoadOnFile()
-    //    {
-    //        string txt = "[";
-    //        foreach (FileData data in _fileData)
+    //        //edit them in input variable;
+    //        using (StreamWriter writer = new StreamWriter("Assets/HighScores.txt"))
     //        {
-    //            txt += data.SerializeSelf() + ",";
+    //            writer.Write(input);
+    //            writer.Close();
     //        }
-    //        txt = txt.TrimEnd(',') + "]";
-    //        Console.WriteLine(txt);
     //    }
     //}
 
 }
-*/

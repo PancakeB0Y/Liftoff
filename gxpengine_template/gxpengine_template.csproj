@@ -150,11 +150,13 @@
     <Compile Include="MyClasses\Modules\Module.cs" />
     <Compile Include="MyClasses\Modules\Module_Dino.cs" />
     <Compile Include="MyClasses\Modules\Module_Maze.cs" />
+    <Compile Include="MyClasses\Modules\Module_Maze_Selector.cs" />
     <Compile Include="MyClasses\Modules\Module_Maze_Visual.cs" />
     <Compile Include="MyClasses\Modules\Module_PowerUp.cs" />
     <Compile Include="MyClasses\Modules\Module_PowerUp_Visual.cs" />
     <Compile Include="MyClasses\Modules\Module_Pump.cs" />
     <Compile Include="MyClasses\Modules\Module_Dials.cs" />
+    <Compile Include="MyClasses\Modules\Module_Pump_Visual.cs" />
     <Compile Include="MyClasses\Modules\Module_SimonSays.cs" />
     <Compile Include="MyClasses\Modules\Module_SimonSays_Selector.cs" />
     <Compile Include="MyClasses\Modules\Module_SimonSays_Visual.cs" />
@@ -162,6 +164,7 @@
     <Compile Include="MyClasses\MyUtils.cs" />
     <Compile Include="MyClasses\SaveManager.cs" />
     <Compile Include="MyClasses\SceneConfigs.cs" />
+    <Compile Include="MyClasses\ScoreManager.cs" />
     <Compile Include="MyClasses\Tween.cs" />
     <Compile Include="MyClasses\UI\TextMesh.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

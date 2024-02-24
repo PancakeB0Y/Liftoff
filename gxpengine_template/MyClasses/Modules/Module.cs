@@ -15,7 +15,7 @@ namespace gxpengine_template.MyClasses
         protected readonly int timer;
         protected float currTime;
 
-        TextMesh _timerText;
+        readonly TextMesh _timerText;
 
         public Module(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, addCollider:false)
         {
@@ -29,8 +29,24 @@ namespace gxpengine_template.MyClasses
             AddChild(timeRoutine);
 
             _timerText = new TextMesh("4", 400, 400);
-            //AddChild(_timerText);
+            AddChild(new Coroutine(Initi()));
         }
+
+        IEnumerator Initi()
+        {
+            yield return null;
+
+            SetXY(x-width/2, y-height/2);
+
+            var test = new Sprite("Assets/square.png", true, false);
+            test.SetOrigin(test.width / 2, test.height / 2);
+            test.SetColor(1, 0, 0);
+            test.width = 5;
+            test.height = 5;
+            AddChild(test);
+
+        }
+
         IEnumerator Timer()
         {
             while (currTime > 0)
@@ -43,6 +59,7 @@ namespace gxpengine_template.MyClasses
             }
             OnTimeEnd();
         }
+
         protected virtual void OnTimeEnd()
         {
 

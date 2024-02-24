@@ -3,7 +3,7 @@ using System;
 
 namespace gxpengine_template.MyClasses
 {
-    public enum TweenProperty { x, y };
+    public enum TweenProperty { x, y, rotation };
 
     public class Tween : GameObject
     {
@@ -26,6 +26,10 @@ namespace gxpengine_template.MyClasses
         Action _onCompletedAction;
         Action _onStartAction;
         bool _started;
+        //for some reason, you can still call .Destroy() when an item is destroyed.
+        //So, I need to make sure that I call OnCompleted only once
+        bool _completed;
+
         /// <summary>
         /// Adding this tween as child to a game object will tween that objects given property [target] over [timeMs] milliseconds, 
         /// with a value change of [delta].
@@ -57,6 +61,10 @@ namespace gxpengine_template.MyClasses
                 case TweenProperty.y:
                     parent.y += outputDelta;
                     break;
+                case TweenProperty.rotation:
+                    parent.rotation += outputDelta;
+                    Console.WriteLine("Rotate " + parent.rotation);
+                    break;
             }
 
             lastCurveValue = newCurveValue;
@@ -65,11 +73,13 @@ namespace gxpengine_template.MyClasses
         void Update()
         {
             if (parent == null) return;
+
             if(!_started)
             {
                 _onStartAction?.Invoke();
                 _started = true;
             }
+
             // Keep track of our life time:
             currentTimeMs += Time.deltaTime;
 
@@ -81,10 +91,13 @@ namespace gxpengine_template.MyClasses
                 Destroy();
             }
         }
-
         protected override void OnDestroy()
         {
-            _onCompletedAction?.Invoke();
+            if(!_completed)
+            {
+                _onCompletedAction?.Invoke();
+                _completed = true;
+            }
         }
 
         public Tween OnCompleted(Action action)
