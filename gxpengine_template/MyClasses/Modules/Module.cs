@@ -7,20 +7,21 @@ using System.Collections;
 
 namespace gxpengine_template.MyClasses
 {
+
     public abstract class Module : AnimationSprite
     {
+        public enum moduleTypes { Switch, Dpad, ThreeButtons, OneButton }
         public event Action Success;
         public event Action Fail;
 
         public event Action<moduleTypes> End;
+        public moduleTypes moduleType = moduleTypes.Switch;
 
         protected readonly int timer;
         protected float currTime;
 
         TextMesh _timerText;
 
-        public enum moduleTypes { Switch, Dpad, ThreeButtons, OneButton }
-        public moduleTypes moduleType = moduleTypes.Switch;
         public Module(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, addCollider:false)
         {
             timer = data.GetIntProperty("TimerSeconds", 5);
@@ -78,18 +79,22 @@ namespace gxpengine_template.MyClasses
         {
 
         }
+
         public void OnFail()
         {
             Console.WriteLine("Module failed " + moduleType);
             Fail -= OnFail;
+            //coroutine destroy after time
             Destroy();
         }
+
         public void OnSuccess()
         {
             Console.WriteLine("Module success " + moduleType);
             Success -= OnSuccess;
             Destroy();
         }
+
         protected void RaiseSuccesEvent()
         {
             Success?.Invoke();

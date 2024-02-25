@@ -22,9 +22,9 @@ namespace gxpengine_template.MyClasses.Modules
         public int Rows => _mRows;
         readonly int _mRows;
 
+        List<int> _searchList = new List<int>();
         readonly MazePiece[] _mPieces;
         readonly MazePiece[] _mPiecesPrototypes;
-        List<int> _searchList = new List<int>();
 
         public Module_Maze(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
         {
@@ -57,7 +57,8 @@ namespace gxpengine_template.MyClasses.Modules
         bool IsPossiblePath()
         {
             _searchList.Clear();
-            return _mPieces[0].SearchForEnd(_searchList);
+
+            return _mPieces[0].Exits[0] && _mPieces[_mPieces.Length-1].Exits[2] && _mPieces[0].SearchForEnd(_searchList);
         }
 
         public void RotatePiece(int index)

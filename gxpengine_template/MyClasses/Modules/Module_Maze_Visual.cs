@@ -51,7 +51,7 @@ namespace gxpengine_template.MyClasses.Modules
             Vector2 pos = new Vector2(_mazeLogic.x,_mazeLogic.y);
             _mazeLogic.SetOrigin(0, 0);
             _mazeLogic.SetXY(pos.x, pos.y);
-            _mazeLogic.alpha = 0.3f;
+            _mazeLogic.alpha = 1f;
             _container.SetXY(_mazeLogic.x, _mazeLogic.y);
 
             int mazeColumns = _mazeLogic.Columns;
@@ -99,12 +99,16 @@ namespace gxpengine_template.MyClasses.Modules
             _rotationTween?.Destroy();
             var copy = visualOfPiece.rotation;
 
-            _rotationTween = new Tween(TweenProperty.rotation, 500, 90, _easeFunc).OnCompleted(
+            _rotationTween = new Tween(TweenProperty.rotation, 500, 90, _easeFunc).
+                OnCompleted(
                 () =>
                 {
-                    visualOfPiece.rotation = copy + 90;
                     _mazeLogic.CheckPath();
                 }
+                ).
+                OnExit(
+                ()=>
+                    visualOfPiece.rotation = copy + 90
                 );
             visualOfPiece.AddChild(_rotationTween);
         }

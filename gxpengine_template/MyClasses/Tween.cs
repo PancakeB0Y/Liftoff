@@ -25,6 +25,7 @@ namespace gxpengine_template.MyClasses
 
         Action _onCompletedAction;
         Action _onStartAction;
+        Action _onExitAction;
         bool _started;
         //for some reason, you can still call .Destroy() when an item is destroyed.
         //So, I need to make sure that I call OnCompleted only once
@@ -41,6 +42,30 @@ namespace gxpengine_template.MyClasses
             this.target = target;
             totalTimeMs = timeMs;
             this.delta = delta;
+        }
+
+        void Update()
+        {
+            if (parent == null) return;
+
+            if(!_started)
+            {
+                _onStartAction?.Invoke();
+                _started = true;
+            }
+
+            // Keep track of our life time:
+            currentTimeMs += Time.deltaTime;
+
+            ApplyTween();
+
+            // Destroy this tween when it's done:
+            if (currentTimeMs >= totalTimeMs)
+            {
+                _onCompletedAction?.Invoke();
+                parent = null;
+                Destroy();
+            }
         }
 
         void ApplyTween()
@@ -63,49 +88,48 @@ namespace gxpengine_template.MyClasses
                     break;
                 case TweenProperty.rotation:
                     parent.rotation += outputDelta;
-                    Console.WriteLine("Rotate " + parent.rotation);
                     break;
             }
 
             lastCurveValue = newCurveValue;
         }
 
-        void Update()
-        {
-            if (parent == null) return;
-
-            if(!_started)
-            {
-                _onStartAction?.Invoke();
-                _started = true;
-            }
-
-            // Keep track of our life time:
-            currentTimeMs += Time.deltaTime;
-
-            ApplyTween();
-
-            // Destroy this tween when it's done:
-            if (currentTimeMs >= totalTimeMs)
-            {
-                Destroy();
-            }
-        }
         protected override void OnDestroy()
         {
             if(!_completed)
             {
-                _onCompletedAction?.Invoke();
+                _onExitAction?.Invoke();
                 _completed = true;
             }
+            _onCompletedAction = null;
+            _onExitAction = null;
+            _onStartAction = null;
         }
-
+        /// <summary>
+        /// Action that gets called when the tween is destroyed
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public Tween OnExit(Action action)
+        {
+            _onExitAction = action;
+            return this;
+        }
+        /// <summary>
+        /// Action that gets called when the tween finishes the task
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public Tween OnCompleted(Action action)
         {
             _onCompletedAction = action;
             return this;
         }
-
+        /// <summary>
+        /// Action that gets called before the first iteration of the tween
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public Tween OnStart(Action action)
         {
             _onStartAction = action;

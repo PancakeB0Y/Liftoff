@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="118">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="119">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
@@ -59,17 +59,17 @@
     <property name="TimerSeconds" type="int" value="20"/>
    </properties>
   </object>
-  <object id="110" name="maze3" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="11" x="901.667" y="485.43" width="429.832" height="190.43">
+  <object id="118" name="maze2" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="10" x="917.166" y="489.833" width="393.667" height="199">
    <properties>
-    <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.PNG"/>
+    <property name="MazePiecesSpriteSheet" value="Assets/Pieces.png"/>
     <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
     <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
     <property name="ModuleColumns" type="int" value="3"/>
-    <property name="ModuleRows" type="int" value="2"/>
-    <property name="PaddingX" type="float" value="0.51"/>
-    <property name="PaddingY" type="float" value="0.245"/>
-    <property name="SpacingX" type="float" value="0.047"/>
-    <property name="SpacingY" type="float" value="0.14"/>
+    <property name="ModuleRows" type="int" value="3"/>
+    <property name="PaddingX" type="float" value="0.5"/>
+    <property name="PaddingY" type="float" value="0.18"/>
+    <property name="SpacingX" type="float" value="0.065"/>
+    <property name="SpacingY" type="float" value="0.06"/>
     <property name="TimerSeconds" type="int" value="42"/>
    </properties>
   </object>

@@ -111,7 +111,7 @@ namespace gxpengine_template.MyClasses.Modules
 
             var easeFunc = EaseFuncs.Factory(_easeFuncName);
             fromBall.AddChild(new Tween(TweenProperty.x, _swapSpeedMillis, -distanceBetweenBalls, easeFunc).
-                OnCompleted
+                OnExit
                 (
                     () => fromBall.IsDoneMoving = true)
                 );
@@ -123,7 +123,7 @@ namespace gxpengine_template.MyClasses.Modules
                     toBall.SetColor(0, .5f, 0);
                     fromBall.SetColor(0, .5f, 0);
                 }).
-                OnCompleted( 
+                OnExit( 
                 ()=> 
                 {
                     toBall.SetColor(1, 1, 1);
