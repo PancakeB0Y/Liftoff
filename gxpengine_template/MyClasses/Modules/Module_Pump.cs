@@ -14,6 +14,7 @@ namespace gxpengine_template.MyClasses
 
         readonly float _chargeSpeed;
         readonly float _dischargeSpeed;
+
         public Module_Pump(string fn, int c, int r, TiledObject data) : base(fn, c, r, data)
         {
             moduleType = moduleTypes.OneButton;
@@ -22,9 +23,10 @@ namespace gxpengine_template.MyClasses
             _dischargeSpeed = data.GetFloatProperty("DishargeSpeed", 0.04f);
             alpha = 0;
             //need visual
-            Module_Pump_Visual visual = new Module_Pump_Visual(this);
+            Module_Pump_Visual2 visual = new Module_Pump_Visual2(this,data);
             AddChild(visual);
         }
+
         void Update()
         {
             var deltaInSeconds = Mathf.Min(Time.deltaTime * 0.001f, 0.04f);

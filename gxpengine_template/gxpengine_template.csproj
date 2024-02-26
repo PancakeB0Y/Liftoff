@@ -139,6 +139,7 @@
     <Compile Include="MyClasses\Coroutines\Coroutine.cs" />
     <Compile Include="MyClasses\Coroutines\ICoroutineStepper.cs" />
     <Compile Include="MyClasses\Coroutines\WaitForSeconds.cs" />
+    <Compile Include="MyClasses\DifficultyManager.cs" />
     <Compile Include="MyClasses\EaseFuncs.cs" />
     <Compile Include="MyClasses\Ground.cs" />
     <Compile Include="MyClasses\INonDestructable.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="MyClasses\Modules\Module_Pump.cs" />
     <Compile Include="MyClasses\Modules\Module_Dials.cs" />
     <Compile Include="MyClasses\Modules\Module_Pump_Visual.cs" />
+    <Compile Include="MyClasses\Modules\Module_Pump_Visual2.cs" />
     <Compile Include="MyClasses\Modules\Module_SimonSays.cs" />
     <Compile Include="MyClasses\Modules\Module_SimonSays_Selector.cs" />
     <Compile Include="MyClasses\Modules\Module_SimonSays_Visual.cs" />

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="119">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="123">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
@@ -20,6 +20,7 @@
  <objectgroup id="2" name="Object Layer 1">
   <object id="104" name="SimonSays" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="1" x="493.333" y="714.667" width="378.666" height="185.333">
    <properties>
+    <property name="ChancePerDifficultyCSV" value="0.4,0.2,0.3"/>
     <property name="EaseFuncName" value="EaseOutBack"/>
     <property name="MaxValue" type="int" value="11"/>
     <property name="MinValue" type="int" value="0"/>
@@ -43,14 +44,16 @@
     <property name="WinScore" type="int" value="100"/>
    </properties>
   </object>
-  <object id="106" name="Module_Pump" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="704" y="197.334" width="135" height="102.333">
+  <object id="106" name="Module_Pump" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="492" y="238.667" width="380.333" height="189">
    <properties>
     <property name="ChargeSpeed" type="float" value="0.1"/>
     <property name="DishargeSpeed" type="float" value="0.1"/>
-    <property name="TimerSeconds" type="int" value="20"/>
+    <property name="EndDeg" type="int" value="320"/>
+    <property name="StartDeg" type="int" value="40"/>
+    <property name="TimerSeconds" type="int" value="40"/>
    </properties>
   </object>
-  <object id="107" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="496" y="225.333" width="184.333" height="164">
+  <object id="107" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="121.333" y="713.333" width="184.333" height="164">
    <properties>
     <property name="BarMoveDownSpeed" type="float" value="0.03"/>
     <property name="BarMoveUpSpeed" type="float" value="0.06"/>
@@ -59,7 +62,7 @@
     <property name="TimerSeconds" type="int" value="20"/>
    </properties>
   </object>
-  <object id="118" name="maze2" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="10" x="917.166" y="489.833" width="393.667" height="199">
+  <object id="118" name="maze2" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="10" x="965.166" y="480.5" width="303" height="183">
    <properties>
     <property name="MazePiecesSpriteSheet" value="Assets/Pieces.png"/>
     <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
@@ -73,7 +76,25 @@
     <property name="TimerSeconds" type="int" value="42"/>
    </properties>
   </object>
+  <object id="120" name="maze3" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="11" x="525.751" y="448.338" width="299" height="127">
+   <properties>
+    <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.PNG"/>
+    <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
+    <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
+    <property name="ModuleColumns" type="int" value="3"/>
+    <property name="ModuleRows" type="int" value="2"/>
+    <property name="PaddingX" type="float" value="0.5"/>
+    <property name="PaddingY" type="float" value="0.18"/>
+    <property name="RotationEaseFunc" value="EaseOutBack"/>
+    <property name="RotationTimeMs" type="int" value="500"/>
+    <property name="SpacingX" type="float" value="0.065"/>
+    <property name="SpacingY" type="float" value="0.06"/>
+    <property name="TimerSeconds" type="int" value="80"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup id="8" name="Managers"/>
+ <objectgroup id="8" name="Managers">
+  <object id="119" name="DifficultyManager" type="gxpengine_template.MyClasses.DifficultyManager" x="45.3333" y="50.6667"/>
+ </objectgroup>
  <objectgroup id="18" name="SceneConfig"/>
 </map>

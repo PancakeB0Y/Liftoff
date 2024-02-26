@@ -31,13 +31,13 @@ namespace gxpengine_template.MyClasses.Modules
             _mColumns = data.GetIntProperty("ModuleColumns", 3);
             _mRows = data.GetIntProperty("ModuleRows", 2);
             _mPieces = new MazePiece[_mColumns * _mRows];
-            //SetColor(1, 0, 0);
+            
             _mPiecesPrototypes = new MazePiece[]
             {
-                new MazePiece(data.GetFloatProperty("CornerChance", 1f), new bool[] { false,true,true,false }, PieceType.Corner),
-                new MazePiece(data.GetFloatProperty("CrossChance", 0f), new bool[] { true,true,true,true }, PieceType.Cross),
-                new MazePiece(data.GetFloatProperty("LineChance", 1f), new bool[] { true,false,true,false }, PieceType.Line),
-                new MazePiece(data.GetFloatProperty("TChance", 1f), new bool[] { true,false,true,true }, PieceType.T)
+                new MazePiece(data.GetFloatProperty("CornerChance", 0.7f), new bool[] { false,true,true,false }, PieceType.Corner),
+                new MazePiece(data.GetFloatProperty("CrossChance", .3f), new bool[] { true,true,true,true }, PieceType.Cross),
+                new MazePiece(data.GetFloatProperty("LineChance", .6f), new bool[] { true,false,true,false }, PieceType.Line),
+                new MazePiece(data.GetFloatProperty("TChance", .5f), new bool[] { true,false,true,true }, PieceType.T)
             };
 
             do
@@ -50,7 +50,6 @@ namespace gxpengine_template.MyClasses.Modules
             var visual = new Module_Maze_Visual(this, data, selector);
             AddChild(visual);
             AddChild(selector);
-            //AddChild(new Coroutine(TestCreateMaze()));
 
         }
 
@@ -97,11 +96,18 @@ namespace gxpengine_template.MyClasses.Modules
 
                     if (_mPieces.IndexIsOnGridCorner(_mColumns, i))
                     {
-                        if (protoPiece.Type != PieceType.Line)
-                        {
-                            _mPieces[i] = protoPiece.Clone();
-                            break;
-                        }
+                        if ((i == 0 || i == _mPieces.Length - 1) && protoPiece.Type == PieceType.Corner) continue;
+                        if (protoPiece.Type == PieceType.Line) continue;
+                        
+                        _mPieces[i] = protoPiece.Clone();
+                        break;
+                    }
+                    else if (_mPieces.Length % 2 != 0 && i == (int)(_mPieces.Length / 2f))
+                    {
+                        if (protoPiece.Type == PieceType.Corner) continue;
+                        
+                        _mPieces[i] = protoPiece.Clone();
+                        break;
                     }
                     else
                     {

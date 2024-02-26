@@ -42,7 +42,6 @@ namespace gxpengine_template.MyClasses
             yield return null;
 
             SetXY(x-width/2, y-height/2);
-
         }
 
         IEnumerator Timer()
@@ -57,6 +56,7 @@ namespace gxpengine_template.MyClasses
             }
             OnTimeEnd();
         }
+
 
         protected virtual void StartTimer()
         {

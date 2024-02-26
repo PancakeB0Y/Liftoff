@@ -15,7 +15,7 @@ namespace gxpengine_template.MyClasses.Modules
         readonly AnimationSprite[] _pieces;
         readonly Func<float, float> _easeFunc;
         readonly Pivot _container;
-
+        readonly int _rotationTimeMs;
         Tween _rotationTween;
 
         public Module_Maze_Visual(Module_Maze mazeLogic, TiledObject data, Module_Maze_Selector mazeSelector)
@@ -27,7 +27,7 @@ namespace gxpengine_template.MyClasses.Modules
             int ssRows = data.GetIntProperty("MazePiecesSpriteSheet_Rows");
             string pieceSpriteSheetPath = data.GetStringProperty("MazePiecesSpriteSheet");
             _easeFunc = EaseFuncs.Factory(data.GetStringProperty("RotationEaseFunc", "EaseOutBack"));
-
+            _rotationTimeMs = data.GetIntProperty("RotationTimeMs", 500);
             _container = new Pivot();
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
@@ -43,12 +43,14 @@ namespace gxpengine_template.MyClasses.Modules
         IEnumerator Init(string pieceSpriteSheetPath, int ssColumns, int ssRows, TiledObject data)
         {
             yield return null;
+
             var paddingX = data.GetFloatProperty("PaddingX",20) * _mazeLogic.width;
             var paddingY = data.GetFloatProperty("PaddingY",20) * _mazeLogic.height;
             var spacingX = data.GetFloatProperty("SpacingX",3) * _mazeLogic.width;
             var spacingY = data.GetFloatProperty("SpacingY",3) * _mazeLogic.height;
 
             Vector2 pos = new Vector2(_mazeLogic.x,_mazeLogic.y);
+
             _mazeLogic.SetOrigin(0, 0);
             _mazeLogic.SetXY(pos.x, pos.y);
             _mazeLogic.alpha = 1f;
@@ -99,7 +101,7 @@ namespace gxpengine_template.MyClasses.Modules
             _rotationTween?.Destroy();
             var copy = visualOfPiece.rotation;
 
-            _rotationTween = new Tween(TweenProperty.rotation, 500, 90, _easeFunc).
+            _rotationTween = new Tween(TweenProperty.rotation, _rotationTimeMs, 90, _easeFunc).
                 OnCompleted(
                 () =>
                 {

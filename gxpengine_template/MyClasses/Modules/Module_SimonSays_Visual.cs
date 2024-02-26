@@ -52,7 +52,7 @@ namespace gxpengine_template.MyClasses.Modules
             _container = new Pivot();
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
-            _simonBalls = new SimonBall[_moduleLogic.RandomNumers.Count];
+            _simonBalls = new SimonBall[_moduleLogic.Results.Count];
 
 
             AddChild(new Coroutine(Init(simonBallPath)));
@@ -62,18 +62,21 @@ namespace gxpengine_template.MyClasses.Modules
         {
             yield return null;
             _container.SetXY(_moduleLogic.x, _moduleLogic.y);
-
-            for (int i = 0; i < _moduleLogic.RandomNumers.Count; i++)
+            int spacing = 30;
+            int ballW = (_moduleLogic.width - (spacing * (_simonBalls.Length - 1))) / _simonBalls.Length;
+            for (int i = 0; i < _moduleLogic.Results.Count; i++)
             {
                 var ball = new SimonBall(simonBallPath, true, false);
                 _container.AddChild(ball);
-                ball.width = _moduleLogic.width / _simonBalls.Length;
-                ball.height = _moduleLogic.height;
-                ball.TextMesh.Text = _moduleLogic.RandomNumers[i].ToString();
+                ball.width = ballW;
+                ball.height = ballW;
+
+                ball.TextMesh.Text = _moduleLogic.Results[i].ToString();
                 ball.TextMesh.TextSize = _textSize;
                 _simonBalls[i] = ball;
 
-                ball.x = i * (ball.width + 10);
+                ball.x = ballW * (i % _simonBalls.Length) + (spacing * (i % _simonBalls.Length));
+                ball.y = _moduleLogic.height / 2 - ball.height/2;
 
             }
         }
