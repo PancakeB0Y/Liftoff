@@ -36,7 +36,7 @@ namespace gxpengine_template.MyClasses
         {
             if (Input.GetKeyDown(Key.R))
             {
-                LoadScene("Assets/LVL1.tmx");
+                ReloadScene();
             }
             //_arduinoReciever.Update();
         }

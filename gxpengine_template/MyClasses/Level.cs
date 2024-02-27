@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using GXPEngine;
 using gxpengine_template.MyClasses;
+using gxpengine_template.MyClasses.Modules;
 using TiledMapParser;
 
 namespace gxpengine_template
@@ -15,12 +16,9 @@ namespace gxpengine_template
         public event Action UILoaded;
         public string Name { get; }
 
-        ModuleManager ModuleManager;
-
         public Level(string fileName)
         {
             Name = fileName;
-            ModuleManager = new ModuleManager();
         }
 
         //not in constructor because level has to be parent of game first
@@ -30,8 +28,6 @@ namespace gxpengine_template
 
             int index;
             SceneConfigs sceneConfigs = null;
-
-            AddChild(ModuleManager);
 
             //sceneConfigs
             if (loader.map.ObjectGroups.TryGetIndex(x => x.Name == "SceneConfig", out index))
@@ -75,18 +71,8 @@ namespace gxpengine_template
                 loader.rootObject = this;
                 loader.addColliders = true;
                 loader.LoadObjectGroups(index);
-
-                if (ModuleManager != null && ModuleManager.GetModules() == null) { return; }
-
-                Module[] modules = FindObjectsOfType<Module>();
-
-                foreach (Module module in modules)
-                {
-                    ModuleManager.AddModule(module);
-                }
-                ModuleManager.SetStartingModules();
             }
-            
+
             //ui
             if (loader.map.ObjectGroups.TryGetIndex(x => x.Name == "UI", out index))
             {

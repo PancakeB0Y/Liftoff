@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using gxpengine_template.MyClasses.Modules;
 using System;
 using System.Collections;
@@ -31,6 +31,7 @@ namespace gxpengine_template.MyClasses
             };
 
             _visual = new Module_Dials_Visual(this, data);
+            StartModule();
         }
 
         void UpdateDials()

@@ -1,4 +1,5 @@
 ﻿using GXPEngine;
+using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace gxpengine_template.MyClasses
     {
         readonly Dictionary<Module.moduleTypes, Module> modulesOn;
         readonly List<Module> modulesLeft;
+
+
 
         public ModuleManager()
         {
@@ -45,7 +48,7 @@ namespace gxpengine_template.MyClasses
         {
             int index = GetFirstModuleByType(moduleType);
 
-            if(index == -1)
+            if (index == -1)
             {
                 Console.WriteLine("No modules left from type " + moduleType);
                 return;
@@ -69,21 +72,16 @@ namespace gxpengine_template.MyClasses
 
         public void SetStartingModules()
         {
-            for(int i = 0; i < modulesLeft.Count; i++)
+            for (int i = 0; i < modulesLeft.Count; i++)
             {
                 Module curModule = modulesLeft[i];
 
-                if(modulesOn[curModule.moduleType] == null)
+                if (modulesOn[curModule.moduleType] == null)
                 {
                     ReplaceModule(i, curModule);
                     i--;
                 }
             }
-        }
-
-        void Update()
-        {
-
         }
     }
 }

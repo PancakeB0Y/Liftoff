@@ -17,10 +17,13 @@ namespace gxpengine_template.MyClasses.Modules
         {
             public Sprite mover;
 
+            readonly Dial _dial;
+
             string _greenFilename;
             bool _isGreen = false;
-            public Dial_Visual(string moverFilename, string redFilename, string greenFilename, bool keepInCache = false, bool addCollider = false) : base(redFilename, keepInCache, addCollider)
+            public Dial_Visual(string moverFilename, string redFilename, string greenFilename, Dial dial, bool keepInCache = false, bool addCollider = false) : base(redFilename, keepInCache, addCollider)
             {
+                _dial = dial;
                 _greenFilename = greenFilename;
 
                 mover = new Sprite(moverFilename, false, false);
@@ -36,22 +39,22 @@ namespace gxpengine_template.MyClasses.Modules
                 _isGreen = true;
             }
 
-            public void Rotate(Dial dial)
+            public void Rotate()
             {
                 if (_isGreen) { return; }
 
-                if (dial.IsComplete)
+                if (_dial.IsComplete)
                 {
                     TurnGreen();
                 }
 
-                if (dial.RotateRight)
+                if (_dial.RotateRight)
                 {
-                    mover.rotation = (dial.CurrentPercent + 1) * 3.6f - (dial.WinRange / 2 * 3.6f);
+                    mover.rotation = (_dial.CurrentPercent + 1) * 3.6f - (_dial.WinRange / 2 * 3.6f);
                 }
                 else
                 {
-                    mover.rotation = -((dial.CurrentPercent + 1) * 3.6f - (dial.WinRange / 2 * 3.6f));
+                    mover.rotation = -((_dial.CurrentPercent + 1) * 3.6f - (_dial.WinRange / 2 * 3.6f));
                 }
             }
         }
@@ -91,7 +94,7 @@ namespace gxpengine_template.MyClasses.Modules
             int dialW = (_moduleLogic.width - (spacing * (2))) / 3;
             for (int i = 0; i < 3; i++)
             {
-                Dial_Visual dial = new Dial_Visual(dialVisualPath, dialRedPath, dialGreenPath);
+                Dial_Visual dial = new Dial_Visual(dialVisualPath, dialRedPath, dialGreenPath, _moduleLogic.Dials[i]);
                 _container.AddChild(dial);
 
                 dial.width = dialW;
@@ -107,7 +110,7 @@ namespace gxpengine_template.MyClasses.Modules
         {
             for (int i = 0; i < _visuals.Count; i++)
             {
-                _visuals[i].Rotate(_moduleLogic.Dials[i]);
+                _visuals[i].Rotate();
             }
         }
 

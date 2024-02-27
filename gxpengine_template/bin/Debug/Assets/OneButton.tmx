@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="80" height="45" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="6">
+ <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
+  <image source="square.png" width="100" height="100"/>
+ </tileset>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="2" name="Module_Pump" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="79.3487" y="619.379" width="380.333" height="189">
+   <properties>
+    <property name="ChargeSpeed" type="float" value="0.1"/>
+    <property name="Difficulty" type="int" value="1"/>
+    <property name="DishargeSpeed" type="float" value="0.1"/>
+    <property name="EndDeg" type="int" value="320"/>
+    <property name="StartDeg" type="int" value="40"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+   </properties>
+  </object>
+  <object id="3" name="dino" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="1" x="83.2731" y="243.697" width="378.666" height="192">
+   <properties>
+    <property name="CactiFilePathsCSV" value="Assets/square.png"/>
+    <property name="Difficulty" type="int" value="1"/>
+    <property name="DinoFilePath" value="Assets/square.png"/>
+    <property name="DinoJumpPower" type="float" value="5"/>
+    <property name="DinoTerminalVel" type="float" value="10"/>
+    <property name="MaxSpawnDistance" type="int" value="126"/>
+    <property name="MinSpawnDistance" type="int" value="70"/>
+    <property name="ScorePenalty" type="int" value="1"/>
+    <property name="ScoreReward" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+    <property name="WinScore" type="int" value="100"/>
+   </properties>
+  </object>
+  <object id="4" name="dino" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="1" x="574.303" y="240.364" width="378.666" height="192">
+   <properties>
+    <property name="CactiFilePathsCSV" value="Assets/square.png"/>
+    <property name="Difficulty" type="int" value="2"/>
+    <property name="DinoFilePath" value="Assets/square.png"/>
+    <property name="DinoJumpPower" type="float" value="5"/>
+    <property name="DinoTerminalVel" type="float" value="10"/>
+    <property name="MaxSpawnDistance" type="int" value="126"/>
+    <property name="MinSpawnDistance" type="int" value="70"/>
+    <property name="ScorePenalty" type="int" value="1"/>
+    <property name="ScoreReward" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+    <property name="WinScore" type="int" value="100"/>
+   </properties>
+  </object>
+  <object id="5" name="Module_Pump" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="579.53" y="623.682" width="380.333" height="189">
+   <properties>
+    <property name="ChargeSpeed" type="float" value="0.1"/>
+    <property name="Difficulty" type="int" value="2"/>
+    <property name="DishargeSpeed" type="float" value="0.1"/>
+    <property name="EndDeg" type="int" value="320"/>
+    <property name="StartDeg" type="int" value="40"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
