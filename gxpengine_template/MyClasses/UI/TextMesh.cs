@@ -12,8 +12,16 @@ namespace gxpengine_template.MyClasses.UI
     {
 
         #region Properties
-        public int Width => _canvas.width;
-        public int Height => _canvas.height;
+        public int Width
+        {
+            get => _canvas.width;
+            set => _canvas.width = value;
+        }
+        public int Height
+        {
+            get => _canvas.height;
+            set => _canvas.height = value;
+        }
 
         public Color BackgroundColor
         {
@@ -136,5 +144,6 @@ namespace gxpengine_template.MyClasses.UI
             _canvas.SetOrigin(x, y);
             //_canvas.SetXY(0, 0);
         }
+
     }
 }

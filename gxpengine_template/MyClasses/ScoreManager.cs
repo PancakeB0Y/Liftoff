@@ -1,26 +1,48 @@
 ﻿using GXPEngine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using gxpengine_template.MyClasses.Coroutines;
+using gxpengine_template.MyClasses.UI;
+using System.Collections;
+using TiledMapParser;
 
 namespace gxpengine_template.MyClasses
 {
-    public class ScoreManager : GameObject
+    public class ScoreManager : Sprite
     {
         public static ScoreManager Instance { get; private set; }
-        public int Score { get; set; }
+        public int Score 
+        { 
+            get => _score;
+            set 
+            { 
+                _score = value;
+                _textMesh.Text = _score.ToString();
+            }
+        }
+        public string PlayerName { get; private set; } = "STF";
+        int _score;
+        readonly TextMesh _textMesh;
 
-        public ScoreManager() {
+        public ScoreManager(TiledObject data): base("Assets/square.png",true,false)
+        {
             if (Instance != null)
             {
                 Destroy();
             }
             else
                 Instance = this;
+            alpha =  0f;
+            _textMesh = new TextMesh("0000", 100, 100, CenterMode.Min);
+            AddChild(new Coroutine(Init()));
         }
 
-        
+        IEnumerator Init()
+        {
+            yield return null;
+
+            MyUtils.MyGame.CurrentScene.AddChild(_textMesh);
+            _textMesh.SetXY(x, y);
+        }
+
+
     }
 }

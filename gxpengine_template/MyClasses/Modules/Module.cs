@@ -10,12 +10,12 @@ namespace gxpengine_template.MyClasses
 
     public abstract class Module : AnimationSprite
     {
-        public event Action<moduleTypes> End;
+        public event Action<ModuleTypes> End;
         public event Action Success;
         public event Action Fail;
 
-        public enum moduleTypes { Switch, Dpad, ThreeButtons, OneButton }
-        public moduleTypes moduleType = moduleTypes.Switch;
+        public enum ModuleTypes { Switch, Dpad, ThreeButtons, OneButton }
+        public ModuleTypes moduleType = ModuleTypes.Switch;
 
         protected readonly int timer;
         protected float currTime;

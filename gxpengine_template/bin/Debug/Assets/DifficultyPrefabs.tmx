@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="115">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="119">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
@@ -17,6 +17,7 @@
  <objectgroup id="2" name="Object Layer 1">
   <object id="108" name="maze2" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="10" x="8.5" y="422.5" width="303" height="183">
    <properties>
+    <property name="Difficulty" type="int" value="0"/>
     <property name="MazePiecesSpriteSheet" value="Assets/Pieces.png"/>
     <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
     <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
@@ -80,6 +81,38 @@
     <property name="EndDeg" type="int" value="320"/>
     <property name="MeterPath" value="Assets/Air_In.PNG"/>
     <property name="StartDeg" type="int" value="40"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+   </properties>
+  </object>
+  <object id="117" name="SimonSays" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="1" x="418.667" y="401.333" width="378.666" height="185.333">
+   <properties>
+    <property name="ChancePerDifficultyCSV" value="0.4,0.2,0.3"/>
+    <property name="EaseFuncName" value="EaseOutBack"/>
+    <property name="EquationAdderMax" type="int" value="10"/>
+    <property name="EquationAdderMin" type="int" value="4"/>
+    <property name="EquationMultMax" type="int" value="3"/>
+    <property name="EquationMultMin" type="int" value="2"/>
+    <property name="MaxValue" type="int" value="11"/>
+    <property name="MinValue" type="int" value="0"/>
+    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
+    <property name="SwapSpeedMilllis" type="int" value="400"/>
+    <property name="TextSize" type="int" value="20"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+   </properties>
+  </object>
+  <object id="118" name="SimonSays" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="1" x="416.667" y="627.333" width="378.666" height="185.333">
+   <properties>
+    <property name="ChancePerDifficultyCSV" value="0.4,0.2,0.3"/>
+    <property name="EaseFuncName" value="EaseOutBack"/>
+    <property name="EquationAdderMax" type="int" value="10"/>
+    <property name="EquationAdderMin" type="int" value="4"/>
+    <property name="EquationMultMax" type="int" value="3"/>
+    <property name="EquationMultMin" type="int" value="2"/>
+    <property name="MaxValue" type="int" value="11"/>
+    <property name="MinValue" type="int" value="0"/>
+    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
+    <property name="SwapSpeedMilllis" type="int" value="400"/>
+    <property name="TextSize" type="int" value="20"/>
     <property name="TimerSeconds" type="int" value="40"/>
    </properties>
   </object>

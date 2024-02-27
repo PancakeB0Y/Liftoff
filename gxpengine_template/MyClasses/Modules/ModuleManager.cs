@@ -21,6 +21,15 @@ namespace gxpengine_template.MyClasses
             modulesOn.Add(Module.ModuleTypes.Dpad, null);
             modulesOn.Add(Module.ModuleTypes.ThreeButtons, null);
             modulesOn.Add(Module.ModuleTypes.OneButton, null);
+            //load tmx with modules
+
+            //list of maze modules prefabs by FindObjectsOfType();
+            //
+            //list of dino modules prefabs
+            //...
+            //get a specified type according to difficulty
+            //module.clone()
+           
         }
 
         public void AddModule(Module module)
