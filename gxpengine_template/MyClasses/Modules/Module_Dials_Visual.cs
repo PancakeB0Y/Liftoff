@@ -34,8 +34,10 @@ namespace gxpengine_template.MyClasses.Modules
 
             void TurnGreen()
             {
+                RemoveChild(mover);
                 Sprite greenPart = new Sprite(_greenFilename, false, false);
                 AddChild(greenPart);
+                AddChild(mover);
                 _isGreen = true;
             }
 
@@ -62,7 +64,7 @@ namespace gxpengine_template.MyClasses.Modules
         readonly List<Dial_Visual> _visuals;
         readonly Module_Dials _moduleLogic;
 
-        readonly Pivot _container;
+        Pivot _container;
 
         public Module_Dials_Visual(Module_Dials logic, TiledObject data)
         {
@@ -73,8 +75,7 @@ namespace gxpengine_template.MyClasses.Modules
 
             _moduleLogic = logic;
 
-            _container = new Pivot();
-            MyUtils.MyGame.CurrentScene.AddChild(_container);
+
 
             AddChild(new Coroutine(Init(dialVisualPath, dialRedPath, dialGreenPath)));
         }
@@ -84,6 +85,9 @@ namespace gxpengine_template.MyClasses.Modules
             yield return null;
 
             Vector2 pos = new Vector2(_moduleLogic.x, _moduleLogic.y);
+
+            _container = new Pivot();
+            MyUtils.MyGame.CurrentScene.AddChild(_container);
 
             _moduleLogic.SetOrigin(0, 0);
             _moduleLogic.SetXY(pos.x, pos.y);
@@ -95,7 +99,6 @@ namespace gxpengine_template.MyClasses.Modules
             for (int i = 0; i < 3; i++)
             {
                 Dial_Visual dial = new Dial_Visual(dialVisualPath, dialRedPath, dialGreenPath, _moduleLogic.Dials[i]);
-                _container.AddChild(dial);
 
                 dial.width = dialW;
                 dial.height = dialW;
@@ -103,6 +106,7 @@ namespace gxpengine_template.MyClasses.Modules
 
                 dial.x = dialW * (i % 3) + (spacing * (i % 3));
                 dial.y = _moduleLogic.height / 2 - dial.height / 2;
+                _container.AddChild(dial);
             }
         }
 

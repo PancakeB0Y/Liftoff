@@ -18,20 +18,28 @@ namespace gxpengine_template.MyClasses
         public readonly List<Dial> Dials;
 
         Module_Dials_Visual _visual;
+        TiledObject _data;
         public Module_Dials(string fn, int c, int r, TiledObject data) : base(fn, c, r, data)
         {
+            _data = data;
             moduleType = ModuleTypes.ThreeButtons;
 
             int winRange = 10;
             Dials = new List<Dial>
             {
-                new Dial(data.GetFloatProperty("DialSpeed", 0.5f), 65, winRange), //65 = A
-                new Dial(data.GetFloatProperty("DialSpeed", 0.5f), 83, winRange), //83 = S
-                new Dial(data.GetFloatProperty("DialSpeed", 0.5f), 68, winRange) //68 = D
+                new Dial(data.GetFloatProperty("DialSpeed", 0.5f), Key.H, winRange),
+                new Dial(data.GetFloatProperty("DialSpeed", 0.5f), Key.J, winRange),
+                new Dial(data.GetFloatProperty("DialSpeed", 0.5f), Key.K, winRange)
             };
 
             _visual = new Module_Dials_Visual(this, data);
-            StartModule();
+            AddChild(_visual);
+        }
+        override public object Clone()
+        {
+            var clone = new Module_Dials(texture.filename, _cols, _rows, _data);
+
+            return clone;
         }
 
         void UpdateDials()
@@ -55,11 +63,6 @@ namespace gxpengine_template.MyClasses
             }
 
             return isWon;
-        }
-
-        protected override void LoadVisuals()
-        {
-            AddChild(_visual);
         }
 
         void Update()

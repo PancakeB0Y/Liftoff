@@ -47,12 +47,17 @@ namespace gxpengine_template.MyClasses.Modules
 
         int _winScore;
         TextMesh _scoreDisplay;
-        
+
         Pivot _container;
         int _currentSpawnDistance;
 
+        TiledObject _data;
+
         public Module_Dino(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
         {
+            moduleType = ModuleTypes.OneButton;
+            _data = data;
+
             _container = new Pivot();
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
@@ -62,31 +67,33 @@ namespace gxpengine_template.MyClasses.Modules
             _cactiFilePaths = data.GetStringProperty("CactiFilePathsCSV").Split(',');
             _cactusMinSpawnDistance = data.GetIntProperty("MinSpawnDistance", 96);
             _cactusMaxSpawnDistance = data.GetIntProperty("MaxSpawnDistance", 126);
-            _moveSpeed = data.GetFloatProperty("CactusMoveSpeed",1);
-            
-            _dino = new AnimationSprite(dinoFilePath,dinoSsCols,dinoSsRows,-1,true);
+            _moveSpeed = data.GetFloatProperty("CactusMoveSpeed", 1);
 
-            _container.AddChild(_dino);
-            
+            _dino = new AnimationSprite(dinoFilePath, dinoSsCols, dinoSsRows, -1, true);
 
-            _ground = new Ground("Assets/square.png",true);
+            _ground = new Ground("Assets/square.png", true);
             //for dino to ignore everything else
             _groundWrapper = new Ground[1] { _ground };
-            _container.AddChild(_ground);
 
-            _jumpPower = data.GetFloatProperty("DinoJumpPower",2);
-            _terminalVel = data.GetFloatProperty("DinoTerminalVel",10);
+            _jumpPower = data.GetFloatProperty("DinoJumpPower", 2);
+            _terminalVel = data.GetFloatProperty("DinoTerminalVel", 10);
 
             _scorePenalty = data.GetIntProperty("ScorePenalty", 1);
             _scoreReward = data.GetIntProperty("ScoreReward", 10);
             _winScore = data.GetIntProperty("WinScore", 10);
 
             _scoreDisplay = new TextMesh("000", 100, 30);
-            _container.AddChild(_scoreDisplay);
-            
+
             alpha = 0.1f;
 
             AddChild(new Coroutine(Init()));
+        }
+
+        override public object Clone()
+        {
+            var clone = new Module_Dino(texture.filename, _cols, _rows, _data);
+
+            return clone;
         }
 
         IEnumerator Init()
@@ -99,15 +106,18 @@ namespace gxpengine_template.MyClasses.Modules
             _dino.x = 20;
             _dino.SetScaleXY(0.1f);
 
-            _ground.y = height/2;
+            _ground.y = height / 2;
             _ground.width = width;
-            _ground.height = height/2;
+            _ground.height = height / 2;
             _ground.color = (uint)Color.Brown.ToArgb();
 
             _scoreDisplay.SetOrigin(0, 0);
             _scoreDisplay.HorizontalAlign = CenterMode.Min;
             _scoreDisplay.SetXY(0, 0);
             _scoreDisplay.TextColor = Color.Wheat;
+            _container.AddChild(_dino);
+            _container.AddChild(_ground);
+            _container.AddChild(_scoreDisplay);
         }
 
         void Update()
@@ -115,7 +125,7 @@ namespace gxpengine_template.MyClasses.Modules
             CactusSpawner();
             HandleCacti();
             HandleDino();
-            
+
             if (_currentScore >= _winScore)
             {
                 RaiseSuccesEvent();
@@ -125,12 +135,12 @@ namespace gxpengine_template.MyClasses.Modules
         void CactusSpawner()
         {
             var randomCactusIndex = Utils.Random(0, _cactiFilePaths.Length);
-            if ( CheckCanSpawnCactus() )
+            if (CheckCanSpawnCactus())
             {
                 var newCactus = new Cactus(_cactiFilePaths[randomCactusIndex], true);
                 _container.AddChild(newCactus);
                 _cacti.Add(newCactus);
-                newCactus.SetXY(width, height/2 - 10);
+                newCactus.SetXY(width, height / 2 - 10);
                 _currentSpawnDistance = Utils.Random(_cactusMinSpawnDistance, _cactusMaxSpawnDistance);
             }
         }
@@ -200,7 +210,7 @@ namespace gxpengine_template.MyClasses.Modules
         {
             _container.Destroy();
         }
-        
+
     }
 
 }

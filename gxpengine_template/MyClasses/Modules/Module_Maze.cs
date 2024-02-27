@@ -26,12 +26,16 @@ namespace gxpengine_template.MyClasses.Modules
         readonly MazePiece[] _mPieces;
         readonly MazePiece[] _mPiecesPrototypes;
 
+        TiledObject _data;
+
         public Module_Maze(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
         {
+            moduleType = ModuleTypes.Dpad;
+
             _mColumns = data.GetIntProperty("ModuleColumns", 3);
             _mRows = data.GetIntProperty("ModuleRows", 2);
             _mPieces = new MazePiece[_mColumns * _mRows];
-            
+
             _mPiecesPrototypes = new MazePiece[]
             {
                 new MazePiece(data.GetFloatProperty("CornerChance", 0.7f), new bool[] { false,true,true,false }, PieceType.Corner),
@@ -43,7 +47,7 @@ namespace gxpengine_template.MyClasses.Modules
             do
             {
                 CreateRandomPieces(_mPiecesPrototypes);
-            } 
+            }
             while (IsPossiblePath());
 
             var selector = new Module_Maze_Selector(this);
@@ -51,6 +55,14 @@ namespace gxpengine_template.MyClasses.Modules
             AddChild(visual);
             AddChild(selector);
 
+            _data = data;
+        }
+
+        override public object Clone()
+        {
+            var clone = new Module_Maze(texture.filename, _cols, _rows, _data);
+
+            return clone;
         }
 
         public void RotatePiece(int index)
@@ -58,7 +70,7 @@ namespace gxpengine_template.MyClasses.Modules
             MazePiece piece = _mPieces[index];
             piece.RotateRight();
             PieceRotated?.Invoke(piece);
-            
+
         }
 
         public void CheckPath()
@@ -82,7 +94,7 @@ namespace gxpengine_template.MyClasses.Modules
         void CreateRandomPieces(MazePiece[] piecesPrototype)
         {
             Random randomGenerator = new Random(Time.time);
-            
+
             Array.Clear(_mPieces, 0, _mPieces.Length);
 
             for (int i = 0; i < _mPieces.Length; i++)
@@ -98,14 +110,14 @@ namespace gxpengine_template.MyClasses.Modules
                     {
                         if ((i == 0 || i == _mPieces.Length - 1) && protoPiece.Type == PieceType.Corner) continue;
                         if (protoPiece.Type == PieceType.Line) continue;
-                        
+
                         _mPieces[i] = protoPiece.Clone();
                         break;
                     }
                     else if (_mPieces.Length % 2 != 0 && i == (int)(_mPieces.Length / 2f))
                     {
                         if (protoPiece.Type == PieceType.Corner) continue;
-                        
+
                         _mPieces[i] = protoPiece.Clone();
                         break;
                     }
@@ -114,10 +126,10 @@ namespace gxpengine_template.MyClasses.Modules
                         _mPieces[i] = protoPiece.Clone();
                         break;
                     }
-                    
+
                 }
                 _mPieces[i].Index = i;
-                
+
             }
 
             _mPieces[_mPieces.Length - 1].IsEnd = true;
@@ -144,7 +156,7 @@ namespace gxpengine_template.MyClasses.Modules
                 if (i < _mPieces.Length - _mColumns)//down neighbour
                     neighbours[3] = _mPieces[i + _mColumns];
 
-                
+
                 _mPieces[i].SetNeighbours(neighbours);
             }
         }

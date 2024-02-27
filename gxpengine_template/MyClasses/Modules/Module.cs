@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace gxpengine_template.MyClasses
 {
-    public abstract class Module : AnimationSprite
+    public abstract class Module : AnimationSprite, ICloneable
     {
         public event Action<ModuleTypes> End;
         public event Action Success;
@@ -36,6 +36,13 @@ namespace gxpengine_template.MyClasses
             _timerText = new TextMesh("4", 400, 400);
             alpha = 0f;
             AddChild(new Coroutine(Initialize()));
+        }
+
+        public virtual object Clone()
+        {
+            var clone = (Module)MemberwiseClone();
+
+            return clone;
         }
 
         IEnumerator Initialize()
@@ -85,14 +92,14 @@ namespace gxpengine_template.MyClasses
             Console.WriteLine("Module failed " + moduleType);
             Fail -= OnFail;
             //coroutine destroy after time
-            Destroy();
+            LateDestroy();
         }
 
         public void OnSuccess()
         {
             Console.WriteLine("Module success " + moduleType);
             Success -= OnSuccess;
-            Destroy();
+            LateDestroy();
         }
 
         protected void RaiseSuccesEvent()
@@ -106,6 +113,7 @@ namespace gxpengine_template.MyClasses
             Fail?.Invoke();
             End?.Invoke(moduleType);
         }
+
 
     }
 }

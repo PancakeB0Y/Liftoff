@@ -7,7 +7,7 @@ namespace gxpengine_template.MyClasses
     {
         public static DifficultyManager Instance { get; private set; }
         public int Difficulty { get; set; } = 0;
-        public DifficultyManager(TiledObject data) : base("Assets/square.png",true,false)
+        public DifficultyManager(TiledObject data) : base("Assets/square.png", true, false)
         {
             if (Instance != null)
             {
@@ -15,6 +15,8 @@ namespace gxpengine_template.MyClasses
             }
             else
                 Instance = this;
+
+            alpha = 0;
 
         }
         protected override void OnDestroy()
