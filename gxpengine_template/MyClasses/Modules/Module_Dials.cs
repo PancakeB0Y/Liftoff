@@ -1,5 +1,7 @@
 ﻿using GXPEngine;
+using gxpengine_template.MyClasses.Modules;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -13,43 +15,27 @@ namespace gxpengine_template.MyClasses
 {
     public class Module_Dials : Module
     {
-        readonly List<Dial> _dials;
-        readonly List<Dial_Visual> _visuals;
+        public readonly List<Dial> Dials;
 
-        public int DialWidth { get; private set; }
-        public int DialHeight { get; private set; }
-
-        string dialFilename;
-        string moverFilename;
+        Module_Dials_Visual _visual;
         public Module_Dials(string fn, int c, int r, TiledObject data) : base(fn, c, r, data)
         {
-            moduleType = ModuleTypes.ThreeButtons;
+            moduleType = moduleTypes.ThreeButtons;
 
-            int winRange = data.GetIntProperty("WinRange", 10);
-            dialFilename = data.GetStringProperty("dialFilename", "Assets/dial.png");
-            moverFilename = data.GetStringProperty("moverFilename", "Assets/square.png");
-            _dials = new List<Dial>
+            int winRange = 10;
+            Dials = new List<Dial>
             {
-                new Dial(data.GetFloatProperty("Speed1", 0.5f), 65, winRange), //65 = A
-                new Dial(data.GetFloatProperty("Speed2", 0.5f), 83, winRange), //83 = S
-                new Dial(data.GetFloatProperty("Speed3", 0.5f), 68, winRange) //68 = D
+                new Dial(data.GetFloatProperty("DialSpeed", 0.5f), 65, winRange), //65 = A
+                new Dial(data.GetFloatProperty("DialSpeed", 0.5f), 83, winRange), //83 = S
+                new Dial(data.GetFloatProperty("DialSpeed", 0.5f), 68, winRange) //68 = D
             };
 
-            DialWidth = data.GetIntProperty("DialWidth", 150);
-            DialHeight = data.GetIntProperty("DialHeight", 150);
-
-            _visuals = new List<Dial_Visual>();
-            /*for (int i = 0; i < _dials.Count; i++)
-            {
-                Dial_Visual curVisual = new Dial_Visual(dialFilename, moverFilename, _dials[i], i * (int)(DialWidth * 1.3f) + (DialWidth / 2), DialWidth, DialHeight);
-                _visuals.Add(curVisual);
-                AddChild(curVisual);
-            }*/
+            _visual = new Module_Dials_Visual(this, data);
         }
 
         void UpdateDials()
         {
-            foreach (Dial dial in _dials)
+            foreach (Dial dial in Dials)
             {
                 dial.Move();
                 dial.ReadInputs();
@@ -58,7 +44,7 @@ namespace gxpengine_template.MyClasses
         bool IsComplete()
         {
             bool isWon = true;
-            foreach (Dial dial in _dials)
+            foreach (Dial dial in Dials)
             {
                 if (dial.IsComplete == false)
                 {
@@ -72,12 +58,7 @@ namespace gxpengine_template.MyClasses
 
         protected override void LoadVisuals()
         {
-            for (int i = 0; i < _dials.Count; i++)
-            {
-                Dial_Visual curVisual = new Dial_Visual(dialFilename, moverFilename, _dials[i], i * (int)(DialWidth * 1.3f) + (DialWidth / 2), DialWidth, DialHeight);
-                _visuals.Add(curVisual);
-                AddChild(curVisual);
-            }
+            AddChild(_visual);
         }
 
         void Update()
@@ -94,7 +75,7 @@ namespace gxpengine_template.MyClasses
         }
     }
 
-    internal class Dial
+    public class Dial
     {
         public float CurrentPercent { get; private set; }
         readonly float speed;
@@ -141,55 +122,6 @@ namespace gxpengine_template.MyClasses
                 {
                     IsComplete = true;
                 }
-            }
-        }
-    }
-
-    internal class Dial_Visual : EasyDraw
-    {
-        readonly EasyDraw dialVisual;
-        readonly EasyDraw mover;
-        readonly EasyDraw goal;
-
-        readonly Dial dial;
-        public Dial_Visual(string filename, string moverFilename, Dial dial, int ySpacing, int DialWidth, int DialHeight) : base(DialWidth, DialHeight, false)
-        {
-            this.dial = dial;
-            y = ySpacing;
-            SetOrigin(width / 2, height / 2);
-
-            goal = new EasyDraw(moverFilename, false);
-            goal.SetColor(1, 0, 0);
-            goal.SetXY(0, -height / 2);
-            goal.SetOrigin(goal.width / 2, goal.height / 2);
-            AddChild(goal);
-
-            dialVisual = new EasyDraw(filename, false);
-            dialVisual.SetOrigin(dialVisual.width / 2, dialVisual.height / 2);
-            AddChild(dialVisual);
-
-            mover = new EasyDraw(moverFilename, false);
-            mover.SetXY(0, -dialVisual.height / 2 - 5);
-            mover.SetOrigin(mover.width / 2, mover.height / 2);
-            dialVisual.AddChild(mover);
-
-            goal.width = (int)((DialWidth * (dial.WinRange / 100f)) * 3.6f);
-            goal.height = 30;
-            dialVisual.width = DialWidth;
-            dialVisual.height = DialHeight;
-            mover.width = 20;
-            mover.height = 20;
-        }
-
-        void Update()
-        {
-            if (dial.RotateRight)
-            {
-                dialVisual.rotation = (dial.CurrentPercent + 1) * 3.6f - (dial.WinRange / 2 * 3.6f);
-            }
-            else
-            {
-                dialVisual.rotation = -((dial.CurrentPercent + 1) * 3.6f - (dial.WinRange / 2 * 3.6f));
             }
         }
     }

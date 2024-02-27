@@ -10,24 +10,26 @@ namespace gxpengine_template.MyClasses
 
     public abstract class Module : AnimationSprite
     {
-        public enum ModuleTypes { Switch, Dpad, ThreeButtons, OneButton }
+        public event Action<moduleTypes> End;
         public event Action Success;
         public event Action Fail;
 
-        public event Action<ModuleTypes> End;
-        public ModuleTypes moduleType = ModuleTypes.Switch;
+        public enum moduleTypes { Switch, Dpad, ThreeButtons, OneButton }
+        public moduleTypes moduleType = moduleTypes.Switch;
 
         protected readonly int timer;
         protected float currTime;
 
-        readonly TextMesh _timerText;
+        protected int difficulty;
 
-        public Module(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, addCollider:false)
+        TextMesh _timerText;
+
+        public Module(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, addCollider: false)
         {
             timer = data.GetIntProperty("TimerSeconds", 5);
             currTime = timer;
-            /*var timeRoutine = new Coroutine(Timer());
-            AddChild(timeRoutine);*/
+            difficulty = data.GetIntProperty("Difficulty", 1);
+            difficulty = (int)Mathf.Clamp(difficulty, 1, 3);
 
             Fail += OnFail;
             Success += OnSuccess;
@@ -36,12 +38,12 @@ namespace gxpengine_template.MyClasses
             alpha = 0f;
             AddChild(new Coroutine(Initialize()));
         }
-        
+
         IEnumerator Initialize()
         {
             yield return null;
 
-            SetXY(x-width/2, y-height/2);
+            SetXY(x - width / 2, y - height / 2);
         }
 
         IEnumerator Timer()
@@ -56,6 +58,7 @@ namespace gxpengine_template.MyClasses
             }
             OnTimeEnd();
         }
+
 
         protected virtual void StartTimer()
         {
