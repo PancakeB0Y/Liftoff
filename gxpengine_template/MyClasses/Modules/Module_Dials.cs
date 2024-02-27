@@ -17,7 +17,7 @@ namespace gxpengine_template.MyClasses
     {
         public readonly List<Dial> Dials;
 
-        //Module_Dials_Visual _visual;
+        Module_Dials_Visual _visual;
         public Module_Dials(string fn, int c, int r, TiledObject data) : base(fn, c, r, data)
         {
             moduleType = ModuleTypes.ThreeButtons;
@@ -30,7 +30,7 @@ namespace gxpengine_template.MyClasses
                 new Dial(data.GetFloatProperty("DialSpeed", 0.5f), 68, winRange) //68 = D
             };
 
-            //_visual = new Module_Dials_Visual(this, data);
+            _visual = new Module_Dials_Visual(this, data);
         }
 
         void UpdateDials()
@@ -58,7 +58,7 @@ namespace gxpengine_template.MyClasses
 
         protected override void LoadVisuals()
         {
-            //AddChild(_visual);
+            AddChild(_visual);
         }
 
         void Update()
