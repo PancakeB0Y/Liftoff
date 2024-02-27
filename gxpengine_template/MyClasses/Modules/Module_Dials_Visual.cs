@@ -84,11 +84,10 @@ namespace gxpengine_template.MyClasses.Modules
         {
             yield return null;
 
-            Vector2 pos = new Vector2(_moduleLogic.x, _moduleLogic.y);
-
             _container = new Pivot();
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
+            Vector2 pos = new Vector2(_moduleLogic.x, _moduleLogic.y);
             _moduleLogic.SetOrigin(0, 0);
             _moduleLogic.SetXY(pos.x, pos.y);
             _moduleLogic.alpha = 1f;

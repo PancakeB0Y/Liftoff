@@ -49,20 +49,25 @@ namespace gxpengine_template.MyClasses
                 dial.Move();
                 dial.ReadInputs();
             }
+
+            if (IsComplete())
+            {
+                RaiseSuccesEvent();
+            }
         }
         bool IsComplete()
         {
-            bool isWon = true;
+            bool hasWon = true;
             foreach (Dial dial in Dials)
             {
                 if (dial.IsComplete == false)
                 {
-                    isWon = false;
+                    hasWon = false;
                     break;
                 }
             }
 
-            return isWon;
+            return hasWon;
         }
 
         void Update()
