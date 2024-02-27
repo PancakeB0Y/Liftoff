@@ -92,14 +92,14 @@ namespace gxpengine_template.MyClasses
             Console.WriteLine("Module failed " + moduleType);
             Fail -= OnFail;
             //coroutine destroy after time
-            LateDestroy();
+            //LateDestroy();
         }
 
         public void OnSuccess()
         {
             Console.WriteLine("Module success " + moduleType);
             Success -= OnSuccess;
-            LateDestroy();
+            //LateDestroy();
         }
 
         protected void RaiseSuccesEvent()

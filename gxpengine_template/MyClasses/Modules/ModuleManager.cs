@@ -3,13 +3,7 @@ using gxpengine_template.MyClasses.Coroutines;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Net.Configuration;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using TiledMapParser;
 using static gxpengine_template.MyClasses.Module;
 
@@ -21,6 +15,11 @@ namespace gxpengine_template.MyClasses.Modules
         readonly Dictionary<Module.ModuleTypes, List<Module>> prefabsByType;
 
         readonly List<GameObject> modulePrefabs;
+
+        List<AnimationSprite> transitionsClose;
+        List<AnimationSprite> transitionsOpen;
+
+        bool hasStarted = false;
         public ModuleManager(TiledObject data) : base("Assets/square.png", true, false)
         {
             modulesOn = new Dictionary<Module.ModuleTypes, Module>
@@ -43,6 +42,9 @@ namespace gxpengine_template.MyClasses.Modules
             LoadModules(out modulePrefabs);
             prefabsByType = OrganizeByType(modulePrefabs, prefabsByType);
 
+            transitionsClose = new List<AnimationSprite>();
+            transitionsOpen = new List<AnimationSprite>();
+
             AddChild(new Coroutine(LoadStartingModules()));
         }
 
@@ -54,33 +56,50 @@ namespace gxpengine_template.MyClasses.Modules
             ReplaceModule(Module.ModuleTypes.ThreeButtons);
             ReplaceModule(Module.ModuleTypes.OneButton);
             ReplaceModule(Module.ModuleTypes.Switch);
+
+            hasStarted = true;
         }
 
-        void ReplaceModule(Module.ModuleTypes moduleType)
+        async void ReplaceModule(Module.ModuleTypes moduleType)
         {
+            if (hasStarted)
+            {
+                PlayCloseAnimation(moduleType);
+
+                if (modulesOn[moduleType] != null)
+                {
+                    modulesOn[moduleType].End -= ReplaceModule;
+                    modulesOn[moduleType].LateDestroy();
+                }
+                await Task.Delay(440);
+                PlayOpenAnimation(moduleType);
+                await Task.Delay(200);
+            }
+
             Module newModule = GetRandomModule(moduleType, 1);
-            modulesOn[newModule.moduleType] = newModule;
-            modulesOn[newModule.moduleType].StartModule();
-            modulesOn[newModule.moduleType].End += ReplaceModule;
+            modulesOn[moduleType] = newModule;
+            modulesOn[moduleType].StartModule();
+            modulesOn[moduleType].End += ReplaceModule;
             MyUtils.MyGame.CurrentScene.AddChild(newModule);
 
             switch (moduleType)
             {
                 case ModuleTypes.Dpad:
-                    newModule.SetXY(newModule.width, game.height / 2);
+                    newModule.SetXY(newModule.width / 2 + 80, game.height / 2);
                     break;
                 case ModuleTypes.ThreeButtons:
-                    newModule.SetXY(game.width - newModule.width, game.height / 2);
+                    newModule.SetXY(game.width - newModule.width + 80, game.height / 2);
                     break;
                 case ModuleTypes.OneButton:
-                    newModule.SetXY(game.width / 2, newModule.height);
+                    newModule.SetXY(game.width / 2, 140);
                     break;
                 case ModuleTypes.Switch:
-                    newModule.SetXY(game.width / 2, game.height - (newModule.height * 2));
+                    newModule.SetXY(game.width / 2, game.height - 140);
                     break;
             }
-
         }
+
+
 
         Module GetRandomModule(Module.ModuleTypes moduleType, int Difficulty)
         {
@@ -130,6 +149,86 @@ namespace gxpengine_template.MyClasses.Modules
             return prefabsByType;
         }
 
+        void PlayCloseAnimation(Module.ModuleTypes moduleType)
+        {
+            AnimationSprite closeModuleAnimation = new AnimationSprite("Assets/Transition_MicroGames.png", 8, 7, 52, true, false);
+            closeModuleAnimation.SetCycle(1, 26, 3);
 
+            closeModuleAnimation.width = 460;
+            closeModuleAnimation.height = 310;
+
+            switch (moduleType)
+            {
+                case ModuleTypes.Dpad:
+                    closeModuleAnimation.SetXY(-20, game.height / 2 - 63);
+                    break;
+                case ModuleTypes.ThreeButtons:
+                    closeModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
+                    break;
+                case ModuleTypes.OneButton:
+                    closeModuleAnimation.SetXY(game.width / 2 - 205, -10);
+                    break;
+                case ModuleTypes.Switch:
+                    closeModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
+                    break;
+            }
+
+            AddChild(closeModuleAnimation);
+            transitionsClose.Add(closeModuleAnimation);
+        }
+
+        void PlayOpenAnimation(Module.ModuleTypes moduleType)
+        {
+            AnimationSprite openModuleAnimation = new AnimationSprite("Assets/Transition_MicroGames.png", 8, 7, 52, true, false);
+            openModuleAnimation.SetCycle(26, 52, 3);
+
+            openModuleAnimation.width = 460;
+            openModuleAnimation.height = 310;
+
+            switch (moduleType)
+            {
+                case ModuleTypes.Dpad:
+                    openModuleAnimation.SetXY(-20, game.height / 2 - 63);
+                    break;
+                case ModuleTypes.ThreeButtons:
+                    openModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
+                    break;
+                case ModuleTypes.OneButton:
+                    openModuleAnimation.SetXY(game.width / 2 - 205, -10);
+                    break;
+                case ModuleTypes.Switch:
+                    openModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
+                    break;
+            }
+
+            AddChild(openModuleAnimation);
+            transitionsOpen.Add(openModuleAnimation);
+        }
+
+        void AnimateTransitions()
+        {
+            foreach (AnimationSprite transition in transitionsClose)
+            {
+                transition.Animate();
+                if (transition.currentFrame >= 26)
+                {
+                    transition.LateDestroy();
+                }
+            }
+
+            foreach (AnimationSprite transition in transitionsOpen)
+            {
+                transition.Animate();
+                if (transition.currentFrame >= 52)
+                {
+                    transition.LateDestroy();
+                }
+            }
+        }
+
+        void Update()
+        {
+            AnimateTransitions();
+        }
     }
 }

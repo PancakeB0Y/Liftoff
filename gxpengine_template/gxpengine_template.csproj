@@ -165,6 +165,8 @@
     <Compile Include="MyClasses\Modules\Module_SimonSays.cs" />
     <Compile Include="MyClasses\Modules\Module_SimonSays_Selector.cs" />
     <Compile Include="MyClasses\Modules\Module_SimonSays_Visual.cs" />
+    <Compile Include="MyClasses\Modules\Module_Waves.cs" />
+    <Compile Include="MyClasses\Modules\Module_Waves_Visual.cs" />
     <Compile Include="MyClasses\MyGame.cs" />
     <Compile Include="MyClasses\MyUtils.cs" />
     <Compile Include="MyClasses\SaveManager.cs" />
