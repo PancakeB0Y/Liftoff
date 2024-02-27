@@ -9,22 +9,26 @@ namespace gxpengine_template.MyClasses.Modules
     public class Module_Pump_Visual2 : GameObject
     {
 
-        Module_Pump _moduleLogic;
-        Pivot _container;
-        Sprite _arrow;
-        Sprite _meter;
-        int startDeg;
-        int endDeg;
+        readonly Module_Pump _moduleLogic;
+        readonly Pivot _container;
+        readonly Sprite _arrow;
+        readonly Sprite _meter;
+        readonly int _startDeg;
+        readonly int _endDeg;
 
         public Module_Pump_Visual2(Module_Pump logic, TiledObject data)
         {
             _moduleLogic = logic;
+
             _arrow = new Sprite(data.GetStringProperty("ArrowPath", "Assets/Air_Arrow.PNG"), true, false);
             _arrow.SetOrigin(_arrow.width/2, _arrow.height/2);
+
             _meter = new Sprite(data.GetStringProperty("MeterPath", "Assets/Air_In.PNG"), true, false);
             _meter.SetOrigin(_meter.width / 2, _meter.height / 2);
-            startDeg = data.GetIntProperty("StartDeg", 30);
-            endDeg = data.GetIntProperty("EndDeg", 330);
+
+            _startDeg = data.GetIntProperty("StartDeg", 30);
+            _endDeg = data.GetIntProperty("EndDeg", 330);
+
             _container = new Pivot();
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
@@ -49,7 +53,7 @@ namespace gxpengine_template.MyClasses.Modules
         }
         void Update()
         {
-            _arrow.rotation = startDeg + _moduleLogic.ChargePersentage * (endDeg - startDeg) ;
+            _arrow.rotation = _startDeg + _moduleLogic.ChargePersentage * (_endDeg - _startDeg) ;
         }
     }
 }

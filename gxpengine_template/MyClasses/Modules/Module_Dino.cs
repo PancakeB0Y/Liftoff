@@ -30,8 +30,8 @@ namespace gxpengine_template.MyClasses.Modules
         int _cactusMaxSpawnDistance;
         float _moveSpeed;
 
-
-        Sprite _dino;
+        //related to Dino
+        AnimationSprite _dino;
         bool _dinoJumped;
         float _jumpPower;
         float _dinoVel;
@@ -57,16 +57,19 @@ namespace gxpengine_template.MyClasses.Modules
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
             string dinoFilePath = data.GetStringProperty("DinoFilePath");
+            int dinoSsCols = data.GetIntProperty("DinoSS_Cols");
+            int dinoSsRows = data.GetIntProperty("DinoSS_Rows");
             _cactiFilePaths = data.GetStringProperty("CactiFilePathsCSV").Split(',');
             _cactusMinSpawnDistance = data.GetIntProperty("MinSpawnDistance", 96);
             _cactusMaxSpawnDistance = data.GetIntProperty("MaxSpawnDistance", 126);
             _moveSpeed = data.GetFloatProperty("CactusMoveSpeed",1);
             
-            _dino = new Sprite(dinoFilePath);
+            _dino = new AnimationSprite(dinoFilePath,dinoSsCols,dinoSsRows,-1,true);
+
             _container.AddChild(_dino);
             
 
-            _ground = new Ground(dinoFilePath);
+            _ground = new Ground("Assets/square.png",true);
             //for dino to ignore everything else
             _groundWrapper = new Ground[1] { _ground };
             _container.AddChild(_ground);
@@ -175,10 +178,12 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 _dinoVel = -_jumpPower;
                 _dinoJumped = true;
+                _dino.SetCycle(4);
             }
             else if (!(dinoColl?.other is Ground))
             {
                 _dinoJumped = false;
+                _dino.SetCycle(0, 4);
             }
 
             //gravity
@@ -190,6 +195,7 @@ namespace gxpengine_template.MyClasses.Modules
         {
             RaiseFailEvent();
         }
+
         protected override void OnDestroy()
         {
             _container.Destroy();

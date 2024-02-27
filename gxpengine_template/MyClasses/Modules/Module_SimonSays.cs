@@ -23,12 +23,22 @@ namespace gxpengine_template.MyClasses.Modules
         readonly string[] _results = new string[3];
         readonly int[] _randomNumbers = new int[3];
 
+        int _mult1;
+        int _mult2;
+        int _adder1;
+        int _adder2;
+
+
         public Module_SimonSays(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
         {
             Results = Array.AsReadOnly(_results);
 
             var minVal = data.GetIntProperty("MinValue", 0);
             var maxVal = data.GetIntProperty("MaxValue", 11);
+            _mult1 = data.GetIntProperty("EquationMultMin", 2);
+            _mult2 = data.GetIntProperty("EquationMultMax", 4);
+            _adder1 = data.GetIntProperty("EquationAdderMin", 4);
+            _adder2 = data.GetIntProperty("EquationAdderMax", 10);
 
             float[] chancePerDifficulty = data.GetStringProperty("ChancePerDifficultyCSV").Split(',').Select(x=>float.Parse(x, CultureInfo.InvariantCulture)).ToArray();
 
@@ -96,8 +106,8 @@ namespace gxpengine_template.MyClasses.Modules
 
                 case EcuationType.Div:
                     if(result <= 0) return null;
-
-                    int multiplicator = Utils.Random(2, 4);
+                    //mult1, mult2
+                    int multiplicator = Utils.Random(_mult1, _mult2);
                     return $"{result * multiplicator} / {multiplicator}";
 
                 case EcuationType.Add:
@@ -107,7 +117,7 @@ namespace gxpengine_template.MyClasses.Modules
                     return $"{result - decrementer} + {decrementer}";
 
                 case EcuationType.Subst:
-                    int adder = Utils.Random(1, result + 50);
+                    int adder = Utils.Random(_adder1, _adder2);
                     return $"{result + adder} - {adder}";
 
                 default:

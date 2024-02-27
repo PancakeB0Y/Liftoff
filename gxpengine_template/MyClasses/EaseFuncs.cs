@@ -61,5 +61,6 @@ namespace gxpengine_template.MyClasses
                     return Linear;
             }
         }
+
     }
 }

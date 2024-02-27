@@ -136,6 +136,7 @@
     <Compile Include="GXPEngine\Utils\Mathf.cs" />
     <Compile Include="GXPEngine\Utils\Time.cs" />
     <Compile Include="GXPEngine\Utils\Utils.cs" />
+    <Compile Include="MyClasses\Bomb.cs" />
     <Compile Include="MyClasses\Coroutines\Coroutine.cs" />
     <Compile Include="MyClasses\Coroutines\ICoroutineStepper.cs" />
     <Compile Include="MyClasses\Coroutines\WaitForSeconds.cs" />

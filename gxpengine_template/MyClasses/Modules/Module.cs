@@ -10,17 +10,17 @@ namespace gxpengine_template.MyClasses
 
     public abstract class Module : AnimationSprite
     {
-        public enum moduleTypes { Switch, Dpad, ThreeButtons, OneButton }
+        public enum ModuleTypes { Switch, Dpad, ThreeButtons, OneButton }
         public event Action Success;
         public event Action Fail;
 
-        public event Action<moduleTypes> End;
-        public moduleTypes moduleType = moduleTypes.Switch;
+        public event Action<ModuleTypes> End;
+        public ModuleTypes moduleType = ModuleTypes.Switch;
 
         protected readonly int timer;
         protected float currTime;
 
-        TextMesh _timerText;
+        readonly TextMesh _timerText;
 
         public Module(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, addCollider:false)
         {
@@ -56,7 +56,6 @@ namespace gxpengine_template.MyClasses
             }
             OnTimeEnd();
         }
-
 
         protected virtual void StartTimer()
         {

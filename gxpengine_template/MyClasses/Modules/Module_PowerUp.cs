@@ -23,7 +23,7 @@ namespace gxpengine_template.MyClasses
         readonly Module_PowerUp_Visual visual;
         public Module_PowerUp(string fn, int c, int r, TiledObject data) : base(fn,c,r,data)
         {
-            moduleType = moduleTypes.Switch;
+            moduleType = ModuleTypes.Switch;
 
             _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 0.1f);
 

@@ -10,17 +10,17 @@ namespace gxpengine_template.MyClasses
 {
     public class ModuleManager : GameObject
     {
-        readonly Dictionary<Module.moduleTypes, Module> modulesOn;
+        readonly Dictionary<Module.ModuleTypes, Module> modulesOn;
         readonly List<Module> modulesLeft;
 
         public ModuleManager()
         {
             modulesLeft = new List<Module>();
-            modulesOn = new Dictionary<Module.moduleTypes, Module>();
-            modulesOn.Add(Module.moduleTypes.Switch, null);
-            modulesOn.Add(Module.moduleTypes.Dpad, null);
-            modulesOn.Add(Module.moduleTypes.ThreeButtons, null);
-            modulesOn.Add(Module.moduleTypes.OneButton, null);
+            modulesOn = new Dictionary<Module.ModuleTypes, Module>();
+            modulesOn.Add(Module.ModuleTypes.Switch, null);
+            modulesOn.Add(Module.ModuleTypes.Dpad, null);
+            modulesOn.Add(Module.ModuleTypes.ThreeButtons, null);
+            modulesOn.Add(Module.ModuleTypes.OneButton, null);
         }
 
         public void AddModule(Module module)
@@ -41,7 +41,7 @@ namespace gxpengine_template.MyClasses
             modulesLeft.RemoveAt(moduleLeftIndex);
         }
 
-        void UpdateModule(Module.moduleTypes moduleType)
+        void UpdateModule(Module.ModuleTypes moduleType)
         {
             int index = GetFirstModuleByType(moduleType);
 
@@ -54,7 +54,7 @@ namespace gxpengine_template.MyClasses
             ReplaceModule(index, modulesLeft[index]);
         }
 
-        int GetFirstModuleByType(Module.moduleTypes moduleType)
+        int GetFirstModuleByType(Module.ModuleTypes moduleType)
         {
             for (int i = 0; i < modulesLeft.Count; i++)
             {

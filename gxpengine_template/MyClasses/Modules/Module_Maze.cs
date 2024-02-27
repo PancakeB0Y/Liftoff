@@ -53,13 +53,6 @@ namespace gxpengine_template.MyClasses.Modules
 
         }
 
-        bool IsPossiblePath()
-        {
-            _searchList.Clear();
-
-            return _mPieces[0].Exits[0] && _mPieces[_mPieces.Length-1].Exits[2] && _mPieces[0].SearchForEnd(_searchList);
-        }
-
         public void RotatePiece(int index)
         {
             MazePiece piece = _mPieces[index];
@@ -77,6 +70,13 @@ namespace gxpengine_template.MyClasses.Modules
         protected override void OnTimeEnd()
         {
             RaiseFailEvent();
+        }
+
+        bool IsPossiblePath()
+        {
+            _searchList.Clear();
+
+            return _mPieces[0].Exits[0] && _mPieces[_mPieces.Length - 1].Exits[2] && _mPieces[0].SearchForEnd(_searchList);
         }
 
         void CreateRandomPieces(MazePiece[] piecesPrototype)

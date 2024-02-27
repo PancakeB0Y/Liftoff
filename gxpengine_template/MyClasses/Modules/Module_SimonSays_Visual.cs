@@ -80,6 +80,7 @@ namespace gxpengine_template.MyClasses.Modules
 
             }
         }
+
         private void OnBallDeselect(int index)
         {
             _simonBalls[index].SetColor(1, 1, 1);

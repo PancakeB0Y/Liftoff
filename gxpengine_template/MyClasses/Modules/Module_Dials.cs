@@ -23,7 +23,7 @@ namespace gxpengine_template.MyClasses
         string moverFilename;
         public Module_Dials(string fn, int c, int r, TiledObject data) : base(fn, c, r, data)
         {
-            moduleType = moduleTypes.ThreeButtons;
+            moduleType = ModuleTypes.ThreeButtons;
 
             int winRange = data.GetIntProperty("WinRange", 10);
             dialFilename = data.GetStringProperty("dialFilename", "Assets/dial.png");

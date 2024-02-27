@@ -28,6 +28,7 @@ namespace gxpengine_template.MyClasses.Modules
             string pieceSpriteSheetPath = data.GetStringProperty("MazePiecesSpriteSheet");
             _easeFunc = EaseFuncs.Factory(data.GetStringProperty("RotationEaseFunc", "EaseOutBack"));
             _rotationTimeMs = data.GetIntProperty("RotationTimeMs", 500);
+
             _container = new Pivot();
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
@@ -44,7 +45,8 @@ namespace gxpengine_template.MyClasses.Modules
         {
             yield return null;
 
-            var paddingX = data.GetFloatProperty("PaddingX",20) * _mazeLogic.width;
+            var paddingL = data.GetFloatProperty("PaddingL",20) * _mazeLogic.width;
+            var paddingR = data.GetFloatProperty("PaddingR",20) * _mazeLogic.width;
             var paddingY = data.GetFloatProperty("PaddingY",20) * _mazeLogic.height;
             var spacingX = data.GetFloatProperty("SpacingX",3) * _mazeLogic.width;
             var spacingY = data.GetFloatProperty("SpacingY",3) * _mazeLogic.height;
@@ -57,9 +59,9 @@ namespace gxpengine_template.MyClasses.Modules
             _container.SetXY(_mazeLogic.x, _mazeLogic.y);
 
             int mazeColumns = _mazeLogic.Columns;
-            int pieceW = Mathf.Floor((_mazeLogic.width  - paddingX - (spacingX * (mazeColumns - 1))) / mazeColumns);
+            int pieceW = Mathf.Floor((_mazeLogic.width  - paddingL - paddingR - (spacingX * (mazeColumns - 1))) / mazeColumns);
             int pieceH = Mathf.Floor((_mazeLogic.height - paddingY - (spacingY * (_mazeLogic.Rows - 1))) / _mazeLogic.Rows );
-            Vector2 offset = new Vector2((pieceW + paddingX) * .5f, (pieceH + paddingY) * .5f);
+            Vector2 offset = new Vector2(pieceW * .5f + paddingL, (pieceH + paddingY) * .5f);
             Vector2 currSpacing = new Vector2();
 
             for (int i = 0; i < _pieces.Length; i++)

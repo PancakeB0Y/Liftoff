@@ -9,9 +9,10 @@ namespace gxpengine_template.MyClasses.Modules
         public float Chance { get; }
         public PieceType Type { get; }
         public bool IsEnd { get; set; }
+        public int Index { get; set; }
 
         MazePiece[] _neighbours;
-        public int Index { get; set; }
+
         public MazePiece(float chance, bool[] exits, PieceType type)
         {
             Chance = chance;
@@ -31,29 +32,7 @@ namespace gxpengine_template.MyClasses.Modules
         {
             _neighbours = neighbours;
         }
-        public void TestCheckConnections()
-        {
-            //check neighbours
-            //check exits
-            //check type
-            
-            for (int i = 0; i < Exits.Length; i++)
-            {
-
-                int oppositeExitIndex = i + (i < 2 ? 2 : -2);
-                if (Exits[i] && _neighbours[i] != null && _neighbours[i].Exits[oppositeExitIndex])
-                {
-                    if (i == 0)
-                        Console.WriteLine("connected left");
-                    else if (i == 1)
-                        Console.WriteLine("connected up");
-                    else if (i == 2)
-                        Console.WriteLine("connected right");
-                    else
-                        Console.WriteLine("connected down");
-                }
-            }
-        }
+        
         public void RotateRight()
         {
             var lastexit = Exits[3];
