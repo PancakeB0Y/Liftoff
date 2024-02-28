@@ -22,9 +22,7 @@ namespace gxpengine_template.MyClasses
         readonly float _barMoveUpSpeed;
         readonly float _barMoveDownSpeed;
 
-        readonly Module_PowerUp_Visual visual;
-
-        TiledObject _data;
+        readonly TiledObject _data;
         public Module_PowerUp(string fn, int c, int r, TiledObject data) : base(fn, c, r, data)
         {
             moduleType = ModuleTypes.Switch;
@@ -38,7 +36,7 @@ namespace gxpengine_template.MyClasses
             ChargeZonePersentage = data.GetFloatProperty("ChargeZoneSize", 0.2f);
             ChargeZoneRandomPosition = Utils.Random(ChargeZonePersentage, 1 - ChargeZonePersentage);
             alpha = 0;
-            visual = new Module_PowerUp_Visual(this);
+            var visual = new Module_PowerUp_Visual2(this,data);
             AddChild(visual);
         }
 

@@ -23,36 +23,37 @@ namespace gxpengine_template.MyClasses.Modules
         }
 
         readonly string[] _cactiFilePaths;
-        List<Cactus> _cacti = new List<Cactus>();
-        int _cactusMinSpawnDistance;
-        int _cactusMaxSpawnDistance;
-        float _moveSpeed;
+        readonly List<Cactus> _cacti = new List<Cactus>();
+        readonly int _cactusMinSpawnDistance;
+        readonly int _cactusMaxSpawnDistance;
+        readonly float _moveSpeed;
+        readonly int _cactiSize;
 
         //related to Dino
-        AnimationSprite _dino;
+        readonly AnimationSprite _dino;
         bool _dinoJumped;
-        float _jumpPower;
+        readonly float _jumpPower;
         float _dinoVel;
-        float _dinoGravity = 15;
-        float _terminalVel;
-        byte _dinoAnimDelay;
+        readonly float _dinoGravity = 15;
+        readonly float _terminalVel;
+        readonly byte _dinoAnimDelay;
 
-        Sprite _bg;
+        readonly Sprite _bg;
 
-        Ground _ground;
-        Ground[] _groundWrapper;
+        readonly Ground _ground;
+        readonly Ground[] _groundWrapper;
 
         int _currentScore;
-        int _scorePenalty;
-        int _scoreReward;
+        readonly int _scorePenalty;
+        readonly int _scoreReward;
 
-        int _winScore;
-        TextMesh _scoreDisplay;
+        readonly int _winScore;
+        readonly TextMesh _scoreDisplay;
 
-        Pivot _container;
+        readonly Pivot _container;
         int _currentSpawnDistance;
 
-        TiledObject _data;
+        readonly TiledObject _data;
 
         public Module_Dino(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
         {
@@ -72,6 +73,7 @@ namespace gxpengine_template.MyClasses.Modules
             _cactusMaxSpawnDistance = data.GetIntProperty("MaxSpawnDistance", 126);
             _moveSpeed = data.GetFloatProperty("CactusMoveSpeed",1);
             _dinoAnimDelay = (byte)data.GetIntProperty("DinoAnimDelay", 255);
+            _cactiSize = data.GetIntProperty("CactiSize", 20);
 
             _bg = new Sprite(bgFilePath, true, false);
             _dino = new AnimationSprite(dinoFilePath,dinoSsCols,dinoSsRows,-1,true);
@@ -121,7 +123,7 @@ namespace gxpengine_template.MyClasses.Modules
             _ground.width = _bg.width;
             _ground.height = 40;
             _ground.color = (uint)Color.Brown.ToArgb();
-            _ground.alpha = 0.2f;
+            _ground.alpha = 0f;
 
             _dino.color = (uint)Color.Green.ToArgb();
             _dino.x = _ground.y - _dino.height;
@@ -157,7 +159,10 @@ namespace gxpengine_template.MyClasses.Modules
                 var newCactus = new Cactus(_cactiFilePaths[randomCactusIndex], true);
                 _container.AddChild(newCactus);
                 _cacti.Add(newCactus);
-                newCactus.SetXY((width + _bg.width) / 2, _ground.y - newCactus.height);
+                newCactus.height = _cactiSize;
+                newCactus.width = _cactiSize;
+
+                newCactus.SetXY((width + _bg.width) / 2 - newCactus.width, _ground.y - newCactus.height );
                 _currentSpawnDistance = Utils.Random(_cactusMinSpawnDistance, _cactusMaxSpawnDistance);
             }
         }
@@ -166,7 +171,7 @@ namespace gxpengine_template.MyClasses.Modules
         {
             if (_cacti.Count == 0) return true;
 
-            return (width / 2 + _bg.width / 2) - _cacti[_cacti.Count - 1].x > _currentSpawnDistance;
+            return (width / 2 + _bg.width / 2) - _cacti[_cacti.Count - 1].x - _cacti[0].width > _currentSpawnDistance;
         }
 
         void HandleCacti()

@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="129">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="132">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
- <tileset firstgid="10" name="Maze_Bg" tilewidth="303" tileheight="183" tilecount="1" columns="1">
-  <image source="Maze/CreateTheWay_3.3.PNG" width="303" height="183"/>
- </tileset>
- <tileset firstgid="11" name="GameBackground" tilewidth="1366" tileheight="768" tilecount="1" columns="1">
+ <tileset firstgid="10" name="GameBackground" tilewidth="1366" tileheight="768" tilecount="1" columns="1">
   <image source="Background_Game.PNG" width="1366" height="768"/>
  </tileset>
- <tileset firstgid="12" name="maze3x3" tilewidth="448" tileheight="256" tilecount="1" columns="1">
-  <image source="../../../../../../../../Downloads/Maze_3x2.PNG" width="448" height="256"/>
- </tileset>
- <tileset firstgid="13" name="Maze3x2" tilewidth="448" tileheight="256" tilecount="1" columns="1">
+ <tileset firstgid="11" name="Maze3x2" tilewidth="448" tileheight="256" tilecount="1" columns="1">
   <image source="Maze_3x2.PNG" width="448" height="256"/>
+ </tileset>
+ <tileset firstgid="12" name="Maze3x3" tilewidth="448" tileheight="256" tilecount="1" columns="1">
+  <image source="Maze/Maze_3x3.PNG" width="448" height="256"/>
  </tileset>
  <objectgroup id="10" name="WorldText"/>
  <objectgroup id="6" name="UI"/>
  <objectgroup id="20" name="ObjectBackgrounds">
-  <object id="117" name="bg" gid="11" x="1" y="768" width="1366" height="768"/>
+  <object id="117" name="bg" gid="10" x="1" y="768" width="1366" height="768"/>
  </objectgroup>
  <objectgroup id="2" name="Object Layer 1">
   <object id="104" name="SimonSays" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="1" x="493.333" y="714.667" width="378.666" height="185.333">
@@ -37,6 +34,7 @@
    <properties>
     <property name="BgFilePath" value="Assets/Dino_Background (1).PNG"/>
     <property name="CactiFilePathsCSV" value="Assets/Dino_obstacle.PNG"/>
+    <property name="CactiSize" type="int" value="20"/>
     <property name="CactusMoveSpeed" type="float" value="1"/>
     <property name="DinoAnimDelay" type="int" value="3"/>
     <property name="DinoFilePath" value="Assets/Dino_Sprite.png"/>
@@ -75,24 +73,49 @@
     <property name="TimerSeconds" type="int" value="40"/>
    </properties>
   </object>
-  <object id="118" name="maze2" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="10" x="965.166" y="480.5" width="303" height="183">
+  <object id="127" name="ScoreManager" type="gxpengine_template.MyClasses.ScoreManager" x="1182.67" y="64" width="14.6667" height="20"/>
+  <object id="130" name="maze3x2" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="11" x="-4" y="513.333" width="448" height="256">
    <properties>
-    <property name="MazePiecesSpriteSheet" value="Assets/Pieces.png"/>
+    <property name="CornerChance" type="float" value="0.7"/>
+    <property name="CrossChance" type="float" value="0.3"/>
+    <property name="LineChance" type="float" value="0.6"/>
+    <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.PNG"/>
+    <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
+    <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
+    <property name="ModuleColumns" type="int" value="3"/>
+    <property name="ModuleRows" type="int" value="2"/>
+    <property name="PaddingB" type="float" value="0.31"/>
+    <property name="PaddingL" type="float" value="0.35"/>
+    <property name="PaddingR" type="float" value="0.31"/>
+    <property name="PaddingT" type="float" value="0.3"/>
+    <property name="RotationEaseFunc" value="EaseOutBack"/>
+    <property name="RotationTimeMs" type="int" value="500"/>
+    <property name="SpacingX" type="float" value="0.035"/>
+    <property name="SpacingY" type="float" value="0.044"/>
+    <property name="TChance" type="float" value="0.5"/>
+   </properties>
+  </object>
+  <object id="131" name="maze3x3" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="12" x="881.333" y="524" width="448" height="256">
+   <properties>
+    <property name="CornerChance" type="float" value="0.7"/>
+    <property name="CrossChance" type="float" value="0.3"/>
+    <property name="LineChance" type="float" value="0.6"/>
+    <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.PNG"/>
     <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
     <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
     <property name="ModuleColumns" type="int" value="3"/>
     <property name="ModuleRows" type="int" value="3"/>
-    <property name="PaddingL" type="float" value="0.25"/>
-    <property name="PaddingR" type="float" value="0.25"/>
-    <property name="PaddingY" type="float" value="0.18"/>
+    <property name="PaddingB" type="float" value="0.21"/>
+    <property name="PaddingL" type="float" value="0.36"/>
+    <property name="PaddingR" type="float" value="0.30000000000000004"/>
+    <property name="PaddingT" type="float" value="0.2"/>
     <property name="RotationEaseFunc" value="EaseOutBack"/>
     <property name="RotationTimeMs" type="int" value="500"/>
-    <property name="SpacingX" type="float" value="0.065"/>
-    <property name="SpacingY" type="float" value="0.06"/>
-    <property name="TimerSeconds" type="int" value="80"/>
+    <property name="SpacingX" type="float" value="0.03"/>
+    <property name="SpacingY" type="float" value="0.044"/>
+    <property name="TChance" type="float" value="0.5"/>
    </properties>
   </object>
-  <object id="127" name="ScoreManager" type="gxpengine_template.MyClasses.ScoreManager" x="1182.67" y="64" width="14.6667" height="20"/>
  </objectgroup>
  <objectgroup id="8" name="Managers">
   <object id="119" name="DifficultyManager" type="gxpengine_template.MyClasses.DifficultyManager" x="45.3333" y="50.6667">
