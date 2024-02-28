@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="138">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="139">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
@@ -105,6 +105,20 @@
     <property name="SpacingX" type="float" value="0.054"/>
     <property name="SpacingY" type="float" value="0.073"/>
     <property name="TimerSeconds" type="int" value="80"/>
+   </properties>
+  </object>
+  <object id="138" name="Module_InfoCurrent" type="gxpengine_template.MyClasses.Modules.Module_InfoCurrent" gid="1" x="1594" y="584" width="356" height="234">
+   <properties>
+    <property name="BadFileCount" type="int" value="3"/>
+    <property name="BadFilePath" value="Assets/InfoCurrent/InfoCurrent_Bad.png"/>
+    <property name="BadSpawnDist" type="int" value="100"/>
+    <property name="BgFilePath" value="Assets/InfoCurrent/InfoCurrent_Background.png"/>
+    <property name="GoodFileCount" type="int" value="3"/>
+    <property name="GoodFilePath" value="Assets/InfoCurrent/InfoCurrent_Good.png"/>
+    <property name="GoodSpawnDist" type="int" value="100"/>
+    <property name="Speed" type="float" value="1"/>
+    <property name="WinScore" type="int" value="10"/>
+    <property name="WireFilePath" value="Assets/InfoCurrent/InfoCurrent_Wire.png"/>
    </properties>
   </object>
  </objectgroup>

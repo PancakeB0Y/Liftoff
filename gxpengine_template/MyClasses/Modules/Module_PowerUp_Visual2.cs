@@ -26,18 +26,18 @@ namespace gxpengine_template.MyClasses.Modules
             this.powerUp = powerUp;
             _container = new Pivot();
 
-            _bg = new Sprite(data.GetStringProperty("BgFilePath", "Assets/PowerUp/Power_Up_RedBackground.PNG"),true,false);
-            _bar = new Sprite(data.GetStringProperty("BarFilePath", "Assets/PowerUp/Power_Up_Arrow.PNG"),true,false);
+            _bg = new Sprite(data.GetStringProperty("BgFilePath", "Assets/PowerUp/Power_Up_RedBackground.PNG"), true, false);
+            _bar = new Sprite(data.GetStringProperty("BarFilePath", "Assets/PowerUp/Power_Up_Arrow.PNG"), true, false);
             _chargeZone = new Sprite(data.GetStringProperty("ChargeZoneFilePath", "Assets/PowerUp/Power_Up_GreenPart.PNG"), true, false);
             _battery = new AnimationSprite
             (
                 data.GetStringProperty("BatteryFilePath", "Assets/PowerUp/Battery_Sprite.png"),
-                data.GetIntProperty("BatterySS_Cols",4),
-                data.GetIntProperty("BatterySS_Rows",1),
+                data.GetIntProperty("BatterySS_Cols", 4),
+                data.GetIntProperty("BatterySS_Rows", 1),
                 4,
                 true, false
             );
-            _chargeThreshHolds = data.GetStringProperty("ChargeThreshHoldsCSV","0.2,0.4,0.6,0.8").Split(',').Select(x=> float.Parse(x, CultureInfo.InvariantCulture)).ToArray();
+            _chargeThreshHolds = data.GetStringProperty("ChargeThreshHoldsCSV", "0.2,0.4,0.6,0.8").Split(',').Select(x => float.Parse(x, CultureInfo.InvariantCulture)).ToArray();
             AddChild(new Coroutine(Init()));
         }
 
@@ -49,7 +49,6 @@ namespace gxpengine_template.MyClasses.Modules
 
             var w = _bg.width;
             var h = _bg.height;
-
 
             var chargeZoneHeight = (int)(powerUp.ChargeZonePersentage * h);
             _chargeZone.SetOrigin(0, chargeZoneHeight / 2);
