@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="137">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="140">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
- <tileset firstgid="10" name="Maze_Bg" tilewidth="303" tileheight="183" tilecount="1" columns="1">
+ <tileset firstgid="10" name="Maze_Bg" tilewidth="303" tileheight="183" tilecount="0" columns="1">
   <image source="Maze/CreateTheWay_3.3.PNG" width="303" height="183"/>
  </tileset>
- <tileset firstgid="11" name="Maze3x2" tilewidth="299" tileheight="127" tilecount="1" columns="1">
+ <tileset firstgid="10" name="Maze3x2" tilewidth="299" tileheight="127" tilecount="0" columns="1">
   <image source="Maze/IMG_2566.PNG" width="299" height="127"/>
  </tileset>
- <tileset firstgid="12" name="Dials_Bg" tilewidth="314" tileheight="88" tilecount="1" columns="1">
+ <tileset firstgid="10" name="Dials_Bg" tilewidth="314" tileheight="88" tilecount="1" columns="1">
   <image source="Dials/Dials_Background.png" width="314" height="88"/>
+ </tileset>
+ <tileset firstgid="11" name="Maze3x2" tilewidth="448" tileheight="256" tilecount="1" columns="1">
+  <image source="Maze_3x2.PNG" width="448" height="256"/>
+ </tileset>
+ <tileset firstgid="12" name="Maze3x3" tilewidth="448" tileheight="256" tilecount="1" columns="1">
+  <image source="Maze/Maze_3x3.PNG" width="448" height="256"/>
  </tileset>
  <objectgroup id="10" name="WorldText"/>
  <objectgroup id="6" name="UI"/>
@@ -34,7 +40,7 @@
     <property name="WinScore" type="int" value="100"/>
    </properties>
   </object>
-  <object id="124" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="12" x="1217.67" y="196.242" width="314" height="88">
+  <object id="124" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="10" x="1217.67" y="196.242" width="314" height="88">
    <properties>
     <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
     <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
@@ -44,7 +50,7 @@
     <property name="TimerSeconds" type="int" value="10"/>
    </properties>
   </object>
-  <object id="124" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="12" x="1217.67" y="196.242" width="314" height="88">
+  <object id="124" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="10" x="1217.67" y="196.242" width="314" height="88">
    <properties>
     <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
     <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
@@ -95,6 +101,48 @@
     <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
     <property name="TimerSeconds" type="int" value="10"/>
     <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
+   </properties>
+  </object>
+  <object id="137" name="maze3x2" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="11" x="69.3361" y="290.581" width="448" height="256">
+   <properties>
+    <property name="CornerChance" type="float" value="0.7"/>
+    <property name="CrossChance" type="float" value="0.3"/>
+    <property name="LineChance" type="float" value="0.6"/>
+    <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.PNG"/>
+    <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
+    <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
+    <property name="ModuleColumns" type="int" value="3"/>
+    <property name="ModuleRows" type="int" value="2"/>
+    <property name="PaddingB" type="float" value="0.31"/>
+    <property name="PaddingL" type="float" value="0.35"/>
+    <property name="PaddingR" type="float" value="0.31"/>
+    <property name="PaddingT" type="float" value="0.3"/>
+    <property name="RotationEaseFunc" value="EaseOutBack"/>
+    <property name="RotationTimeMs" type="int" value="500"/>
+    <property name="SpacingX" type="float" value="0.035"/>
+    <property name="SpacingY" type="float" value="0.044"/>
+    <property name="TChance" type="float" value="0.5"/>
+   </properties>
+  </object>
+  <object id="139" name="maze3x3" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="12" x="52" y="818" width="448" height="256">
+   <properties>
+    <property name="CornerChance" type="float" value="0.7"/>
+    <property name="CrossChance" type="float" value="0.3"/>
+    <property name="LineChance" type="float" value="0.6"/>
+    <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.PNG"/>
+    <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
+    <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
+    <property name="ModuleColumns" type="int" value="3"/>
+    <property name="ModuleRows" type="int" value="3"/>
+    <property name="PaddingB" type="float" value="0.21"/>
+    <property name="PaddingL" type="float" value="0.36"/>
+    <property name="PaddingR" type="float" value="0.30000000000000004"/>
+    <property name="PaddingT" type="float" value="0.2"/>
+    <property name="RotationEaseFunc" value="EaseOutBack"/>
+    <property name="RotationTimeMs" type="int" value="500"/>
+    <property name="SpacingX" type="float" value="0.03"/>
+    <property name="SpacingY" type="float" value="0.044"/>
+    <property name="TChance" type="float" value="0.5"/>
    </properties>
   </object>
  </objectgroup>

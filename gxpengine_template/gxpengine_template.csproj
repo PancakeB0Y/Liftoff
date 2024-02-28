@@ -174,7 +174,6 @@
     <Compile Include="MyClasses\MyUtils.cs" />
     <Compile Include="MyClasses\SaveManager.cs" />
     <Compile Include="MyClasses\SceneConfigs.cs" />
-    <Compile Include="MyClasses\ScoreManager.cs" />
     <Compile Include="MyClasses\Tween.cs" />
     <Compile Include="MyClasses\UI\TextMesh.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

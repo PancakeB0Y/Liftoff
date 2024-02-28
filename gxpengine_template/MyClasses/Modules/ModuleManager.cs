@@ -1,5 +1,6 @@
 using GXPEngine;
 using gxpengine_template.MyClasses.Coroutines;
+using gxpengine_template.MyClasses.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace gxpengine_template.MyClasses.Modules
 {
     public class ModuleManager : Sprite
     {
+        public event Action ScoreUpdate;
+
         readonly Dictionary<Module.ModuleTypes, Module> modulesOn;
         readonly Dictionary<Module.ModuleTypes, List<Module>> prefabsByType;
 
@@ -18,6 +21,32 @@ namespace gxpengine_template.MyClasses.Modules
 
         List<AnimationSprite> transitionsClose;
         List<AnimationSprite> transitionsOpen;
+
+        //score manager
+        public int Score
+        {
+            get => _currentScore;
+            set
+            {
+                _currentScore = value;
+                _scoreTextMesh.Text = value.ToString();
+            }
+        }
+        int _currentScore;
+        readonly TextMesh _scoreTextMesh;
+
+        public int HighScore
+        {
+            get => _currentHighScore;
+            set
+            {
+                _currentHighScore = value;
+                _highScoreTextMesh.Text = value.ToString();
+            }
+        }
+        int _currentHighScore;
+        readonly TextMesh _highScoreTextMesh;
+
         public ModuleManager(TiledObject data) : base("Assets/square.png", true, false)
         {
             modulesOn = new Dictionary<Module.ModuleTypes, Module>
@@ -43,12 +72,24 @@ namespace gxpengine_template.MyClasses.Modules
             transitionsClose = new List<AnimationSprite>();
             transitionsOpen = new List<AnimationSprite>();
 
+            _scoreTextMesh = new TextMesh("0", 200, 200,CenterMode.Min,textSize:30);
+            _highScoreTextMesh = new TextMesh("0", 200, 200, CenterMode.Min, textSize: 30);
+
             AddChild(new Coroutine(LoadStartingModules()));
+        }
+
+        void AddScore(Module module)
+        {
+            Score += DifficultyManager.Instance.GetMultipliedScore(module.SuccesScore);
         }
 
         IEnumerator LoadStartingModules()
         {
             yield return null;
+            MyUtils.MyGame.CurrentScene.LateAddChild(_scoreTextMesh);
+            _scoreTextMesh.SetXY(game.width - 145, 69);
+            MyUtils.MyGame.CurrentScene.LateAddChild(_highScoreTextMesh);
+            _highScoreTextMesh.SetXY(game.width - 145, game.height - 69);
 
             ReplaceModule(Module.ModuleTypes.Dpad);
             ReplaceModule(Module.ModuleTypes.ThreeButtons);
@@ -68,6 +109,8 @@ namespace gxpengine_template.MyClasses.Modules
             if (modulesOn[moduleType] != null)
             {
                 modulesOn[moduleType].End -= ReplaceModule;
+                modulesOn[moduleType].Success -= AddScore;
+
                 modulesOn[moduleType].Destroy();
             }
 
@@ -77,6 +120,8 @@ namespace gxpengine_template.MyClasses.Modules
             modulesOn[moduleType] = newModule;
             modulesOn[moduleType].StartModule();
             modulesOn[moduleType].End += ReplaceModule;
+            modulesOn[moduleType].Success += AddScore;
+
             MyUtils.MyGame.CurrentScene.AddChild(newModule);
 
             switch (moduleType)
@@ -95,6 +140,7 @@ namespace gxpengine_template.MyClasses.Modules
                     break;
             }
         }
+
         void ReplaceModule(Module.ModuleTypes moduleType)
         {
             AddChild(new Coroutine(ReplaceModuleCR(moduleType)));
@@ -233,6 +279,11 @@ namespace gxpengine_template.MyClasses.Modules
         void Update()
         {
             AnimateTransitions();
+        }
+
+        protected override void OnDestroy()
+        {
+            ScoreUpdate = null;
         }
     }
 }

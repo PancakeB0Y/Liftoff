@@ -120,7 +120,7 @@ namespace gxpengine_template.MyClasses.Modules
             _container.AddChild(_dino);
             _container.AddChild(_scoreDisplay);
 
-            _ground.y = height - 50;
+            _ground.y = height - 45;
             _ground.x = width / 2 - _bg.width / 2;
             _ground.width = _bg.width;
             _ground.height = 40;
@@ -132,8 +132,8 @@ namespace gxpengine_template.MyClasses.Modules
 
             _scoreDisplay.SetOrigin(0, 0);
             _scoreDisplay.HorizontalAlign = CenterMode.Min;
-            _scoreDisplay.SetXY(0, 0);
-            _scoreDisplay.TextColor = Color.Wheat;
+            _scoreDisplay.SetXY(width / 2 - _bg.width / 2 + 15, 5);
+            _scoreDisplay.TextColor = Color.Green;
 
         }
         int started = 0;

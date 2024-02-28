@@ -10,13 +10,14 @@ namespace gxpengine_template.MyClasses
     public abstract class Module : AnimationSprite, ICloneable
     {
         public event Action<ModuleTypes> End;
-        public event Action Success;
-        public event Action Fail;
+        public event Action<Module> Success;
+        public event Action<Module> Fail;
 
         public enum ModuleTypes { Switch, Dpad, ThreeButtons, OneButton }
         public ModuleTypes moduleType = ModuleTypes.Switch;
 
         public int Difficulty;
+        public int SuccesScore { get; }
 
         protected readonly int timer;
         protected float currTime;
@@ -31,9 +32,7 @@ namespace gxpengine_template.MyClasses
             currTime = timer;
             Difficulty = data.GetIntProperty("Difficulty", 1);
             Difficulty = (int)Mathf.Clamp(Difficulty, 1, 3);
-
-            Fail += OnFail;
-            Success += OnSuccess;
+            SuccesScore = data.GetIntProperty("SuccesScore",10);
 
             _timerText = new TextMesh("4", 400, 400);
             alpha = 0f;
@@ -89,34 +88,18 @@ namespace gxpengine_template.MyClasses
 
         }
 
-        public void OnFail()
-        {
-            Console.WriteLine("Module failed " + moduleType);
-            Fail -= OnFail;
-            isComplete = true;
-            //coroutine destroy after time
-            //LateDestroy();
-        }
-
-        public void OnSuccess()
-        {
-            Console.WriteLine("Module success " + moduleType);
-            Success -= OnSuccess;
-            isComplete = true;
-            //LateDestroy();
-        }
-
         protected void RaiseSuccesEvent()
         {
             if (isComplete) { return; }
-            Success?.Invoke();
+            isComplete = true;
+            Success?.Invoke(this);
             End?.Invoke(moduleType);
         }
 
         protected void RaiseFailEvent()
         {
             if (isComplete) { return; }
-            Fail?.Invoke();
+            Fail?.Invoke(this);
             End?.Invoke(moduleType);
         }
 

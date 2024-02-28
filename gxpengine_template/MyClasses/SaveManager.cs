@@ -22,6 +22,8 @@ namespace gxpengine_template.MyClasses
             E,
             F
         }
+        public string PlayerName { get; private set; } = "stf";
+
         public SaveManager(TiledObject data) : base("Assets/square.png",true,false)
         {
             alpha = 0f;
@@ -31,7 +33,7 @@ namespace gxpengine_template.MyClasses
 
         public void SaveHighScore()
         {
-            int score = ScoreManager.Instance.Score;
+            int score = 0;
             string input = "";
             
             using (StreamReader reader = new StreamReader("Assets/HighScores.txt"))
@@ -47,19 +49,18 @@ namespace gxpengine_template.MyClasses
             //edit them in input variable;
             using (StreamWriter writer = new StreamWriter("Assets/HighScores.txt"))
             {
-                var playerName = ScoreManager.Instance.PlayerName;
                 if(string.IsNullOrEmpty(input))
                 {
-                    input += "," + playerName + ":" + score;
+                    input += "," + PlayerName + ":" + score;
                 }
                 else
                 {
                     string[] nameScorePair = input.Split(',');
-                    string prevScore = nameScorePair.FirstOrDefault(pair => pair.Substring(0, 3) == playerName);
+                    string prevScore = nameScorePair.FirstOrDefault(pair => pair.Substring(0, 3) == PlayerName);
                     if (prevScore != null)
-                        input = input.Replace(prevScore, playerName + ":" + score);
+                        input = input.Replace(prevScore, PlayerName + ":" + score);
                     else
-                        input += "," + playerName + ":" + score ;
+                        input += "," + PlayerName + ":" + score ;
                 }
                 input = input.TrimStart(',');
                 writer.Write(input);
@@ -69,7 +70,6 @@ namespace gxpengine_template.MyClasses
 
         public void Start()
         {
-            ScoreManager.Instance.Score = 30;
 
             SaveHighScore();
         }

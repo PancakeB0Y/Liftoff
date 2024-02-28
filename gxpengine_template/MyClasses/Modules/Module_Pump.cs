@@ -18,7 +18,7 @@ namespace gxpengine_template.MyClasses
         readonly float _dischargeSpeed;
 
         TiledObject _data;
-
+        bool ended;
         public Module_Pump(string fn, int c, int r, TiledObject data) : base(fn, c, r, data)
         {
             moduleType = ModuleTypes.OneButton;
