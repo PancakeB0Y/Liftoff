@@ -15,7 +15,9 @@ namespace gxpengine_template.MyClasses.Modules
         readonly Sprite _meter;
         readonly int _startDeg;
         readonly int _endDeg;
-
+        readonly Sprite _pumpPipe;
+        readonly AnimationSprite _pump;
+        readonly byte _pumpAnimSpeed;
         public Module_Pump_Visual2(Module_Pump logic, TiledObject data)
         {
             _moduleLogic = logic;
@@ -26,6 +28,13 @@ namespace gxpengine_template.MyClasses.Modules
             _meter = new Sprite(data.GetStringProperty("MeterPath", "Assets/Air_In.PNG"), true, false);
             _meter.SetOrigin(_meter.width / 2, _meter.height / 2);
 
+            _pumpPipe = new Sprite(data.GetStringProperty("PipePath"),true,false);
+            _pumpPipe.SetOrigin(_pumpPipe.width / 2, _pumpPipe.height / 2);
+
+            _pump = new AnimationSprite(data.GetStringProperty("PumpPath"), 7, 4, 25, true, false);
+            _pump.SetOrigin(_pump.width / 2, _pump.height / 2);
+            _pumpAnimSpeed = (byte)data.GetIntProperty("PumpAnimSpeed", 2);
+            _pump.SetCycle(0, 24, _pumpAnimSpeed);
             _startDeg = data.GetIntProperty("StartDeg", 30);
             _endDeg = data.GetIntProperty("EndDeg", 330);
 
@@ -43,8 +52,15 @@ namespace gxpengine_template.MyClasses.Modules
             _container.SetXY(_moduleLogic.x, _moduleLogic.y);
             _container.AddChild(_meter);
             _meter.SetXY(_moduleLogic.width / 2, _moduleLogic.height / 2);
+
             _container.AddChild(_arrow);
             _arrow.SetXY(_moduleLogic.width / 2, _moduleLogic.height / 2);
+
+            _container.AddChild(_pumpPipe);
+            _pumpPipe.SetXY(_moduleLogic.width / 2, _moduleLogic.height / 2);
+
+            _container.AddChild(_pump);
+            _pump.SetXY(_moduleLogic.width / 2 +140, _moduleLogic.height / 2);
 
         }
         protected override void OnDestroy()
@@ -53,6 +69,10 @@ namespace gxpengine_template.MyClasses.Modules
         }
         void Update()
         {
+            if(_moduleLogic.Charging)
+            {
+                _pump.AnimateFixed();
+            }
             _arrow.rotation = _startDeg + _moduleLogic.ChargePersentage * (_endDeg - _startDeg) ;
         }
     }

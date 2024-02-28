@@ -18,8 +18,6 @@ namespace gxpengine_template.MyClasses.Modules
 
             public Cactus(string filename, bool keepInCache = false, bool addCollider = true) : base(filename, keepInCache, addCollider)
             {
-                width = 10;
-                height = 10;
             }
 
         }
@@ -37,6 +35,9 @@ namespace gxpengine_template.MyClasses.Modules
         float _dinoVel;
         float _dinoGravity = 15;
         float _terminalVel;
+        byte _dinoAnimDelay;
+
+        Sprite _bg;
 
         Ground _ground;
         Ground[] _groundWrapper;
@@ -59,20 +60,20 @@ namespace gxpengine_template.MyClasses.Modules
             string dinoFilePath = data.GetStringProperty("DinoFilePath");
             int dinoSsCols = data.GetIntProperty("DinoSS_Cols");
             int dinoSsRows = data.GetIntProperty("DinoSS_Rows");
+            string bgFilePath = data.GetStringProperty("BgFilePath");
+
             _cactiFilePaths = data.GetStringProperty("CactiFilePathsCSV").Split(',');
             _cactusMinSpawnDistance = data.GetIntProperty("MinSpawnDistance", 96);
             _cactusMaxSpawnDistance = data.GetIntProperty("MaxSpawnDistance", 126);
             _moveSpeed = data.GetFloatProperty("CactusMoveSpeed",1);
-            
+            _dinoAnimDelay = (byte)data.GetIntProperty("DinoAnimDelay", 255);
+
+            _bg = new Sprite(bgFilePath, true, false);
             _dino = new AnimationSprite(dinoFilePath,dinoSsCols,dinoSsRows,-1,true);
-
-            _container.AddChild(_dino);
-            
-
             _ground = new Ground("Assets/square.png",true);
+
             //for dino to ignore everything else
             _groundWrapper = new Ground[1] { _ground };
-            _container.AddChild(_ground);
 
             _jumpPower = data.GetFloatProperty("DinoJumpPower",2);
             _terminalVel = data.GetFloatProperty("DinoTerminalVel",10);
@@ -82,9 +83,9 @@ namespace gxpengine_template.MyClasses.Modules
             _winScore = data.GetIntProperty("WinScore", 10);
 
             _scoreDisplay = new TextMesh("000", 100, 30);
-            _container.AddChild(_scoreDisplay);
-            
-            alpha = 0.1f;
+
+
+            alpha = 0f;
 
             AddChild(new Coroutine(Init()));
         }
@@ -94,24 +95,38 @@ namespace gxpengine_template.MyClasses.Modules
             yield return null;
             SetOrigin(0, 0);
             _container.SetXY(x, y);
+            
+            _bg.SetOrigin(_bg.width/2, _bg.height/2);
+            _container.AddChild(_bg);
+            _bg.SetXY(width/2,height/2);
+            
+            _container.AddChild(_ground);
+            _container.AddChild(_dino);
+            _container.AddChild(_scoreDisplay);
+
+            _ground.y = height - 50;
+            _ground.x = width / 2 - _bg.width / 2;
+            _ground.width = _bg.width;
+            _ground.height = 40;
+            _ground.color = (uint)Color.Brown.ToArgb();
+            _ground.alpha = 0.2f;
 
             _dino.color = (uint)Color.Green.ToArgb();
-            _dino.x = 20;
-            _dino.SetScaleXY(0.1f);
-
-            _ground.y = height/2;
-            _ground.width = width;
-            _ground.height = height/2;
-            _ground.color = (uint)Color.Brown.ToArgb();
+            _dino.x = _ground.y - _dino.height;
 
             _scoreDisplay.SetOrigin(0, 0);
             _scoreDisplay.HorizontalAlign = CenterMode.Min;
             _scoreDisplay.SetXY(0, 0);
             _scoreDisplay.TextColor = Color.Wheat;
+        
         }
-
+        int started = 0;
         void Update()
         {
+            //need this delay so obstacles spawn wher ground is
+            if (started++ <5)
+                return;
+
             CactusSpawner();
             HandleCacti();
             HandleDino();
@@ -130,7 +145,7 @@ namespace gxpengine_template.MyClasses.Modules
                 var newCactus = new Cactus(_cactiFilePaths[randomCactusIndex], true);
                 _container.AddChild(newCactus);
                 _cacti.Add(newCactus);
-                newCactus.SetXY(width, height/2 - 10);
+                newCactus.SetXY((width + _bg.width) / 2, _ground.y - newCactus.height);
                 _currentSpawnDistance = Utils.Random(_cactusMinSpawnDistance, _cactusMaxSpawnDistance);
             }
         }
@@ -139,7 +154,7 @@ namespace gxpengine_template.MyClasses.Modules
         {
             if (_cacti.Count == 0) return true;
 
-            return width - _cacti[_cacti.Count - 1].x > _currentSpawnDistance;
+            return (width / 2 + _bg.width / 2) - _cacti[_cacti.Count - 1].x > _currentSpawnDistance;
         }
 
         void HandleCacti()
@@ -156,7 +171,7 @@ namespace gxpengine_template.MyClasses.Modules
                     _scoreDisplay.Text = _currentScore.ToString();
                 }
 
-                if (cactus.x < 0)
+                if (cactus.x < (width - _bg.width) / 2)
                     cactus.LateDestroy();
 
                 if (col == null) continue;
@@ -173,22 +188,28 @@ namespace gxpengine_template.MyClasses.Modules
         void HandleDino()
         {
             Collision dinoColl = _dino.MoveUntilCollision(0, _dinoVel, _groundWrapper);
+            bool isGrounded = dinoColl != null && dinoColl.other is Ground;
             //jump
-            if (Input.GetKey(Key.D) && dinoColl?.other is Ground && !_dinoJumped)
+            if (Input.GetKey(Key.D) && isGrounded && !_dinoJumped)
             {
                 _dinoVel = -_jumpPower;
                 _dinoJumped = true;
-                _dino.SetCycle(4);
             }
-            else if (!(dinoColl?.other is Ground))
+            else if (!(isGrounded))
             {
                 _dinoJumped = false;
-                _dino.SetCycle(0, 4);
             }
+
+            if (isGrounded)
+                _dino.SetCycle(0, 7, _dinoAnimDelay);
+            else
+                _dino.SetCycle(4, 1, _dinoAnimDelay);
 
             //gravity
             _dinoVel += _dinoGravity * Mathf.Min(Time.deltaTime * 0.001f, 0.04f);
             _dinoVel = Mathf.Min(_dinoVel, _terminalVel);
+
+            _dino.AnimateFixed();
         }
 
         protected override void OnTimeEnd()

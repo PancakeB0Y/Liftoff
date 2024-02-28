@@ -18,8 +18,8 @@ namespace gxpengine_template.MyClasses
                 _textMesh.Text = _score.ToString();
             }
         }
-        public string PlayerName { get; private set; } = "STF";
         int _score;
+        public string PlayerName { get; private set; } = "stf";
         readonly TextMesh _textMesh;
 
         public ScoreManager(TiledObject data): base("Assets/square.png",true,false)
@@ -42,7 +42,10 @@ namespace gxpengine_template.MyClasses
             MyUtils.MyGame.CurrentScene.AddChild(_textMesh);
             _textMesh.SetXY(x, y);
         }
-
+        protected override void OnDestroy()
+        {
+            Instance = null;
+        }
 
     }
 }

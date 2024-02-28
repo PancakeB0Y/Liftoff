@@ -76,15 +76,6 @@ namespace gxpengine_template
                 loader.addColliders = true;
                 loader.LoadObjectGroups(index);
 
-                if (ModuleManager != null && ModuleManager.GetModules() == null) { return; }
-
-                Module[] modules = FindObjectsOfType<Module>();
-
-                foreach (Module module in modules)
-                {
-                    ModuleManager.AddModule(module);
-                }
-                ModuleManager.SetStartingModules();
             }
             
             //ui

@@ -54,7 +54,6 @@ namespace gxpengine_template.MyClasses.Modules
 
             _simonBalls = new SimonBall[_moduleLogic.Results.Count];
 
-
             AddChild(new Coroutine(Init(simonBallPath)));
         }
 

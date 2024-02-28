@@ -11,6 +11,7 @@ namespace gxpengine_template.MyClasses
     {
         //clamp 0 to 1
         public float ChargePersentage { get; private set; } = 1f;
+        public bool Charging {  get; private set; }
 
         readonly float _chargeSpeed;
         readonly float _dischargeSpeed;
@@ -33,7 +34,7 @@ namespace gxpengine_template.MyClasses
 
             if (Input.GetKey(Key.A))//whatever key
             {
-
+                Charging = true;
                 ChargePersentage += _chargeSpeed * deltaInSeconds;
 
                 if (ChargePersentage >= 1)
@@ -44,6 +45,8 @@ namespace gxpengine_template.MyClasses
             }
             else
             {
+                Charging = false;
+
                 ChargePersentage -= _dischargeSpeed * deltaInSeconds;
 
                 if (ChargePersentage <= 0) RaiseFailEvent();
