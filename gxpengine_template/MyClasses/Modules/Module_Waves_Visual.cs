@@ -96,7 +96,6 @@ namespace gxpengine_template.MyClasses.Modules
             return hasWon;
         }
 
-
         protected override void OnDestroy()
         {
             if (_container == null) { return; }

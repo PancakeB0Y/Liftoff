@@ -214,7 +214,7 @@ namespace gxpengine_template.MyClasses.Modules
             foreach (AnimationSprite transition in transitionsClose)
             {
                 transition.Animate();
-                if (transition.currentFrame >= 26)
+                if (transition.currentFrame >= transition.frameCount)
                 {
                     transition.Destroy();
                 }
