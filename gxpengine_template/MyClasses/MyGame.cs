@@ -24,7 +24,7 @@ namespace gxpengine_template.MyClasses
             //via FindObjectOfType or other methods
 
             Prefabs = LoadPrefabs();
-            LoadScene("Assets/LVL1.tmx");
+            LoadScene("Assets/LVL2.tmx");
             OnAfterStep += LoadSceneIfNotNull;
         }
 
@@ -36,7 +36,7 @@ namespace gxpengine_template.MyClasses
         {
             if (Input.GetKeyDown(Key.R))
             {
-                LoadScene("Assets/LVL1.tmx");
+                ReloadScene();
             }
             //_arduinoReciever.Update();
         }

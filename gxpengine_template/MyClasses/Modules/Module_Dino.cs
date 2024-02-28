@@ -48,12 +48,17 @@ namespace gxpengine_template.MyClasses.Modules
 
         int _winScore;
         TextMesh _scoreDisplay;
-        
+
         Pivot _container;
         int _currentSpawnDistance;
 
+        TiledObject _data;
+
         public Module_Dino(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, data)
         {
+            moduleType = ModuleTypes.OneButton;
+            _data = data;
+
             _container = new Pivot();
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
@@ -75,8 +80,8 @@ namespace gxpengine_template.MyClasses.Modules
             //for dino to ignore everything else
             _groundWrapper = new Ground[1] { _ground };
 
-            _jumpPower = data.GetFloatProperty("DinoJumpPower",2);
-            _terminalVel = data.GetFloatProperty("DinoTerminalVel",10);
+            _jumpPower = data.GetFloatProperty("DinoJumpPower", 2);
+            _terminalVel = data.GetFloatProperty("DinoTerminalVel", 10);
 
             _scorePenalty = data.GetIntProperty("ScorePenalty", 1);
             _scoreReward = data.GetIntProperty("ScoreReward", 10);
@@ -88,6 +93,13 @@ namespace gxpengine_template.MyClasses.Modules
             alpha = 0f;
 
             AddChild(new Coroutine(Init()));
+        }
+
+        override public object Clone()
+        {
+            var clone = new Module_Dino(texture.filename, _cols, _rows, _data);
+
+            return clone;
         }
 
         IEnumerator Init()
@@ -130,7 +142,7 @@ namespace gxpengine_template.MyClasses.Modules
             CactusSpawner();
             HandleCacti();
             HandleDino();
-            
+
             if (_currentScore >= _winScore)
             {
                 RaiseSuccesEvent();
@@ -140,7 +152,7 @@ namespace gxpengine_template.MyClasses.Modules
         void CactusSpawner()
         {
             var randomCactusIndex = Utils.Random(0, _cactiFilePaths.Length);
-            if ( CheckCanSpawnCactus() )
+            if (CheckCanSpawnCactus())
             {
                 var newCactus = new Cactus(_cactiFilePaths[randomCactusIndex], true);
                 _container.AddChild(newCactus);
@@ -221,7 +233,7 @@ namespace gxpengine_template.MyClasses.Modules
         {
             _container.Destroy();
         }
-        
+
     }
 
 }

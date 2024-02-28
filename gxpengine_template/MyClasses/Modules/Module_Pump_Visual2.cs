@@ -23,7 +23,7 @@ namespace gxpengine_template.MyClasses.Modules
             _moduleLogic = logic;
 
             _arrow = new Sprite(data.GetStringProperty("ArrowPath", "Assets/Air_Arrow.PNG"), true, false);
-            _arrow.SetOrigin(_arrow.width/2, _arrow.height/2);
+            _arrow.SetOrigin(_arrow.width / 2, _arrow.height / 2);
 
             _meter = new Sprite(data.GetStringProperty("MeterPath", "Assets/Air_In.PNG"), true, false);
             _meter.SetOrigin(_meter.width / 2, _meter.height / 2);

@@ -1,5 +1,7 @@
 using GXPEngine;
+using gxpengine_template.MyClasses.Modules;
 using System;
+using System.Xml.Linq;
 using TiledMapParser;
 
 namespace gxpengine_template.MyClasses
@@ -21,9 +23,12 @@ namespace gxpengine_template.MyClasses
         readonly float _barMoveDownSpeed;
 
         readonly Module_PowerUp_Visual visual;
-        public Module_PowerUp(string fn, int c, int r, TiledObject data) : base(fn,c,r,data)
+
+        TiledObject _data;
+        public Module_PowerUp(string fn, int c, int r, TiledObject data) : base(fn, c, r, data)
         {
             moduleType = ModuleTypes.Switch;
+            _data = data;
 
             _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 0.1f);
 
@@ -35,6 +40,13 @@ namespace gxpengine_template.MyClasses
             alpha = 0;
             visual = new Module_PowerUp_Visual(this);
             AddChild(visual);
+        }
+
+        override public object Clone()
+        {
+            var clone = new Module_PowerUp(texture.filename, _cols, _rows, _data);
+
+            return clone;
         }
         void Update()
         {
@@ -76,11 +88,6 @@ namespace gxpengine_template.MyClasses
                 RaiseSuccesEvent();
             else
                 RaiseFailEvent();
-        }
-
-        protected override void LoadVisuals()
-        {
-            AddChild(visual);
         }
     }
 }

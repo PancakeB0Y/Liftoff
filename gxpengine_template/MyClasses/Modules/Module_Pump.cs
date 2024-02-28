@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Xml.Linq;
 using GXPEngine;
 using gxpengine_template.MyClasses.Coroutines;
 using gxpengine_template.MyClasses.Modules;
@@ -16,16 +17,26 @@ namespace gxpengine_template.MyClasses
         readonly float _chargeSpeed;
         readonly float _dischargeSpeed;
 
+        TiledObject _data;
+
         public Module_Pump(string fn, int c, int r, TiledObject data) : base(fn, c, r, data)
         {
             moduleType = ModuleTypes.OneButton;
+            _data = data;
 
             _chargeSpeed = data.GetFloatProperty("ChargeSpeed", 0.1f);
             _dischargeSpeed = data.GetFloatProperty("DishargeSpeed", 0.04f);
             alpha = 0;
             //need visual
-            Module_Pump_Visual2 visual = new Module_Pump_Visual2(this,data);
+            Module_Pump_Visual2 visual = new Module_Pump_Visual2(this, data);
             AddChild(visual);
+        }
+
+        override public object Clone()
+        {
+            var clone = new Module_Pump(texture.filename, _cols, _rows, _data);
+
+            return clone;
         }
 
         void Update()

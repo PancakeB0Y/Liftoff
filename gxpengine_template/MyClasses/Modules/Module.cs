@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using System;
 using TiledMapParser;
 using gxpengine_template.MyClasses.Coroutines;
@@ -7,8 +7,7 @@ using System.Collections;
 
 namespace gxpengine_template.MyClasses
 {
-
-    public abstract class Module : AnimationSprite
+    public abstract class Module : AnimationSprite, ICloneable
     {
         public event Action<ModuleTypes> End;
         public event Action Success;
@@ -17,10 +16,10 @@ namespace gxpengine_template.MyClasses
         public enum ModuleTypes { Switch, Dpad, ThreeButtons, OneButton }
         public ModuleTypes moduleType = ModuleTypes.Switch;
 
+        public int Difficulty;
+
         protected readonly int timer;
         protected float currTime;
-
-        protected int difficulty;
 
         TextMesh _timerText;
 
@@ -28,8 +27,8 @@ namespace gxpengine_template.MyClasses
         {
             timer = data.GetIntProperty("TimerSeconds", 5);
             currTime = timer;
-            difficulty = data.GetIntProperty("Difficulty", 1);
-            difficulty = (int)Mathf.Clamp(difficulty, 1, 3);
+            Difficulty = data.GetIntProperty("Difficulty", 1);
+            Difficulty = (int)Mathf.Clamp(Difficulty, 1, 3);
 
             Fail += OnFail;
             Success += OnSuccess;
@@ -37,6 +36,13 @@ namespace gxpengine_template.MyClasses
             _timerText = new TextMesh("4", 400, 400);
             alpha = 0f;
             AddChild(new Coroutine(Initialize()));
+        }
+
+        public virtual object Clone()
+        {
+            var clone = (Module)MemberwiseClone();
+
+            return clone;
         }
 
         IEnumerator Initialize()
@@ -58,7 +64,6 @@ namespace gxpengine_template.MyClasses
             }
             OnTimeEnd();
         }
-
 
         protected virtual void StartTimer()
         {
@@ -87,14 +92,14 @@ namespace gxpengine_template.MyClasses
             Console.WriteLine("Module failed " + moduleType);
             Fail -= OnFail;
             //coroutine destroy after time
-            Destroy();
+            //LateDestroy();
         }
 
         public void OnSuccess()
         {
             Console.WriteLine("Module success " + moduleType);
             Success -= OnSuccess;
-            Destroy();
+            //LateDestroy();
         }
 
         protected void RaiseSuccesEvent()
@@ -108,6 +113,7 @@ namespace gxpengine_template.MyClasses
             Fail?.Invoke();
             End?.Invoke(moduleType);
         }
+
 
     }
 }

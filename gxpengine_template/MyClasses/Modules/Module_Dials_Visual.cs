@@ -17,10 +17,13 @@ namespace gxpengine_template.MyClasses.Modules
         {
             public Sprite mover;
 
+            readonly Dial _dial;
+
             string _greenFilename;
             bool _isGreen = false;
-            public Dial_Visual(string moverFilename, string redFilename, string greenFilename, bool keepInCache = false, bool addCollider = false) : base(redFilename, keepInCache, addCollider)
+            public Dial_Visual(string moverFilename, string redFilename, string greenFilename, Dial dial, bool keepInCache = false, bool addCollider = false) : base(redFilename, keepInCache, addCollider)
             {
+                _dial = dial;
                 _greenFilename = greenFilename;
 
                 mover = new Sprite(moverFilename, false, false);
@@ -31,27 +34,29 @@ namespace gxpengine_template.MyClasses.Modules
 
             void TurnGreen()
             {
+                RemoveChild(mover);
                 Sprite greenPart = new Sprite(_greenFilename, false, false);
                 AddChild(greenPart);
+                AddChild(mover);
                 _isGreen = true;
             }
 
-            public void Rotate(Dial dial)
+            public void Rotate()
             {
                 if (_isGreen) { return; }
 
-                if (dial.IsComplete)
+                if (_dial.IsComplete)
                 {
                     TurnGreen();
                 }
 
-                if (dial.RotateRight)
+                if (_dial.RotateRight)
                 {
-                    mover.rotation = (dial.CurrentPercent + 1) * 3.6f - (dial.WinRange / 2 * 3.6f);
+                    mover.rotation = (_dial.CurrentPercent + 1) * 3.6f - (_dial.WinRange / 2 * 3.6f);
                 }
                 else
                 {
-                    mover.rotation = -((dial.CurrentPercent + 1) * 3.6f - (dial.WinRange / 2 * 3.6f));
+                    mover.rotation = -((_dial.CurrentPercent + 1) * 3.6f - (_dial.WinRange / 2 * 3.6f));
                 }
             }
         }
@@ -59,7 +64,7 @@ namespace gxpengine_template.MyClasses.Modules
         readonly List<Dial_Visual> _visuals;
         readonly Module_Dials _moduleLogic;
 
-        readonly Pivot _container;
+        Pivot _container;
 
         public Module_Dials_Visual(Module_Dials logic, TiledObject data)
         {
@@ -70,8 +75,7 @@ namespace gxpengine_template.MyClasses.Modules
 
             _moduleLogic = logic;
 
-            _container = new Pivot();
-            MyUtils.MyGame.CurrentScene.AddChild(_container);
+
 
             AddChild(new Coroutine(Init(dialVisualPath, dialRedPath, dialGreenPath)));
         }
@@ -80,8 +84,10 @@ namespace gxpengine_template.MyClasses.Modules
         {
             yield return null;
 
-            Vector2 pos = new Vector2(_moduleLogic.x, _moduleLogic.y);
+            _container = new Pivot();
+            MyUtils.MyGame.CurrentScene.AddChild(_container);
 
+            Vector2 pos = new Vector2(_moduleLogic.x, _moduleLogic.y);
             _moduleLogic.SetOrigin(0, 0);
             _moduleLogic.SetXY(pos.x, pos.y);
             _moduleLogic.alpha = 1f;
@@ -91,8 +97,7 @@ namespace gxpengine_template.MyClasses.Modules
             int dialW = (_moduleLogic.width - (spacing * (2))) / 3;
             for (int i = 0; i < 3; i++)
             {
-                Dial_Visual dial = new Dial_Visual(dialVisualPath, dialRedPath, dialGreenPath);
-                _container.AddChild(dial);
+                Dial_Visual dial = new Dial_Visual(dialVisualPath, dialRedPath, dialGreenPath, _moduleLogic.Dials[i]);
 
                 dial.width = dialW;
                 dial.height = dialW;
@@ -100,6 +105,7 @@ namespace gxpengine_template.MyClasses.Modules
 
                 dial.x = dialW * (i % 3) + (spacing * (i % 3));
                 dial.y = _moduleLogic.height / 2 - dial.height / 2;
+                _container.AddChild(dial);
             }
         }
 
@@ -107,13 +113,16 @@ namespace gxpengine_template.MyClasses.Modules
         {
             for (int i = 0; i < _visuals.Count; i++)
             {
-                _visuals[i].Rotate(_moduleLogic.Dials[i]);
+                _visuals[i].Rotate();
             }
         }
 
         protected override void OnDestroy()
         {
-            _container.Destroy();
+            if (_container != null)
+            {
+                _container.Destroy();
+            }
         }
     }
 }

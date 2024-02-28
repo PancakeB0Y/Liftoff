@@ -7,19 +7,27 @@ namespace gxpengine_template.MyClasses
 {
     public class Module_PowerUp_Visual : GameObject
     {
-        readonly EasyDraw bar;
-        readonly EasyDraw bg;
-        readonly EasyDraw chargeZone;
-        readonly EasyDraw battery;
+        EasyDraw bar;
+        EasyDraw bg;
+        EasyDraw chargeZone;
+        EasyDraw battery;
         readonly Module_PowerUp powerUp;
-        readonly Pivot _container;
+        Pivot _container;
 
         public Module_PowerUp_Visual(Module_PowerUp powerUp, int barSize = 2)
         {
+            this.powerUp = powerUp;
+
+            AddChild(new Coroutine(Init()));
+        }
+
+        IEnumerator Init()
+        {
+            yield return null;
+
             _container = new Pivot();
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
-            this.powerUp = powerUp;
             var w = 50;
             var h = 100;
 
@@ -32,7 +40,7 @@ namespace gxpengine_template.MyClasses
             chargeZone.y = (int)(h * powerUp.ChargeZoneRandomPosition);
             chargeZone.Clear(Color.Green);
 
-            bar = new EasyDraw(w, barSize, false);
+            bar = new EasyDraw(w, 2, false);
             bar.Clear(Color.Blue);
             var bat_w = 10;
             var bat_h = 30;
@@ -44,12 +52,6 @@ namespace gxpengine_template.MyClasses
             _container.AddChild(chargeZone);
             _container.AddChild(bar);
             _container.AddChild(battery);
-            AddChild(new Coroutine(Init()));
-        }
-
-        IEnumerator Init()
-        {
-            yield return null;
 
             _container.SetXY(powerUp.x, powerUp.y);
 
@@ -60,11 +62,12 @@ namespace gxpengine_template.MyClasses
         }
         void Update()
         {
+            if (bar == null) { return; }
             bar.y = bg.y + powerUp.CurrentBarPersentage * bg.height;
             battery.Clear(Color.Red);
             battery.ShapeAlign(CenterMode.Min, CenterMode.Min);
             battery.Fill(Color.Green);
-            battery.Rect(0,0,battery.width,battery.height * powerUp.CurrentCharge);
+            battery.Rect(0, 0, battery.width, battery.height * powerUp.CurrentCharge);
         }
     }
 }

@@ -1,98 +1,234 @@
-﻿using GXPEngine;
+using GXPEngine;
+using gxpengine_template.MyClasses.Coroutines;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Configuration;
-using System.Text;
 using System.Threading.Tasks;
+using TiledMapParser;
+using static gxpengine_template.MyClasses.Module;
 
-namespace gxpengine_template.MyClasses
+namespace gxpengine_template.MyClasses.Modules
 {
-    public class ModuleManager : GameObject
+    public class ModuleManager : Sprite
     {
         readonly Dictionary<Module.ModuleTypes, Module> modulesOn;
-        readonly List<Module> modulesLeft;
+        readonly Dictionary<Module.ModuleTypes, List<Module>> prefabsByType;
 
-        public ModuleManager()
+        readonly List<GameObject> modulePrefabs;
+
+        List<AnimationSprite> transitionsClose;
+        List<AnimationSprite> transitionsOpen;
+
+        bool hasStarted = false;
+        public ModuleManager(TiledObject data) : base("Assets/square.png", true, false)
         {
-            modulesLeft = new List<Module>();
-            modulesOn = new Dictionary<Module.ModuleTypes, Module>();
-            modulesOn.Add(Module.ModuleTypes.Switch, null);
-            modulesOn.Add(Module.ModuleTypes.Dpad, null);
-            modulesOn.Add(Module.ModuleTypes.ThreeButtons, null);
-            modulesOn.Add(Module.ModuleTypes.OneButton, null);
-            //load tmx with modules
-
-            //list of maze modules prefabs by FindObjectsOfType();
-            //
-            //list of dino modules prefabs
-            //...
-            //get a specified type according to difficulty
-            //module.clone()
-           
-        }
-
-        public void AddModule(Module module)
-        {
-            modulesLeft.Add(module);
-        }
-
-        public List<Module> GetModules()
-        {
-            return modulesLeft;
-        }
-
-        void ReplaceModule(int moduleLeftIndex, Module newModule)
-        {
-            modulesOn[newModule.moduleType] = newModule;
-            modulesOn[newModule.moduleType].StartModule();
-            modulesOn[newModule.moduleType].End += UpdateModule;
-            modulesLeft.RemoveAt(moduleLeftIndex);
-        }
-
-        void UpdateModule(Module.ModuleTypes moduleType)
-        {
-            int index = GetFirstModuleByType(moduleType);
-
-            if (index == -1)
+            modulesOn = new Dictionary<Module.ModuleTypes, Module>
             {
-                Console.WriteLine("No modules left from type " + moduleType);
-                return;
+                { Module.ModuleTypes.Switch, null },
+                { Module.ModuleTypes.Dpad, null },
+                { Module.ModuleTypes.ThreeButtons, null },
+                { Module.ModuleTypes.OneButton, null }
+            };
+
+            prefabsByType = new Dictionary<Module.ModuleTypes, List<Module>>
+            {
+                { Module.ModuleTypes.Switch, new List<Module>() },
+                { Module.ModuleTypes.Dpad, new List<Module>() },
+                { Module.ModuleTypes.ThreeButtons, new List<Module>() },
+                { Module.ModuleTypes.OneButton, new List<Module>() }
+            };
+
+            alpha = 0f;
+            LoadModules(out modulePrefabs);
+            prefabsByType = OrganizeByType(modulePrefabs, prefabsByType);
+
+            transitionsClose = new List<AnimationSprite>();
+            transitionsOpen = new List<AnimationSprite>();
+
+            AddChild(new Coroutine(LoadStartingModules()));
+        }
+
+        IEnumerator LoadStartingModules()
+        {
+            yield return null;
+
+            ReplaceModule(Module.ModuleTypes.Dpad);
+            ReplaceModule(Module.ModuleTypes.ThreeButtons);
+            ReplaceModule(Module.ModuleTypes.OneButton);
+            ReplaceModule(Module.ModuleTypes.Switch);
+
+            hasStarted = true;
+        }
+
+        async void ReplaceModule(Module.ModuleTypes moduleType)
+        {
+            if (hasStarted)
+            {
+                PlayCloseAnimation(moduleType);
+
+                if (modulesOn[moduleType] != null)
+                {
+                    modulesOn[moduleType].End -= ReplaceModule;
+                    modulesOn[moduleType].LateDestroy();
+                }
+                await Task.Delay(440);
+                PlayOpenAnimation(moduleType);
+                await Task.Delay(200);
             }
 
-            ReplaceModule(index, modulesLeft[index]);
+            Module newModule = GetRandomModule(moduleType, 1);
+            modulesOn[moduleType] = newModule;
+            modulesOn[moduleType].StartModule();
+            modulesOn[moduleType].End += ReplaceModule;
+            MyUtils.MyGame.CurrentScene.AddChild(newModule);
+
+            switch (moduleType)
+            {
+                case ModuleTypes.Dpad:
+                    newModule.SetXY(newModule.width / 2 + 80, game.height / 2);
+                    break;
+                case ModuleTypes.ThreeButtons:
+                    newModule.SetXY(game.width - newModule.width + 80, game.height / 2);
+                    break;
+                case ModuleTypes.OneButton:
+                    newModule.SetXY(game.width / 2, 140);
+                    break;
+                case ModuleTypes.Switch:
+                    newModule.SetXY(game.width / 2, game.height - 140);
+                    break;
+            }
         }
 
-        int GetFirstModuleByType(Module.ModuleTypes moduleType)
+
+
+        Module GetRandomModule(Module.ModuleTypes moduleType, int Difficulty)
         {
-            for (int i = 0; i < modulesLeft.Count; i++)
+            Random rnd = new Random();
+
+            int r = rnd.Next(prefabsByType[moduleType].Count);
+
+            Module module = prefabsByType[moduleType][r];
+
+            int i = 0;
+
+            while (module.Difficulty != Difficulty && i < 10)
             {
-                if (modulesLeft[i].moduleType == moduleType)
+                r = rnd.Next(prefabsByType[moduleType].Count);
+                module = prefabsByType[moduleType][r];
+                i++;
+            }
+
+            return (Module)module.Clone();
+        }
+
+        void LoadModules(out List<GameObject> modulePrefabs)
+        {
+            Pivot pivot = new Pivot();
+            var loader = new TiledLoader("Assets/DifficultyPrefabs.tmx", pivot, addColliders: false, autoInstance: true);
+
+            int index;
+
+            //level objects
+            if (loader.map.ObjectGroups.TryGetIndex(x => x.Name == "Object Layer 1", out index))
+            {
+                loader.rootObject = pivot;
+                loader.addColliders = false;
+                loader.LoadObjectGroups(index);
+            }
+
+            modulePrefabs = pivot.GetChildren();
+        }
+
+        Dictionary<Module.ModuleTypes, List<Module>> OrganizeByType(List<GameObject> modules, Dictionary<Module.ModuleTypes, List<Module>> prefabsByType)
+        {
+            foreach (Module module in modules)
+            {
+                prefabsByType[module.moduleType].Add(module);
+            }
+
+            return prefabsByType;
+        }
+
+        void PlayCloseAnimation(Module.ModuleTypes moduleType)
+        {
+            AnimationSprite closeModuleAnimation = new AnimationSprite("Assets/Transition_MicroGames.png", 8, 7, 52, true, false);
+            closeModuleAnimation.SetCycle(1, 26, 3);
+
+            closeModuleAnimation.width = 460;
+            closeModuleAnimation.height = 310;
+
+            switch (moduleType)
+            {
+                case ModuleTypes.Dpad:
+                    closeModuleAnimation.SetXY(-20, game.height / 2 - 63);
+                    break;
+                case ModuleTypes.ThreeButtons:
+                    closeModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
+                    break;
+                case ModuleTypes.OneButton:
+                    closeModuleAnimation.SetXY(game.width / 2 - 205, -10);
+                    break;
+                case ModuleTypes.Switch:
+                    closeModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
+                    break;
+            }
+
+            AddChild(closeModuleAnimation);
+            transitionsClose.Add(closeModuleAnimation);
+        }
+
+        void PlayOpenAnimation(Module.ModuleTypes moduleType)
+        {
+            AnimationSprite openModuleAnimation = new AnimationSprite("Assets/Transition_MicroGames.png", 8, 7, 52, true, false);
+            openModuleAnimation.SetCycle(26, 52, 3);
+
+            openModuleAnimation.width = 460;
+            openModuleAnimation.height = 310;
+
+            switch (moduleType)
+            {
+                case ModuleTypes.Dpad:
+                    openModuleAnimation.SetXY(-20, game.height / 2 - 63);
+                    break;
+                case ModuleTypes.ThreeButtons:
+                    openModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
+                    break;
+                case ModuleTypes.OneButton:
+                    openModuleAnimation.SetXY(game.width / 2 - 205, -10);
+                    break;
+                case ModuleTypes.Switch:
+                    openModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
+                    break;
+            }
+
+            AddChild(openModuleAnimation);
+            transitionsOpen.Add(openModuleAnimation);
+        }
+
+        void AnimateTransitions()
+        {
+            foreach (AnimationSprite transition in transitionsClose)
+            {
+                transition.Animate();
+                if (transition.currentFrame >= 26)
                 {
-                    return i;
+                    transition.LateDestroy();
                 }
             }
 
-            return -1;
-        }
-
-        public void SetStartingModules()
-        {
-            for (int i = 0; i < modulesLeft.Count; i++)
+            foreach (AnimationSprite transition in transitionsOpen)
             {
-                Module curModule = modulesLeft[i];
-
-                if (modulesOn[curModule.moduleType] == null)
+                transition.Animate();
+                if (transition.currentFrame >= 52)
                 {
-                    ReplaceModule(i, curModule);
-                    i--;
+                    transition.LateDestroy();
                 }
             }
         }
 
         void Update()
         {
-
+            AnimateTransitions();
         }
     }
 }
