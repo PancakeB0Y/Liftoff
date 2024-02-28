@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using GXPEngine.Core;
 using gxpengine_template.MyClasses.Coroutines;
 using gxpengine_template.MyClasses.UI;
@@ -63,21 +63,21 @@ namespace gxpengine_template.MyClasses.Modules
             _container = new Pivot();
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
-            string dinoFilePath = data.GetStringProperty("DinoFilePath");
+            string dinoFilePath = data.GetStringProperty("DinoFilePath", "Assets/Dino/Dino_Sprite.png");
             int dinoSsCols = data.GetIntProperty("DinoSS_Cols");
             int dinoSsRows = data.GetIntProperty("DinoSS_Rows");
-            string bgFilePath = data.GetStringProperty("BgFilePath");
+            string bgFilePath = data.GetStringProperty("BgFilePath", "Assets/Dino/Dino_Background.png");
 
-            _cactiFilePaths = data.GetStringProperty("CactiFilePathsCSV").Split(',');
+            _cactiFilePaths = data.GetStringProperty("CactiFilePathsCSV", "Assets/Dino/Dino_obstacle.png").Split(',');
             _cactusMinSpawnDistance = data.GetIntProperty("MinSpawnDistance", 96);
             _cactusMaxSpawnDistance = data.GetIntProperty("MaxSpawnDistance", 126);
-            _moveSpeed = data.GetFloatProperty("CactusMoveSpeed",1);
+            _moveSpeed = data.GetFloatProperty("CactusMoveSpeed", 1);
             _dinoAnimDelay = (byte)data.GetIntProperty("DinoAnimDelay", 255);
             _cactiSize = data.GetIntProperty("CactiSize", 20);
 
             _bg = new Sprite(bgFilePath, true, false);
-            _dino = new AnimationSprite(dinoFilePath,dinoSsCols,dinoSsRows,-1,true);
-            _ground = new Ground("Assets/square.png",true);
+            _dino = new AnimationSprite(dinoFilePath, dinoSsCols, dinoSsRows, -1, true);
+            _ground = new Ground("Assets/square.png", true);
 
             //for dino to ignore everything else
             _groundWrapper = new Ground[1] { _ground };
@@ -100,6 +100,8 @@ namespace gxpengine_template.MyClasses.Modules
         override public object Clone()
         {
             var clone = new Module_Dino(texture.filename, _cols, _rows, _data);
+            clone.width = width;
+            clone.height = height;
 
             return clone;
         }
@@ -109,11 +111,11 @@ namespace gxpengine_template.MyClasses.Modules
             yield return null;
             SetOrigin(0, 0);
             _container.SetXY(x, y);
-            
-            _bg.SetOrigin(_bg.width/2, _bg.height/2);
+
+            _bg.SetOrigin(_bg.width / 2, _bg.height / 2);
             _container.AddChild(_bg);
-            _bg.SetXY(width/2,height/2);
-            
+            _bg.SetXY(width / 2, height / 2);
+
             _container.AddChild(_ground);
             _container.AddChild(_dino);
             _container.AddChild(_scoreDisplay);
@@ -132,13 +134,13 @@ namespace gxpengine_template.MyClasses.Modules
             _scoreDisplay.HorizontalAlign = CenterMode.Min;
             _scoreDisplay.SetXY(0, 0);
             _scoreDisplay.TextColor = Color.Wheat;
-        
+
         }
         int started = 0;
         void Update()
         {
             //need this delay so obstacles spawn wher ground is
-            if (started++ <5)
+            if (started++ < 5)
                 return;
 
             CactusSpawner();

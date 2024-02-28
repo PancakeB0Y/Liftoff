@@ -38,6 +38,8 @@ namespace gxpengine_template.MyClasses
         override public object Clone()
         {
             var clone = new Module_Dials(texture.filename, _cols, _rows, _data);
+            clone.width = 314;
+            clone.height = 88;
 
             return clone;
         }
@@ -100,6 +102,8 @@ namespace gxpengine_template.MyClasses
         public Dial(float speed, int keyCode, int winRange)
         {
             this.speed = speed;
+
+            this.speed = Utils.Random(speed - 0.2f, speed + 0.2f);
             this.keyCode = keyCode;
             WinRange = winRange;
             //MinWinRange = Utils.Random(0, 100 - WinRange);

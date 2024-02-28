@@ -23,6 +23,8 @@ namespace gxpengine_template.MyClasses
 
         TextMesh _timerText;
 
+        bool isComplete = false;
+
         public Module(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, addCollider: false)
         {
             timer = data.GetIntProperty("TimerSeconds", 5);
@@ -91,6 +93,7 @@ namespace gxpengine_template.MyClasses
         {
             Console.WriteLine("Module failed " + moduleType);
             Fail -= OnFail;
+            isComplete = true;
             //coroutine destroy after time
             //LateDestroy();
         }
@@ -99,17 +102,20 @@ namespace gxpengine_template.MyClasses
         {
             Console.WriteLine("Module success " + moduleType);
             Success -= OnSuccess;
+            isComplete = true;
             //LateDestroy();
         }
 
         protected void RaiseSuccesEvent()
         {
+            if (isComplete) { return; }
             Success?.Invoke();
             End?.Invoke(moduleType);
         }
 
         protected void RaiseFailEvent()
         {
+            if (isComplete) { return; }
             Fail?.Invoke();
             End?.Invoke(moduleType);
         }

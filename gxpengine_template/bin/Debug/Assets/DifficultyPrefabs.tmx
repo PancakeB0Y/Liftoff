@@ -1,68 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="130">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="137">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
- <tileset firstgid="10" name="Dials_Bg" tilewidth="314" tileheight="88" tilecount="1" columns="1">
-  <image source="Dials/Dials_Background.png" width="314" height="88"/>
+ <tileset firstgid="10" name="Maze_Bg" tilewidth="303" tileheight="183" tilecount="1" columns="1">
+  <image source="Maze/CreateTheWay_3.3.PNG" width="303" height="183"/>
  </tileset>
- <tileset firstgid="11" name="Waves_Background" tilewidth="459" tileheight="278" tilecount="1" columns="1">
-  <image source="Waves/Waves_Background.png" width="459" height="278"/>
+ <tileset firstgid="11" name="Maze3x2" tilewidth="299" tileheight="127" tilecount="1" columns="1">
+  <image source="Maze/IMG_2566.PNG" width="299" height="127"/>
+ </tileset>
+ <tileset firstgid="12" name="Dials_Bg" tilewidth="314" tileheight="88" tilecount="1" columns="1">
+  <image source="Dials/Dials_Background.png" width="314" height="88"/>
  </tileset>
  <objectgroup id="10" name="WorldText"/>
  <objectgroup id="6" name="UI"/>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="111" name="dino" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="1" x="713.246" y="245.394" width="378.666" height="192">
+  <object id="111" name="dino" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="1" x="679.408" y="227.212" width="342.807" height="173.818">
    <properties>
-    <property name="CactiFilePathsCSV" value="Assets/square.png"/>
+    <property name="BgFilePath" value="Assets/Dino/Dino_Background.png"/>
+    <property name="CactiFilePathsCSV" value="Assets/Dino/Dino_obstacle.png"/>
     <property name="CactusMoveSpeed" type="float" value="1"/>
-    <property name="DinoFilePath" value="Assets/square.png"/>
-    <property name="DinoJumpPower" type="float" value="5"/>
+    <property name="DinoAnimDelay" type="int" value="3"/>
+    <property name="DinoFilePath" value="Assets/Dino/Dino_Sprite.png"/>
+    <property name="DinoJumpPower" type="float" value="7"/>
+    <property name="DinoSS_Cols" type="int" value="4"/>
+    <property name="DinoSS_Rows" type="int" value="2"/>
     <property name="DinoTerminalVel" type="float" value="10"/>
-    <property name="MaxSpawnDistance" type="int" value="126"/>
-    <property name="MinSpawnDistance" type="int" value="70"/>
+    <property name="MaxSpawnDistance" type="int" value="150"/>
+    <property name="MinSpawnDistance" type="int" value="100"/>
     <property name="ScorePenalty" type="int" value="1"/>
     <property name="ScoreReward" type="int" value="10"/>
     <property name="TimerSeconds" type="int" value="40"/>
     <property name="WinScore" type="int" value="100"/>
    </properties>
   </object>
-  <object id="112" name="Module_Pump" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="695.012" y="598.53" width="380.333" height="189">
+  <object id="124" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="12" x="1217.67" y="196.242" width="314" height="88">
    <properties>
-    <property name="ArrowPath" value="Assets/Air_Arrow.PNG"/>
+    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
+    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
+    <property name="DialSpeed" type="float" value="0.5"/>
+    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
+    <property name="Difficulty" type="int" value="1"/>
+    <property name="TimerSeconds" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="124" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="12" x="1217.67" y="196.242" width="314" height="88">
+   <properties>
+    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
+    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
+    <property name="DialSpeed" type="float" value="0.5"/>
+    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
+    <property name="Difficulty" type="int" value="1"/>
+    <property name="TimerSeconds" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="131" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="1250.26" y="572.545" width="184.333" height="164">
+   <properties>
+    <property name="BarMoveDownSpeed" type="float" value="0.03"/>
+    <property name="BarMoveUpSpeed" type="float" value="0.06"/>
+    <property name="ChargeSpeed" type="float" value="0.1"/>
+    <property name="ChargeZoneSize" type="float" value="0.2"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+   </properties>
+  </object>
+  <object id="132" name="SimonSays" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="1" x="1607.64" y="204.303" width="314" height="88">
+   <properties>
+    <property name="ChancePerDifficultyCSV" value="0.4,0.2,0.3"/>
+    <property name="EaseFuncName" value="EaseOutBack"/>
+    <property name="MaxValue" type="int" value="11"/>
+    <property name="MinValue" type="int" value="0"/>
+    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
+    <property name="SwapSpeedMilllis" type="int" value="400"/>
+    <property name="TextSize" type="int" value="20"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+   </properties>
+  </object>
+  <object id="134" name="Module_Pump" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="661.349" y="566.106" width="380.333" height="189">
+   <properties>
+    <property name="ArrowPath" value="Assets/Pump/Air_Arrow.PNG"/>
     <property name="ChargeSpeed" type="float" value="0.1"/>
     <property name="DishargeSpeed" type="float" value="0.07"/>
     <property name="EndDeg" type="int" value="320"/>
-    <property name="MeterPath" value="Assets/Air_In.PNG"/>
+    <property name="MeterPath" value="Assets/Pump/Air_In.PNG"/>
+    <property name="PipePath" value="Assets/Pump/Pipe.png"/>
+    <property name="PumpPath" value="Assets/Pump/Pump_Sprite.png"/>
     <property name="StartDeg" type="int" value="40"/>
     <property name="TimerSeconds" type="int" value="20"/>
    </properties>
   </object>
-  <object id="124" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="10" x="1217.67" y="196.242" width="314" height="88">
-   <properties>
-    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
-    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
-    <property name="DialSpeed" type="float" value="0.5"/>
-    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
-    <property name="Difficulty" type="int" value="1"/>
-    <property name="TimerSeconds" type="int" value="10"/>
-   </properties>
-  </object>
-  <object id="124" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="10" x="1217.67" y="196.242" width="314" height="88">
-   <properties>
-    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
-    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
-    <property name="DialSpeed" type="float" value="0.5"/>
-    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
-    <property name="Difficulty" type="int" value="1"/>
-    <property name="TimerSeconds" type="int" value="10"/>
-   </properties>
-  </object>
-  <object id="127" name="Module_Waves" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="11" x="98.6364" y="550.636" width="343.848" height="205.273">
+  <object id="136" name="Module_Waves" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="102" y="564" width="356" height="196">
    <properties>
     <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
+    <property name="Difficulty" value="1"/>
     <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
-    <property name="TimerSeconds" type="int" value="20"/>
+    <property name="TimerSeconds" type="int" value="10"/>
     <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
    </properties>
   </object>

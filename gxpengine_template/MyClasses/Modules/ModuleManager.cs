@@ -18,8 +18,6 @@ namespace gxpengine_template.MyClasses.Modules
 
         List<AnimationSprite> transitionsClose;
         List<AnimationSprite> transitionsOpen;
-
-        bool hasStarted = false;
         public ModuleManager(TiledObject data) : base("Assets/square.png", true, false)
         {
             modulesOn = new Dictionary<Module.ModuleTypes, Module>
@@ -56,25 +54,24 @@ namespace gxpengine_template.MyClasses.Modules
             ReplaceModule(Module.ModuleTypes.ThreeButtons);
             ReplaceModule(Module.ModuleTypes.OneButton);
             ReplaceModule(Module.ModuleTypes.Switch);
-
-            hasStarted = true;
         }
 
-        async void ReplaceModule(Module.ModuleTypes moduleType)
+        IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
         {
-            if (hasStarted)
-            {
-                PlayCloseAnimation(moduleType);
+            var anim = PlayCloseAnimation(moduleType);
 
-                if (modulesOn[moduleType] != null)
-                {
-                    modulesOn[moduleType].End -= ReplaceModule;
-                    modulesOn[moduleType].LateDestroy();
-                }
-                await Task.Delay(440);
-                PlayOpenAnimation(moduleType);
-                await Task.Delay(200);
+            while (anim.currentFrame < anim.frameCount)
+            {
+                yield return null;
             }
+
+            if (modulesOn[moduleType] != null)
+            {
+                modulesOn[moduleType].End -= ReplaceModule;
+                modulesOn[moduleType].Destroy();
+            }
+
+            PlayOpenAnimation(moduleType);
 
             Module newModule = GetRandomModule(moduleType, 1);
             modulesOn[moduleType] = newModule;
@@ -88,7 +85,7 @@ namespace gxpengine_template.MyClasses.Modules
                     newModule.SetXY(newModule.width / 2 + 80, game.height / 2);
                     break;
                 case ModuleTypes.ThreeButtons:
-                    newModule.SetXY(game.width - newModule.width + 80, game.height / 2);
+                    newModule.SetXY(game.width - newModule.width + 70, game.height / 2);
                     break;
                 case ModuleTypes.OneButton:
                     newModule.SetXY(game.width / 2, 140);
@@ -98,27 +95,33 @@ namespace gxpengine_template.MyClasses.Modules
                     break;
             }
         }
-
-
+        void ReplaceModule(Module.ModuleTypes moduleType)
+        {
+            AddChild(new Coroutine(ReplaceModuleCR(moduleType)));
+        }
 
         Module GetRandomModule(Module.ModuleTypes moduleType, int Difficulty)
         {
-            Random rnd = new Random();
+            List<Module> modulesByDifficulty = new List<Module>();
 
-            int r = rnd.Next(prefabsByType[moduleType].Count);
-
-            Module module = prefabsByType[moduleType][r];
-
-            int i = 0;
-
-            while (module.Difficulty != Difficulty && i < 10)
+            foreach (Module curModule in prefabsByType[moduleType])
             {
-                r = rnd.Next(prefabsByType[moduleType].Count);
-                module = prefabsByType[moduleType][r];
-                i++;
+                if (curModule.Difficulty == Difficulty)
+                {
+                    modulesByDifficulty.Add(curModule);
+                }
             }
 
-            return (Module)module.Clone();
+            if (modulesByDifficulty.Count >= 0)
+            {
+                int r = Utils.Random(0, modulesByDifficulty.Count);
+
+                Module module = modulesByDifficulty[r];
+
+                return (Module)module.Clone();
+            }
+
+            return null;
         }
 
         void LoadModules(out List<GameObject> modulePrefabs)
@@ -149,7 +152,7 @@ namespace gxpengine_template.MyClasses.Modules
             return prefabsByType;
         }
 
-        void PlayCloseAnimation(Module.ModuleTypes moduleType)
+        AnimationSprite PlayCloseAnimation(Module.ModuleTypes moduleType)
         {
             AnimationSprite closeModuleAnimation = new AnimationSprite("Assets/Transition_MicroGames.png", 8, 7, 52, true, false);
             closeModuleAnimation.SetCycle(1, 26, 3);
@@ -175,6 +178,7 @@ namespace gxpengine_template.MyClasses.Modules
 
             AddChild(closeModuleAnimation);
             transitionsClose.Add(closeModuleAnimation);
+            return closeModuleAnimation;
         }
 
         void PlayOpenAnimation(Module.ModuleTypes moduleType)
@@ -210,9 +214,9 @@ namespace gxpengine_template.MyClasses.Modules
             foreach (AnimationSprite transition in transitionsClose)
             {
                 transition.Animate();
-                if (transition.currentFrame >= 26)
+                if (transition.currentFrame >= transition.frameCount)
                 {
-                    transition.LateDestroy();
+                    transition.Destroy();
                 }
             }
 
@@ -221,7 +225,7 @@ namespace gxpengine_template.MyClasses.Modules
                 transition.Animate();
                 if (transition.currentFrame >= 52)
                 {
-                    transition.LateDestroy();
+                    transition.Destroy();
                 }
             }
         }
