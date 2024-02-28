@@ -75,6 +75,7 @@ namespace gxpengine_template.MyClasses.Modules
             _scoreTextMesh = new TextMesh("0", 200, 200,CenterMode.Min,textSize:30);
             _highScoreTextMesh = new TextMesh("0", 200, 200, CenterMode.Min, textSize: 30);
 
+
             AddChild(new Coroutine(LoadStartingModules()));
         }
 
@@ -90,6 +91,7 @@ namespace gxpengine_template.MyClasses.Modules
             _scoreTextMesh.SetXY(game.width - 145, 69);
             MyUtils.MyGame.CurrentScene.LateAddChild(_highScoreTextMesh);
             _highScoreTextMesh.SetXY(game.width - 145, game.height - 69);
+            _highScoreTextMesh.Text = SaveManager.Instance.GetHighScore().ToString();
 
             ReplaceModule(Module.ModuleTypes.Dpad);
             ReplaceModule(Module.ModuleTypes.ThreeButtons);
@@ -99,6 +101,7 @@ namespace gxpengine_template.MyClasses.Modules
 
         IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
         {
+            Console.WriteLine("a");
             var anim = PlayCloseAnimation(moduleType);
 
             while (anim.currentFrame < anim.frameCount)

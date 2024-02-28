@@ -56,7 +56,7 @@ namespace gxpengine_template.MyClasses.Modules
 
             _mazeLogic.SetOrigin(0, 0);
             _mazeLogic.SetXY(pos.x, pos.y);
-            _mazeLogic.alpha = 1f;
+            _mazeLogic.alpha = data.GetFloatProperty("BgAlpha",1);
             _container.SetXY(_mazeLogic.x, _mazeLogic.y);
 
             int mazeColumns = _mazeLogic.Columns;
