@@ -43,20 +43,21 @@ namespace gxpengine_template.MyClasses.Modules
         override public object Clone()
         {
             var clone = new Module_Waves(texture.filename, _cols, _rows, _data);
+            clone.width = width;
+            clone.height = height;
 
             return clone;
         }
 
         protected override void OnTimeEnd()
         {
-            if (_visual.IsComplete())
-                RaiseSuccesEvent();
-            else
-                RaiseFailEvent();
+            RaiseFailEvent();
         }
 
         void IsComplete()
         {
+            if (_visual == null) return;
+
             if (_visual.IsComplete())
             {
                 RaiseSuccesEvent();
@@ -68,28 +69,31 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 _curW -= _stretchW;
                 _visual.Stretch(-_stretchW, 0);
+                IsComplete();
             }
             else if (Input.GetKey(Key.RIGHT))
             {
                 _curW += _stretchW;
                 _visual.Stretch(_stretchW, 0);
+                IsComplete();
             }
             else if (Input.GetKey(Key.UP))
             {
                 _curH += _stretchH;
                 _visual.Stretch(0, _stretchH);
+                IsComplete();
             }
             else if (Input.GetKey(Key.DOWN))
             {
                 _curH -= _stretchH;
                 _visual.Stretch(0, -_stretchH);
+                IsComplete();
             }
         }
 
         void Update()
         {
             ReadInputs();
-            IsComplete();
         }
     }
 }

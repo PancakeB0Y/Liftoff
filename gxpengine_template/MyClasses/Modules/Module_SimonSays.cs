@@ -63,6 +63,8 @@ namespace gxpengine_template.MyClasses.Modules
         override public object Clone()
         {
             var clone = new Module_SimonSays(texture.filename, _cols, _rows, _data);
+            clone.width = 314;
+            clone.height = 88;
 
             return clone;
         }

@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using GXPEngine.Core;
 using gxpengine_template.MyClasses.Coroutines;
 using gxpengine_template.MyClasses.UI;
@@ -98,6 +98,8 @@ namespace gxpengine_template.MyClasses.Modules
         override public object Clone()
         {
             var clone = new Module_Dino(texture.filename, _cols, _rows, _data);
+            clone.width = width;
+            clone.height = height;
 
             return clone;
         }
