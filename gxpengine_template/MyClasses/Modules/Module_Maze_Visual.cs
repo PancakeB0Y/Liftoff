@@ -45,11 +45,12 @@ namespace gxpengine_template.MyClasses.Modules
         {
             yield return null;
 
-            var paddingL = data.GetFloatProperty("PaddingL",20) * _mazeLogic.width;
-            var paddingR = data.GetFloatProperty("PaddingR",20) * _mazeLogic.width;
-            var paddingY = data.GetFloatProperty("PaddingY",20) * _mazeLogic.height;
-            var spacingX = data.GetFloatProperty("SpacingX",3) * _mazeLogic.width;
-            var spacingY = data.GetFloatProperty("SpacingY",3) * _mazeLogic.height;
+            var paddingL = data.GetFloatProperty("PaddingL",0.1f) * _mazeLogic.width;
+            var paddingR = data.GetFloatProperty("PaddingR",0.1f) * _mazeLogic.width;
+            var paddingT = data.GetFloatProperty("PaddingT",0.1f) * _mazeLogic.height;
+            var paddingB = data.GetFloatProperty("PaddingB",0.1f) * _mazeLogic.height;
+            var spacingX = data.GetFloatProperty("SpacingX",0.1f) * _mazeLogic.width;
+            var spacingY = data.GetFloatProperty("SpacingY",0.1f) * _mazeLogic.height;
 
             Vector2 pos = new Vector2(_mazeLogic.x,_mazeLogic.y);
 
@@ -60,8 +61,8 @@ namespace gxpengine_template.MyClasses.Modules
 
             int mazeColumns = _mazeLogic.Columns;
             int pieceW = Mathf.Floor((_mazeLogic.width  - paddingL - paddingR - (spacingX * (mazeColumns - 1))) / mazeColumns);
-            int pieceH = Mathf.Floor((_mazeLogic.height - paddingY - (spacingY * (_mazeLogic.Rows - 1))) / _mazeLogic.Rows );
-            Vector2 offset = new Vector2(pieceW * .5f + paddingL, (pieceH + paddingY) * .5f);
+            int pieceH = Mathf.Floor((_mazeLogic.height - paddingT - paddingB - (spacingY * (_mazeLogic.Rows - 1))) / _mazeLogic.Rows );
+            Vector2 offset = new Vector2(pieceW * .5f + paddingL, pieceH * .5f + paddingT);
             Vector2 currSpacing = new Vector2();
 
             for (int i = 0; i < _pieces.Length; i++)

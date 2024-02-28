@@ -160,6 +160,7 @@
     <Compile Include="MyClasses\Modules\Module_Maze_Visual.cs" />
     <Compile Include="MyClasses\Modules\Module_PowerUp.cs" />
     <Compile Include="MyClasses\Modules\Module_PowerUp_Visual.cs" />
+    <Compile Include="MyClasses\Modules\Module_PowerUp_Visual2.cs" />
     <Compile Include="MyClasses\Modules\Module_Pump.cs" />
     <Compile Include="MyClasses\Modules\Module_Dials.cs" />
     <Compile Include="MyClasses\Modules\Module_Pump_Visual.cs" />

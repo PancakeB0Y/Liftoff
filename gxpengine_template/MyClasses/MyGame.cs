@@ -24,7 +24,7 @@ namespace gxpengine_template.MyClasses
             //via FindObjectOfType or other methods
 
             Prefabs = LoadPrefabs();
-            LoadScene("Assets/LVL2.tmx");
+            LoadScene("Assets/LVL1.tmx");
             OnAfterStep += LoadSceneIfNotNull;
         }
 
