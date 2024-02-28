@@ -19,6 +19,7 @@ namespace gxpengine_template.MyClasses.Modules
         readonly Module_Waves _moduleLogic;
         readonly Sprite _visual;
         readonly Sprite _foreground;
+        readonly Sprite _greenWave;
         Sprite _moverVisual;
 
         Pivot _container;
@@ -30,12 +31,14 @@ namespace gxpengine_template.MyClasses.Modules
         {
             string wavesVisualPath = data.GetStringProperty("WavesVisualPath", "Assets/Waves/Sine_Wave.png");
             string moverVisualPath = data.GetStringProperty("MoverVisualPath", "Assets/Waves/Sine_Mover.png");
+            string greenVisualPath = data.GetStringProperty("GreenVisualPath", "Assets/Waves/Sine_Green.png");
             string backgroundPath = data.GetStringProperty("BackgroundPath", "Assets/Waves/Waves_Background.png");
 
             _moduleLogic = logic;
 
             _visual = new Sprite(wavesVisualPath);
             _moverVisual = new Sprite(moverVisualPath);
+            _greenWave = new Sprite(greenVisualPath);
             _foreground = new Sprite(backgroundPath);
             initW = _moverVisual.width;
             initH = _moverVisual.height;
@@ -53,16 +56,17 @@ namespace gxpengine_template.MyClasses.Modules
             Vector2 pos = new Vector2(_moduleLogic.x, _moduleLogic.y);
             _moduleLogic.SetOrigin(0, 0);
             _moduleLogic.SetXY(pos.x, pos.y);
-            _moduleLogic.alpha = 1f;
             _container.SetXY(_moduleLogic.x, _moduleLogic.y);
 
-            _visual.SetXY(92, 16);
-            _moverVisual.SetXY(92 + _moverVisual.width / 2, 16 + _moverVisual.height / 2);
-            _moverVisual.SetColor(1, 1, 0);
+            _visual.SetXY(65, 25);
+            _greenWave.SetXY(65, 25);
+            _greenWave.alpha = 0f;
+            _moverVisual.SetXY(65 + _moverVisual.width / 2, 25 + _moverVisual.height / 2);
             _moverVisual.SetOrigin(_moverVisual.width / 2, _moverVisual.height / 2);
 
             _container.AddChild(_visual);
             _container.AddChild(_moverVisual);
+            _container.AddChild(_greenWave);
             _container.AddChild(_foreground);
         }
 
@@ -91,6 +95,8 @@ namespace gxpengine_template.MyClasses.Modules
             if (_moverVisual.width <= initW + diffW && _moverVisual.width >= initW - diffW && _moverVisual.height <= initH + diffH && _moverVisual.height >= initH - diffH)
             {
                 hasWon = true;
+                _moverVisual.alpha = 0f;
+                _greenWave.alpha = 1f;
             }
 
             return hasWon;

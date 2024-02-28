@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="137">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="138">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
@@ -88,7 +88,7 @@
     <property name="TimerSeconds" type="int" value="20"/>
    </properties>
   </object>
-  <object id="136" name="Module_Waves" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="102" y="564" width="356" height="196">
+  <object id="136" name="Module_Waves" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="110" y="642" width="356" height="196">
    <properties>
     <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
     <property name="Difficulty" value="1"/>
