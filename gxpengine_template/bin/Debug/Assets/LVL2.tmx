@@ -10,29 +10,12 @@
   <image source="Background_Game.PNG" width="1366" height="768"/>
  </tileset>
  <tileset firstgid="12" name="Maze_Bg" tilewidth="303" tileheight="183" tilecount="1" columns="1">
-  <image source="Maze/CreateTheWay_3.3.PNG" width="303" height="183"/>
+  <image source="Maze/CreateTheWay_3.3.PNG" width="303" height="184"/>
  </tileset>
  <objectgroup id="10" name="WorldText"/>
  <objectgroup id="6" name="UI"/>
  <objectgroup id="19" name="ObjectBackgrounds">
   <object id="113" name="bg" gid="11" x="0.333333" y="768.333" width="1366" height="768"/>
-  <object id="116" name="maze2" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="12" x="1604.5" y="280.5" width="303" height="183">
-   <properties>
-    <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.png"/>
-    <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
-    <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
-    <property name="ModuleColumns" type="int" value="3"/>
-    <property name="ModuleRows" type="int" value="3"/>
-    <property name="PaddingL" type="float" value="0.25"/>
-    <property name="PaddingR" type="float" value="0.25"/>
-    <property name="PaddingY" type="float" value="0.18"/>
-    <property name="RotationEaseFunc" value="EaseOutBack"/>
-    <property name="RotationTimeMs" type="int" value="500"/>
-    <property name="SpacingX" type="float" value="0.065"/>
-    <property name="SpacingY" type="float" value="0.06"/>
-    <property name="TimerSeconds" type="int" value="80"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup id="2" name="Object Layer 1"/>
  <objectgroup id="8" name="Managers">

@@ -135,6 +135,7 @@ namespace gxpengine_template.MyClasses.Modules
             _scoreDisplay.SetXY(width / 2 - _bg.width / 2 + 15, 5);
             _scoreDisplay.TextColor = Color.Green;
 
+
         }
         int started = 0;
         void Update()
@@ -164,7 +165,7 @@ namespace gxpengine_template.MyClasses.Modules
                 newCactus.height = _cactiSize;
                 newCactus.width = _cactiSize;
 
-                newCactus.SetXY((width + _bg.width) / 2 - newCactus.width, _ground.y - newCactus.height );
+                newCactus.SetXY((width + _bg.width) / 2 - newCactus.width, _ground.y - newCactus.height);
                 _currentSpawnDistance = Utils.Random(_cactusMinSpawnDistance, _cactusMaxSpawnDistance);
             }
         }
