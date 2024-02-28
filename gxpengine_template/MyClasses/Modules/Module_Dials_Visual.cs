@@ -52,7 +52,7 @@ namespace gxpengine_template.MyClasses.Modules
 
                 if (_dial.RotateRight)
                 {
-                    mover.rotation = (_dial.CurrentPercent + 1) * 3.6f - (_dial.WinRange / 2 * 3.6f);
+                    mover.rotation = ((_dial.CurrentPercent + 1) * 3.6f - (_dial.WinRange / 2 * 3.6f));
                 }
                 else
                 {

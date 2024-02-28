@@ -91,7 +91,7 @@ namespace gxpengine_template.MyClasses.Modules
                     newModule.SetXY(game.width / 2, 140);
                     break;
                 case ModuleTypes.Switch:
-                    newModule.SetXY(game.width / 2, game.height - 140);
+                    newModule.SetXY(game.width / 2 - newModule.width - 50, game.height - 220);
                     break;
             }
         }
@@ -155,7 +155,7 @@ namespace gxpengine_template.MyClasses.Modules
         AnimationSprite PlayCloseAnimation(Module.ModuleTypes moduleType)
         {
             AnimationSprite closeModuleAnimation = new AnimationSprite("Assets/Transition_MicroGames.png", 8, 7, 52, true, false);
-            closeModuleAnimation.SetCycle(1, 26, 3);
+            closeModuleAnimation.SetCycle(1, 26, 1);
 
             closeModuleAnimation.width = 460;
             closeModuleAnimation.height = 310;
@@ -184,7 +184,7 @@ namespace gxpengine_template.MyClasses.Modules
         void PlayOpenAnimation(Module.ModuleTypes moduleType)
         {
             AnimationSprite openModuleAnimation = new AnimationSprite("Assets/Transition_MicroGames.png", 8, 7, 52, true, false);
-            openModuleAnimation.SetCycle(26, 52, 3);
+            openModuleAnimation.SetCycle(26, 52, 1);
 
             openModuleAnimation.width = 460;
             openModuleAnimation.height = 310;
@@ -213,7 +213,7 @@ namespace gxpengine_template.MyClasses.Modules
         {
             foreach (AnimationSprite transition in transitionsClose)
             {
-                transition.Animate();
+                transition.AnimateFixed();
                 if (transition.currentFrame >= transition.frameCount)
                 {
                     transition.Destroy();
@@ -222,7 +222,7 @@ namespace gxpengine_template.MyClasses.Modules
 
             foreach (AnimationSprite transition in transitionsOpen)
             {
-                transition.Animate();
+                transition.AnimateFixed();
                 if (transition.currentFrame >= 52)
                 {
                     transition.Destroy();

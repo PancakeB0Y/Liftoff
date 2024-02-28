@@ -164,7 +164,7 @@ namespace gxpengine_template.MyClasses.Modules
                 newCactus.height = _cactiSize;
                 newCactus.width = _cactiSize;
 
-                newCactus.SetXY((width + _bg.width) / 2 - newCactus.width, _ground.y - newCactus.height );
+                newCactus.SetXY((width + _bg.width) / 2 - newCactus.width, _ground.y - newCactus.height);
                 _currentSpawnDistance = Utils.Random(_cactusMinSpawnDistance, _cactusMaxSpawnDistance);
             }
         }

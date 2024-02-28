@@ -24,7 +24,7 @@ namespace gxpengine_template.MyClasses
             _data = data;
             moduleType = ModuleTypes.ThreeButtons;
 
-            int winRange = 10;
+            int winRange = 19;
             Dials = new List<Dial>
             {
                 new Dial(data.GetFloatProperty("DialSpeed", 0.5f), Key.H, winRange),
@@ -119,7 +119,7 @@ namespace gxpengine_template.MyClasses
         {
             if (IsComplete) { return; }
 
-            CurrentPercent += speed;
+            CurrentPercent += speed * (Time.deltaTime * 0.1f);
 
             if (CurrentPercent >= 100)
             {
