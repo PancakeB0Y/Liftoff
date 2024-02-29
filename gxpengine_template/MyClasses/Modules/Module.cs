@@ -32,7 +32,7 @@ namespace gxpengine_template.MyClasses
             currTime = timer;
             Difficulty = data.GetIntProperty("Difficulty", 1);
             Difficulty = (int)Mathf.Clamp(Difficulty, 1, 3);
-            SuccesScore = data.GetIntProperty("SuccesScore",10);
+            SuccesScore = data.GetIntProperty("SuccesScore", 10);
 
             _timerText = new TextMesh("4", 400, 400);
             alpha = 0f;
@@ -99,6 +99,7 @@ namespace gxpengine_template.MyClasses
         protected void RaiseFailEvent()
         {
             if (isComplete) { return; }
+            isComplete = true;
             Fail?.Invoke(this);
             End?.Invoke(moduleType);
         }

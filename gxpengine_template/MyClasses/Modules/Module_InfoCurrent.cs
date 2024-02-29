@@ -29,8 +29,12 @@ namespace gxpengine_template.MyClasses.Modules
         readonly int _goodSpawnDist;
         readonly int _badSpawnDist;
 
-        readonly int _wireMin = 53;
-        readonly int _wireMax = 78;
+        readonly int _requiredGoodCount;
+
+        readonly int _wireMin = 30;
+        readonly int _wireMax = 65;
+
+        readonly float _randomSpeedRange;
 
         int _lastSpawnedGood = 0;
         int _lastSpawnedBad = 0;
@@ -42,14 +46,16 @@ namespace gxpengine_template.MyClasses.Modules
             _data = data;
             moduleType = ModuleTypes.Switch;
 
-            _goodFileCount = data.GetIntProperty("GoodFileCount", 1);
-            _badFileCount = data.GetIntProperty("BadFileCount", 1);
-            FileSpeed = data.GetFloatProperty("Speed", 1);
+            _goodFileCount = data.GetIntProperty("GoodFileCount", 5);
+            _badFileCount = data.GetIntProperty("BadFileCount", 5);
             _totalFiles = _goodFileCount + _badFileCount;
+            FileSpeed = data.GetFloatProperty("Speed", 1);
+            _randomSpeedRange = data.GetFloatProperty("RandomSpeedRange", 0.3f);
 
             _goodSpawnDist = data.GetIntProperty("GoodSpawnDist", 100);
             _badSpawnDist = data.GetIntProperty("BadSpawnDist", 100);
 
+            _requiredGoodCount = data.GetIntProperty("RequiredGoodCount", 3);
             _winScore = data.GetIntProperty("WinScore", 10);
 
             GoodFiles = new (float pos, bool isSpawned)[_goodFileCount];
@@ -65,9 +71,6 @@ namespace gxpengine_template.MyClasses.Modules
             var clone = new Module_InfoCurrent(texture.filename, _cols, _rows, _data);
 
             return clone;
-        }
-        protected override void StartTimer()
-        {
         }
 
         void ChangePath()
@@ -105,7 +108,7 @@ namespace gxpengine_template.MyClasses.Modules
 
                 if (BadFiles[i].pos == -1f) { continue; }
 
-                if (IsOnWire(BadFiles[i].pos) && !IsOnWrongPath)
+                if (IsOnWire(BadFiles[i].pos) && IsOnWrongPath)
                 {
                     BadFiles[i].pos = -1f;
                     isComplete();
@@ -114,7 +117,7 @@ namespace gxpengine_template.MyClasses.Modules
 
                 if (BadFiles[i].pos >= _maxDist)
                 {
-                    //_collectedFiles--;
+                    _collectedFiles--;
                     BadFiles[i].pos = -1f;
                     isComplete();
                 }
@@ -123,6 +126,8 @@ namespace gxpengine_template.MyClasses.Modules
 
         void FileSpawnerGood()
         {
+            if (!CheckCanSpawn(false)) { return; }
+
             for (int i = 0; i < GoodFiles.Length; i++)
             {
                 if (GoodFiles[i].isSpawned == false && CheckCanSpawn(true))
@@ -137,6 +142,8 @@ namespace gxpengine_template.MyClasses.Modules
 
         void FileSpawnerBad()
         {
+            if (!CheckCanSpawn(true)) { return; }
+
             for (int i = 0; i < BadFiles.Length; i++)
             {
                 if (BadFiles[i].isSpawned == false && CheckCanSpawn(false))
@@ -147,6 +154,18 @@ namespace gxpengine_template.MyClasses.Modules
                 }
             }
 
+        }
+
+        void FileSpawner()
+        {
+            if (Utils.Random(0, 2) == 0)
+            {
+                FileSpawnerGood();
+            }
+            else
+            {
+                FileSpawnerBad();
+            }
         }
 
         bool CheckCanSpawn(bool isGood)
@@ -189,8 +208,9 @@ namespace gxpengine_template.MyClasses.Modules
                 {
                     continue;
                 }
+                float randSpeed = Utils.Random(FileSpeed - _randomSpeedRange, FileSpeed + _randomSpeedRange);
 
-                GoodFiles[i].pos += FileSpeed * Time.deltaTime * 0.03f;
+                GoodFiles[i].pos += randSpeed * Time.deltaTime * 0.03f;
                 GoodFiles[i].pos = Mathf.Clamp(GoodFiles[i].pos, 0, _maxDist);
             }
 
@@ -200,8 +220,9 @@ namespace gxpengine_template.MyClasses.Modules
                 {
                     continue;
                 }
+                float randSpeed = Utils.Random(FileSpeed - _randomSpeedRange, FileSpeed + _randomSpeedRange);
 
-                BadFiles[i].pos += FileSpeed * Time.deltaTime * 0.03f;
+                BadFiles[i].pos += randSpeed * Time.deltaTime * 0.03f;
                 BadFiles[i].pos = Mathf.Clamp(BadFiles[i].pos, 0, _maxDist);
             }
         }
@@ -227,18 +248,35 @@ namespace gxpengine_template.MyClasses.Modules
 
             if (GoodFiles[_goodFileCount - 1].pos == -1 && BadFiles[_badFileCount - 1].pos == -1)
             {
-                _winScore = _winScore * (_collectedFiles / _goodFileCount);
-                RaiseSuccesEvent();
+                if (_collectedFiles >= _requiredGoodCount)
+                {
+                    RaiseSuccesEvent();
+                }
+                else
+                {
+                    RaiseFailEvent();
+                }
             }
 
+        }
+
+        protected override void OnTimeEnd()
+        {
+            if (_collectedFiles >= _requiredGoodCount)
+            {
+                RaiseSuccesEvent();
+            }
+            else
+            {
+                RaiseFailEvent();
+            }
         }
 
         void Update()
         {
             ReadInputs();
             MoveFiles();
-            FileSpawnerGood();
-            FileSpawnerBad();
+            FileSpawner();
             CheckFilesPos();
         }
     }

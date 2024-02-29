@@ -19,10 +19,10 @@ namespace gxpengine_template.MyClasses.Modules
 
         readonly Sprite _bg;
         readonly Sprite _wire;
-
         readonly List<Sprite> _goodFiles;
         readonly List<Sprite> _badFiles;
-        readonly AnimationSprite _box;
+        readonly Sprite _box;
+        readonly Sprite _bgWire;
         Pivot _container;
 
         Vector2 _wireXYPos1;
@@ -36,7 +36,9 @@ namespace gxpengine_template.MyClasses.Modules
             _moduleLogic = logic;
 
             _bg = new Sprite(data.GetStringProperty("BgFilePath", "Assets/InfoCurrent/InfoCurrent_Background.png"), true, false);
-            _wire = new Sprite(data.GetStringProperty("WireFilePath", "Assets/InfoCurrent/InfoCurrent_Wire.png"), true, false);
+            _wire = new Sprite(data.GetStringProperty("WireFilePath", "Assets/InfoCurrent/InfoCurrent_Slider.png"), true, false);
+            _box = new Sprite(data.GetStringProperty("BoxFilePath", "Assets/InfoCurrent/InfoCurrent_Box.png"), true, false);
+            _bgWire = new Sprite(data.GetStringProperty("BgWireFilePath", "Assets/InfoCurrent/InfoCurrent_BgWire.png"), true, false);
 
             string goodFilePath = data.GetStringProperty("GoodFilePath", "Assets/InfoCurrent/InfoCurrent_Good.png");
             string badFilePath = data.GetStringProperty("BadFilePath", "Assets/InfoCurrent/InfoCurrent_Bad.png");
@@ -65,8 +67,22 @@ namespace gxpengine_template.MyClasses.Modules
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
 
-            _wireXYPos1 = new Vector2(90, 79);
-            _wireXYPos2 = new Vector2(90, 100);
+            _bg.SetScaleXY(0.9f);
+            _bg.SetOrigin(43, -17);
+            _container.AddChild(_bg);
+
+            _box.SetXY(-5, 53);
+            _box.SetScaleXY(0.4f);
+            _container.AddChild(_box);
+
+            _bgWire.SetOrigin(_bgWire.width, 0);
+            _bgWire.SetXY(230, 76);
+            _bgWire.width = 160;
+            _bgWire.height = 30;
+            _container.AddChild(_bgWire);
+
+            _wireXYPos1 = new Vector2(112, 86);
+            _wireXYPos2 = new Vector2(112, 115);
 
             if (!_moduleLogic.IsOnWrongPath)
             {
@@ -76,16 +92,18 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 _wire.SetXY(_wireXYPos2.X, _wireXYPos2.Y);
             }
+            _wire.SetScaleXY(0.6f);
+            _wire.width = 55;
 
-            _goodStartPos = new Vector2(190, 78);
+            _goodStartPos = new Vector2(190, 77);
 
-            _container.AddChild(_bg);
             _container.AddChild(_wire);
 
             foreach (Sprite sprite in _goodFiles)
             {
                 sprite.alpha = 0;
                 sprite.SetXY(_goodStartPos.X, _goodStartPos.Y);
+                sprite.SetScaleXY(0.6f);
                 _container.AddChild(sprite);
             }
 
@@ -93,7 +111,8 @@ namespace gxpengine_template.MyClasses.Modules
             foreach (Sprite sprite in _badFiles)
             {
                 sprite.alpha = 0;
-                sprite.SetXY(_badStartPos.X, _badStartPos.Y);
+                sprite.SetXY(_goodStartPos.X, _goodStartPos.Y);
+                sprite.SetScaleXY(0.6f);
                 _container.AddChild(sprite);
             }
 

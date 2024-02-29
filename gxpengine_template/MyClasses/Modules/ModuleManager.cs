@@ -72,7 +72,7 @@ namespace gxpengine_template.MyClasses.Modules
             transitionsClose = new List<AnimationSprite>();
             transitionsOpen = new List<AnimationSprite>();
 
-            _scoreTextMesh = new TextMesh("0", 200, 200,CenterMode.Min,textSize:30);
+            _scoreTextMesh = new TextMesh("0", 200, 200, CenterMode.Min, textSize: 30);
             _highScoreTextMesh = new TextMesh("0", 200, 200, CenterMode.Min, textSize: 30);
 
 
@@ -101,7 +101,6 @@ namespace gxpengine_template.MyClasses.Modules
 
         IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
         {
-            Console.WriteLine("a");
             var anim = PlayCloseAnimation(moduleType);
 
             while (anim.currentFrame < anim.frameCount)
