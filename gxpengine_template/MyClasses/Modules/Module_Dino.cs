@@ -110,7 +110,7 @@ namespace gxpengine_template.MyClasses.Modules
         {
             yield return null;
             SetOrigin(0, 0);
-            _container.SetXY(x, y);
+            _container.SetXY(x, y + 5);
 
             _bg.SetOrigin(_bg.width / 2, _bg.height / 2);
             _container.AddChild(_bg);

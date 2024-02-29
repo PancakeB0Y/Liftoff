@@ -20,9 +20,9 @@ namespace gxpengine_template.MyClasses
         public int SuccesScore { get; }
 
         public float CurrTime => currTime;
-        protected float currTime;
+        private float currTime;
         public float TotalTime => timer;
-        protected readonly int timer;
+        private readonly int timer;
 
         bool isComplete = false;
 

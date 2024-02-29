@@ -36,6 +36,15 @@ namespace gxpengine_template.MyClasses.Modules
         int _currentScore;
         readonly TextMesh _scoreTextMesh;
 
+        Dictionary<ModuleTypes, bool> _modulesSpawned = new Dictionary<ModuleTypes, bool>
+        {
+            { Module.ModuleTypes.Dpad, false },
+            { Module.ModuleTypes.OneButton, false },
+            { Module.ModuleTypes.ThreeButtons, false },
+            { Module.ModuleTypes.Switch, false }
+        };
+        bool _allModulesSpawned = false;
+
         public int HighScore
         {
             get => _currentHighScore;
@@ -74,12 +83,12 @@ namespace gxpengine_template.MyClasses.Modules
             transitionsClose = new List<AnimationSprite>();
             transitionsOpen = new List<AnimationSprite>();
 
-            _scoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min,textSize:30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
+            _scoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
             _highScoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
-            
+
             _timers = new Timer[4];
             LoadTimers(data);
-            
+
             AddChild(new Coroutine(Init()));
         }
 
@@ -97,11 +106,7 @@ namespace gxpengine_template.MyClasses.Modules
             _highScoreTextMesh.SetXY(game.width - 145, game.height - 69);
             _highScoreTextMesh.Text = SaveManager.Instance.GetHighScore().ToString();
 
-            ReplaceModule(Module.ModuleTypes.Dpad);
-            ReplaceModule(Module.ModuleTypes.ThreeButtons);
-            ReplaceModule(Module.ModuleTypes.OneButton);
-            ReplaceModule(Module.ModuleTypes.Switch);
-
+            LoadEmptyModule();
         }
 
         void LoadTimers(TiledObject data)
@@ -111,8 +116,8 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 _timers[i] = new Timer(filePath, false, false);
                 _timers[i].SetXY(data.GetFloatProperty($"Timer{i}X"), data.GetFloatProperty($"Timer{i}Y"));
+                _timers[i].SetAlpha(0);
                 MyUtils.MyGame.CurrentScene.LateAddChild(_timers[i]);
-
             }
         }
 
@@ -126,16 +131,16 @@ namespace gxpengine_template.MyClasses.Modules
                 switch (item.Key)
                 {
                     case ModuleTypes.Switch:
-                        _timers[3].SetPersentage(persentage);   
+                        _timers[3].SetPersentage(persentage);
                         break;
                     case ModuleTypes.Dpad:
                         _timers[0].SetPersentage(persentage);
                         break;
                     case ModuleTypes.ThreeButtons:
-                        _timers[2].SetPersentage(persentage);   
+                        _timers[2].SetPersentage(persentage);
                         break;
                     case ModuleTypes.OneButton:
-                        _timers[1].SetPersentage(persentage);   
+                        _timers[1].SetPersentage(persentage);
                         break;
                 }
             }
@@ -143,6 +148,11 @@ namespace gxpengine_template.MyClasses.Modules
 
         IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
         {
+            if (_modulesSpawned[moduleType])
+            {
+                LoadEmptyModule();
+            }
+            _modulesSpawned[moduleType] = true;
 
             var anim = PlayCloseAnimation(moduleType);
 
@@ -155,7 +165,6 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 modulesOn[moduleType].End -= ReplaceModule;
                 modulesOn[moduleType].Success -= AddScore;
-
                 modulesOn[moduleType].Destroy();
             }
 
@@ -175,20 +184,67 @@ namespace gxpengine_template.MyClasses.Modules
                     newModule.SetXY(newModule.width / 2 + 80, game.height / 2);
                     break;
                 case ModuleTypes.ThreeButtons:
-                    newModule.SetXY(game.width - newModule.width + 70, game.height / 2);
+                    newModule.SetXY(game.width / 2, game.height - newModule.height - 60);
                     break;
                 case ModuleTypes.OneButton:
                     newModule.SetXY(game.width / 2, 140);
                     break;
                 case ModuleTypes.Switch:
-                    newModule.SetXY(game.width / 2 - newModule.width - 50, game.height - 220);
+                    newModule.SetXY(game.width - 330, game.height / 2 - 75);
                     break;
             }
+
+            Console.WriteLine(newModule.TotalTime);
         }
 
         void ReplaceModule(Module.ModuleTypes moduleType)
         {
             AddChild(new Coroutine(ReplaceModuleCR(moduleType)));
+        }
+
+        void LoadEmptyModule()
+        {
+            if (_allModulesSpawned) { return; }
+
+            bool areAllModulesSpawned = true;
+
+            List<ModuleTypes> notSpawnedModules = new List<ModuleTypes>();
+
+            foreach (KeyValuePair<ModuleTypes, bool> entry in _modulesSpawned)
+            {
+                if (!entry.Value)
+                {
+                    areAllModulesSpawned = false;
+                    notSpawnedModules.Add(entry.Key);
+                }
+            }
+
+            if (areAllModulesSpawned)
+            {
+                _allModulesSpawned = true;
+                return;
+            }
+
+            int randModule = Utils.Random(0, notSpawnedModules.Count);
+            switch (notSpawnedModules[randModule])
+            {
+                case ModuleTypes.Dpad:
+                    ReplaceModule(ModuleTypes.Dpad);
+                    _timers[0].SetAlpha(1);
+                    break;
+                case ModuleTypes.OneButton:
+                    ReplaceModule(ModuleTypes.OneButton);
+                    _timers[1].SetAlpha(1);
+                    break;
+                case ModuleTypes.ThreeButtons:
+                    ReplaceModule(ModuleTypes.ThreeButtons);
+                    _timers[2].SetAlpha(1);
+                    break;
+                case ModuleTypes.Switch:
+                    ReplaceModule(ModuleTypes.Switch);
+                    _timers[3].SetAlpha(1);
+                    break;
+            }
         }
 
         Module GetRandomModule(Module.ModuleTypes moduleType, int Difficulty)
