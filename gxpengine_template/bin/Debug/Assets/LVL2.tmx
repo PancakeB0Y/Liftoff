@@ -36,10 +36,10 @@
     <property name="Spacing" type="int" value="10"/>
    </properties>
   </object>
-  <object id="134" name="D_Pad_Robot" type="gxpengine_template.MyClasses.Animations.Robot_DPad" x="49.9015" y="198.045" width="75" height="73"/>
-  <object id="135" name="Btn_Robot" type="gxpengine_template.MyClasses.Animations.RobotBtn" x="906.25" y="161.273" width="75" height="73"/>
-  <object id="136" name="Robot3Btns" type="gxpengine_template.MyClasses.Animations.Robot3Btns" x="388.553" y="635.424" width="75" height="73"/>
-  <object id="137" name="RobotSwitch" type="gxpengine_template.MyClasses.Animations.RobotSwitch" x="928.5" y="563.5" width="75" height="73"/>
+  <object id="134" name="D_Pad_Robot" type="gxpengine_template.MyClasses.Animations.Robot_DPad" x="51.9015" y="164.045" width="75" height="73"/>
+  <object id="135" name="Btn_Robot" type="gxpengine_template.MyClasses.Animations.RobotBtn" x="1174.25" y="157.273" width="75" height="73"/>
+  <object id="136" name="Robot3Btns" type="gxpengine_template.MyClasses.Animations.Robot3Btns" x="386.553" y="605.424" width="75" height="73"/>
+  <object id="137" name="RobotSwitch" type="gxpengine_template.MyClasses.Animations.RobotSwitch" x="940.5" y="547.5" width="55" height="57"/>
  </objectgroup>
  <objectgroup id="8" name="Managers">
   <object id="112" name="DifficultyManager" type="gxpengine_template.MyClasses.DifficultyManager" x="297.333" y="45" width="88" height="62">

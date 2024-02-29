@@ -24,8 +24,8 @@ namespace gxpengine_template.MyClasses.Animations
                 {"IdleDown",  new Animation( this,"IdleDown", animationSet ,startFrame: 28, frames: 7,animDelay: 3) },
                 {"PressUp",   new Animation( this,"PressUp", animationSet ,startFrame: 0, frames: 9,animDelay: speed, loop: false) },
                 {"PressDown", new Animation( this,"PressDown", animationSet ,startFrame: 15, frames: 13,animDelay: speed, loop: false) },
-                {"DieDown", new Animation( this,"DieDown", animationSet ,startFrame: 35, frames: 10,animDelay: speed, loop: false) },
-                {"DieUp", new Animation( this,"DieUp", animationSet ,startFrame: 45, frames: 10,animDelay: speed, loop: false) },
+                {"DieDown", new Animation( this,"DieDown", animationSet ,startFrame: 35, frames: 10,animDelay: speed, loop: false,exitTime:744) },
+                {"DieUp", new Animation( this,"DieUp", animationSet ,startFrame: 45, frames: 10,animDelay: speed, loop: false,exitTime:744) },
 
             };
 
@@ -82,6 +82,7 @@ namespace gxpengine_template.MyClasses.Animations
         {
 
         }
+
         void OnUpEnd()
         {
             prevTrigger = null;
