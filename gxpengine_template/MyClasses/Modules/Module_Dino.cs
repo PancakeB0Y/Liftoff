@@ -133,6 +133,7 @@ namespace gxpengine_template.MyClasses.Modules
             _scoreDisplay.SetOrigin(0, 0);
             _scoreDisplay.HorizontalAlign = CenterMode.Min;
             _scoreDisplay.SetXY(width / 2 - _bg.width / 2 + 15, 10);
+
             _scoreDisplay.TextColor = Color.Green;
 
 

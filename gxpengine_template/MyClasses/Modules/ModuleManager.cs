@@ -143,6 +143,7 @@ namespace gxpengine_template.MyClasses.Modules
 
         IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
         {
+
             var anim = PlayCloseAnimation(moduleType);
 
             while (anim.currentFrame < anim.frameCount)
