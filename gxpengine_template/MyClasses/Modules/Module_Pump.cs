@@ -39,7 +39,7 @@ namespace gxpengine_template.MyClasses
         {
             var deltaInSeconds = Mathf.Min(Time.deltaTime * 0.001f, 0.04f);
 
-            if (Input.GetKey(Key.A))//whatever key
+            if (Input.GetKey(Key.C))//whatever key
             {
                 Charging = true;
                 ChargePersentage += _chargeSpeed * deltaInSeconds;

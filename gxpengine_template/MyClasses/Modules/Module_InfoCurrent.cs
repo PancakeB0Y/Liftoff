@@ -238,7 +238,7 @@ namespace gxpengine_template.MyClasses.Modules
 
         void ReadInputs()
         {
-            if (Input.GetKeyDown(Key.S))
+            if (Input.GetKeyDown(Key.B))
             {
                 ChangePath();
             }

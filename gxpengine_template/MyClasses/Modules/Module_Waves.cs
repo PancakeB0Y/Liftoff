@@ -65,25 +65,25 @@ namespace gxpengine_template.MyClasses.Modules
         }
         void ReadInputs()
         {
-            if (Input.GetKey(Key.LEFT))
+            if (Input.GetKey(Key.A))
             {
                 _curW -= _stretchW;
                 _visual.Stretch(-_stretchW, 0);
                 IsComplete();
             }
-            else if (Input.GetKey(Key.RIGHT))
+            else if (Input.GetKey(Key.D))
             {
                 _curW += _stretchW;
                 _visual.Stretch(_stretchW, 0);
                 IsComplete();
             }
-            else if (Input.GetKey(Key.UP))
+            else if (Input.GetKey(Key.W))
             {
                 _curH += _stretchH;
                 _visual.Stretch(0, _stretchH);
                 IsComplete();
             }
-            else if (Input.GetKey(Key.DOWN))
+            else if (Input.GetKey(Key.S))
             {
                 _curH -= _stretchH;
                 _visual.Stretch(0, -_stretchH);

@@ -34,7 +34,7 @@
     <property name="WinScore" type="int" value="100"/>
    </properties>
   </object>
-  <object id="124" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="11" x="1217.67" y="196.242" width="314" height="88">
+  <object id="124" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="11" x="1199.67" y="206.242" width="314" height="88">
    <properties>
     <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
     <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>

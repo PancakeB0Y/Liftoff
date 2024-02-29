@@ -211,7 +211,7 @@ namespace gxpengine_template.MyClasses.Modules
             Collision dinoColl = _dino.MoveUntilCollision(0, _dinoVel, _groundWrapper);
             bool isGrounded = dinoColl != null && dinoColl.other is Ground;
             //jump
-            if (Input.GetKey(Key.D) && isGrounded && !_dinoJumped)
+            if (Input.GetKey(Key.C) && isGrounded && !_dinoJumped)
             {
                 _dinoVel = -_jumpPower;
                 _dinoJumped = true;

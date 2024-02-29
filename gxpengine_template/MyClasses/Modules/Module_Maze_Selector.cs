@@ -30,23 +30,23 @@ namespace gxpengine_template.MyClasses.Modules
 
         void Update()
         {
-            if (Input.GetKeyDown(Key.UP) &&
+            if (Input.GetKeyDown(Key.W) &&
                 _currentSelection >= _moduleLogic.Columns)
             {
                 ChangeSelection(-_moduleLogic.Columns);
             }
-            else if (Input.GetKeyDown(Key.DOWN) && 
+            else if (Input.GetKeyDown(Key.S) && 
                 _currentSelection < _moduleLogic.Pieces.Length - _moduleLogic.Columns)
             {
                 ChangeSelection(_moduleLogic.Columns);
             }
-            else if (Input.GetKeyDown(Key.RIGHT) && 
+            else if (Input.GetKeyDown(Key.D) && 
                 _currentSelection < _moduleLogic.Pieces.Length - 1 && 
                 (_currentSelection + 1) % _moduleLogic.Columns != 0)
             {
                 ChangeSelection(1);
             }
-            else if (Input.GetKeyDown(Key.LEFT) &&
+            else if (Input.GetKeyDown(Key.A) &&
                 _currentSelection > 0 && _currentSelection % _moduleLogic.Columns != 0)
             {
                 ChangeSelection(-1);
@@ -54,7 +54,6 @@ namespace gxpengine_template.MyClasses.Modules
             else if (Input.GetKeyDown(Key.SPACE))
             {
                 _moduleLogic.RotatePiece(_currentSelection);
-
             }
         }
 

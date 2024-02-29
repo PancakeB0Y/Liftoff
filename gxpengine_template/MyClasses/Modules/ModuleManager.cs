@@ -313,13 +313,14 @@ namespace gxpengine_template.MyClasses.Modules
                     closeModuleAnimation.SetXY(-20, game.height / 2 - 63);
                     break;
                 case ModuleTypes.ThreeButtons:
-                    closeModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
+                    closeModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
                     break;
                 case ModuleTypes.OneButton:
                     closeModuleAnimation.SetXY(game.width / 2 - 205, -10);
                     break;
                 case ModuleTypes.Switch:
-                    closeModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
+                    closeModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
+
                     break;
             }
 
@@ -342,13 +343,13 @@ namespace gxpengine_template.MyClasses.Modules
                     openModuleAnimation.SetXY(-20, game.height / 2 - 63);
                     break;
                 case ModuleTypes.ThreeButtons:
-                    openModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
+                    openModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
                     break;
                 case ModuleTypes.OneButton:
                     openModuleAnimation.SetXY(game.width / 2 - 205, -10);
                     break;
                 case ModuleTypes.Switch:
-                    openModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
+                    openModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
                     break;
             }
 
