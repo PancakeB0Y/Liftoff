@@ -200,8 +200,6 @@ namespace gxpengine_template.MyClasses.Modules
                     newModule.SetXY(game.width - 330, game.height / 2 - 75);
                     break;
             }
-
-            Console.WriteLine(newModule.TotalTime);
         }
 
         void ReplaceModule(Module.ModuleTypes moduleType)

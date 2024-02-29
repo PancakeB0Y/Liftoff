@@ -2,6 +2,7 @@ using GXPEngine;
 using System;
 using System.Collections.Generic;
 using TiledMapParser;
+using static gxpengine_template.MyClasses.Module;
 
 namespace gxpengine_template.MyClasses
 {
@@ -13,10 +14,10 @@ namespace gxpengine_template.MyClasses
         public Level CurrentScene { get; private set; }
         private string _newSceneName = null;
 
-        readonly Sound backgroundMusic = new Sound("Assets/Sounds/Main theme.wav", true);
         readonly Sound buttonSound = new Sound("Assets/Sounds/ButtonSound.wav");
         readonly Sound switchSound = new Sound("Assets/Sounds/SwitchSound.wav");
 
+        public event Action StopSounds;
         //ArduinoReciever _arduinoReciever = new ArduinoReciever();
         public MyGame() : base(1366, 768, false)
         {
@@ -28,10 +29,10 @@ namespace gxpengine_template.MyClasses
             //via FindObjectOfType or other methods
 
             Prefabs = LoadPrefabs();
-            LoadScene("Assets/LVL2.tmx");
+            LoadScene("Assets/StartMenu.tmx");
             OnAfterStep += LoadSceneIfNotNull;
 
-            backgroundMusic.Play(false, 0, 0.1f);
+            //backgroundMusic.Play(false, 0, 0.1f);
         }
 
         static void Main()
@@ -54,6 +55,10 @@ namespace gxpengine_template.MyClasses
             {
                 switchSound.Play();
             }
+            if (Input.GetKeyUp(Key.B))
+            {
+                switchSound.Play();
+            }
 
             //_arduinoReciever.Update();
         }
@@ -72,11 +77,13 @@ namespace gxpengine_template.MyClasses
         public void LoadScene(string sceneName)
         {
             _newSceneName = sceneName;
+            StopSounds?.Invoke();
         }
 
         public void ReloadScene()
         {
             _newSceneName = CurrentScene.Name;
+            StopSounds?.Invoke();
         }
         protected override void OnDestroy()
         {

@@ -154,6 +154,7 @@
     <Compile Include="MyClasses\IPrefab.cs" />
     <Compile Include="MyClasses\IStartable.cs" />
     <Compile Include="MyClasses\Level.cs" />
+    <Compile Include="MyClasses\LevelChange.cs" />
     <Compile Include="MyClasses\Modules\MazePiece.cs" />
     <Compile Include="MyClasses\Modules\Module.cs" />
     <Compile Include="MyClasses\Modules\ModuleManager.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="MyClasses\Modules\Module_Waves.cs" />
     <Compile Include="MyClasses\Modules\Module_Waves_Visual.cs" />
     <Compile Include="MyClasses\Modules\Timer.cs" />
+    <Compile Include="MyClasses\MusicPlayer.cs" />
     <Compile Include="MyClasses\MyGame.cs" />
     <Compile Include="MyClasses\MyUtils.cs" />
     <Compile Include="MyClasses\Robot.cs" />

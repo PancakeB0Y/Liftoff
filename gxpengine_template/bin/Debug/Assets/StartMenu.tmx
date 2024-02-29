@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="85" height="48" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="25">
+ <tileset firstgid="1" name="Start Screen" tilewidth="1366" tileheight="768" tilecount="1" columns="1">
+  <image source="StartScreen.png" width="1366" height="768"/>
+ </tileset>
+ <objectgroup id="2" name="ObjectBackgrounds">
+  <object id="1" name="bg" gid="1" x="-7.24242" y="765.818" width="1366" height="768"/>
+ </objectgroup>
+ <objectgroup id="3" name="Object Layer 1">
+  <object id="21" name="LevelChange" type="gxpengine_template.MyClasses.LevelChange" x="24" y="32" width="110" height="76">
+   <properties>
+    <property name="NextLevel" value="Assets/LVL2.tmx"/>
+   </properties>
+  </object>
+  <object id="24" name="MusicPlayer" type="gxpengine_template.MyClasses.MusicPlayer" x="235" y="26" width="110" height="76">
+   <properties>
+    <property name="Loop" type="bool" value="true"/>
+    <property name="MusicFile" value="Assets/Sounds/MainTheme.wav"/>
+    <property name="Volume" type="float" value="0.1"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
