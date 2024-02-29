@@ -148,6 +148,7 @@
     <Compile Include="MyClasses\Coroutines\WaitForSeconds.cs" />
     <Compile Include="MyClasses\DifficultyManager.cs" />
     <Compile Include="MyClasses\EaseFuncs.cs" />
+    <Compile Include="MyClasses\Explosion.cs" />
     <Compile Include="MyClasses\Ground.cs" />
     <Compile Include="MyClasses\INonDestructable.cs" />
     <Compile Include="MyClasses\ArduinoReciever.cs" />

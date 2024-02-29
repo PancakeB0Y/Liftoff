@@ -10,7 +10,7 @@ using TiledMapParser;
 namespace gxpengine_template.MyClasses
 {
 
-    public class SaveManager : Sprite, IStartable
+    public class SaveManager : Sprite
     {
         public static SaveManager Instance { get; private set; }
         public string PlayerName { get; private set; } = "stf";
@@ -46,9 +46,8 @@ namespace gxpengine_template.MyClasses
             return int.Parse(intStr);
         }
 
-        public void SaveHighScore()
+        public void SaveHighScore(int score)
         {
-            int score = 0;
             string input = "";
             
             using (StreamReader reader = new StreamReader("Assets/HighScores.txt"))
@@ -85,12 +84,6 @@ namespace gxpengine_template.MyClasses
                 writer.Write(input);
                 writer.Close();
             }
-        }
-
-        public void Start()
-        {
-
-            SaveHighScore();
         }
 
         protected override void OnDestroy()

@@ -32,6 +32,7 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 _currentScore = value;
                 _scoreTextMesh.Text = value.ToString();
+                ScoreUpdate?.Invoke();
             }
         }
         int _currentScore;
@@ -49,6 +50,15 @@ namespace gxpengine_template.MyClasses.Modules
         int _currentHighScore;
         readonly TextMesh _highScoreTextMesh;
         readonly Timer[] _timers;
+
+        Dictionary<ModuleTypes, bool> _modulesSpawned = new Dictionary<ModuleTypes, bool>
+        {
+            { Module.ModuleTypes.Dpad, false },
+            { Module.ModuleTypes.OneButton, false },
+            { Module.ModuleTypes.ThreeButtons, false },
+            { Module.ModuleTypes.Switch, false }
+        };
+        bool _allModulesSpawned = false;
 
         public ModuleManager(TiledObject data) : base("Assets/square.png", true, false)
         {
@@ -85,95 +95,6 @@ namespace gxpengine_template.MyClasses.Modules
 
 
 
-        }
-
-        void AddScore(Module module)
-        {
-            Score += DifficultyManager.Instance.GetMultipliedScore(module.SuccesScore);
-        }
-
-        IEnumerator Init()
-        {
-            yield return null;
-            MyUtils.MyGame.CurrentScene.LateAddChild(_scoreTextMesh);
-            _scoreTextMesh.SetXY(game.width - 145, 69);
-            MyUtils.MyGame.CurrentScene.LateAddChild(_highScoreTextMesh);
-            _highScoreTextMesh.SetXY(game.width - 145, game.height - 69);
-            _highScoreTextMesh.Text = SaveManager.Instance.GetHighScore().ToString();
-
-            ReplaceModule(Module.ModuleTypes.Dpad);
-            ReplaceModule(Module.ModuleTypes.ThreeButtons);
-            ReplaceModule(Module.ModuleTypes.OneButton);
-            ReplaceModule(Module.ModuleTypes.Switch);
-
-        }
-
-        void LoadTimers(TiledObject data)
-        {
-            get => _currentScore;
-            set
-            {
-                _currentScore = value;
-                _scoreTextMesh.Text = value.ToString();
-            }
-        }
-        int _currentScore;
-        readonly TextMesh _scoreTextMesh;
-
-        Dictionary<ModuleTypes, bool> _modulesSpawned = new Dictionary<ModuleTypes, bool>
-        {
-            { Module.ModuleTypes.Dpad, false },
-            { Module.ModuleTypes.OneButton, false },
-            { Module.ModuleTypes.ThreeButtons, false },
-            { Module.ModuleTypes.Switch, false }
-        };
-        bool _allModulesSpawned = false;
-
-        public int HighScore
-        {
-            get => _currentHighScore;
-            set
-            {
-                _currentHighScore = value;
-                _highScoreTextMesh.Text = value.ToString();
-            }
-        }
-        int _currentHighScore;
-        readonly TextMesh _highScoreTextMesh;
-        readonly Timer[] _timers;
-
-        public ModuleManager(TiledObject data) : base("Assets/square.png", true, false)
-        {
-            modulesOn = new Dictionary<Module.ModuleTypes, Module>
-            {
-                { Module.ModuleTypes.Dpad, null },
-                { Module.ModuleTypes.OneButton, null },
-                { Module.ModuleTypes.ThreeButtons, null },
-                { Module.ModuleTypes.Switch, null }
-            };
-
-            prefabsByType = new Dictionary<Module.ModuleTypes, List<Module>>
-            {
-                { Module.ModuleTypes.Switch, new List<Module>() },
-                { Module.ModuleTypes.Dpad, new List<Module>() },
-                { Module.ModuleTypes.ThreeButtons, new List<Module>() },
-                { Module.ModuleTypes.OneButton, new List<Module>() }
-            };
-
-            alpha = 0f;
-            LoadModules(out modulePrefabs);
-            prefabsByType = OrganizeByType(modulePrefabs, prefabsByType);
-
-            transitionsClose = new List<AnimationSprite>();
-            transitionsOpen = new List<AnimationSprite>();
-
-            _scoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
-            _highScoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
-
-            _timers = new Timer[4];
-            LoadTimers(data);
-
-            AddChild(new Coroutine(Init()));
         }
 
         void AddScore(Module module)
@@ -235,10 +156,6 @@ namespace gxpengine_template.MyClasses.Modules
             ModuleFailed?.Invoke();
         }
 
-        IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
-        {
-
-        }
 
         IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
         {
@@ -259,6 +176,8 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 modulesOn[moduleType].End -= ReplaceModule;
                 modulesOn[moduleType].Success -= AddScore;
+                modulesOn[moduleType].Fail -= OnModuleFailed;
+
                 modulesOn[moduleType].Destroy();
             }
 
@@ -267,6 +186,7 @@ namespace gxpengine_template.MyClasses.Modules
             Module newModule = GetRandomModule(moduleType, 1);
             modulesOn[moduleType] = newModule;
             modulesOn[moduleType].StartModule();
+
             modulesOn[moduleType].End += ReplaceModule;
             modulesOn[moduleType].Success += AddScore;
             modulesOn[moduleType].Fail += OnModuleFailed;
@@ -289,7 +209,6 @@ namespace gxpengine_template.MyClasses.Modules
                     break;
             }
 
-            Console.WriteLine(newModule.TotalTime);
         }
 
         void ReplaceModule(Module.ModuleTypes moduleType)

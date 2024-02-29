@@ -1,6 +1,7 @@
 ﻿using GXPEngine;
 using gxpengine_template.MyClasses.Modules;
 using gxpengine_template.MyClasses.UI;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -41,7 +42,7 @@ namespace gxpengine_template.MyClasses
             alpha = 0;
             _difficultyMultipliers = data.GetStringProperty("DifficultyMultipliersCSV", "1.0,1.1,1.2,1.3,1.4").Split(',').Select(s => float.Parse(s, CultureInfo.InvariantCulture)).ToArray();
             
-            _scoreThreshHolds = data.GetStringProperty("ScoreThreshHoldsCSV", "F.100,E.200").Split(',').Select
+            _scoreThreshHolds = data.GetStringProperty("ScoreThreshHoldsCSV", "F.10,E.20").Split(',').Select
             (
                 s =>
                 {
@@ -51,7 +52,7 @@ namespace gxpengine_template.MyClasses
             
             ).ToArray();
 
-            _textMesh = new TextMesh("E", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Center,CenterMode.Center, textSize: 30, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
+            _textMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Center,CenterMode.Center, textSize: 30, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
         }
 
         public void Start()
@@ -64,6 +65,7 @@ namespace gxpengine_template.MyClasses
 
         private void OnScoreUpdate()
         {
+            Console.WriteLine("score update");
             string letter = "E";
             foreach (var threshHold in _scoreThreshHolds)
             {

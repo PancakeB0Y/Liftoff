@@ -1,6 +1,7 @@
 ﻿using GXPEngine;
 using gxpengine_template.MyClasses.Coroutines;
 using gxpengine_template.MyClasses.Modules;
+using System;
 using System.Collections;
 using TiledMapParser;
 
@@ -8,7 +9,9 @@ namespace gxpengine_template.MyClasses
 {
     public class Bomb : AnimationSprite
     {
+        public event Action Exploded;
         public static Bomb Instance;
+
         public int Strikes { get; set; }
 
         readonly Pivot _container;
@@ -16,28 +19,47 @@ namespace gxpengine_template.MyClasses
         readonly Sprite[] _failVisuals;
         ModuleManager _moduleManager;
 
+        int _failsLeft;
+        readonly float _cooldown;
+        float _currCooldown;
         public Bomb(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, -1, false, false)
         {
-            string simonBallPath = data.GetStringProperty("FailBGFilePath", "Assets/square.png");
-            _failsAmount = data.GetIntProperty("FailsAmount", 5);
-            _container = new Pivot();
+            if (Instance != null)
+            {
+                Destroy();
+            }
+            else
+                Instance = this;
 
+            _failsAmount = data.GetIntProperty("FailsAmount", 5);
+
+            _cooldown = data.GetFloatProperty("WallTouchCooldown", 2);
+            _currCooldown = _cooldown;
+
+            _container = new Pivot();
+            _failsLeft = _failsAmount;
             _failVisuals = new Sprite[_failsAmount];
 
-            AddChild(new Coroutine(Init(simonBallPath)));
+            //alpha = 0.2f;
+            AddChild(new Coroutine(Init(data)));
         }
 
-        IEnumerator Init(string failPath)
+        IEnumerator Init(TiledObject data)
         {
             yield return null;
-            _moduleManager = MyUtils.MyGame.CurrentScene.FindObjectOfType<ModuleManager>();
+
+            string failPath = data.GetStringProperty("FailBGFilePath", "Assets/Bomb_Cross.png");
+            int padding = data.GetIntProperty("PaddingX", 10);
+            int spacing = data.GetIntProperty("Spacing", 10);
+
+            _moduleManager = MyUtils.MyGame.FindObjectOfType<ModuleManager>();
             _moduleManager.ModuleFailed += OnFail;
+
             MyUtils.MyGame.CurrentScene.AddChild(_container);
 
             _container.SetXY(x, y);
-            int spacing = 30;
 
-            int ballW = (width - (spacing * (_failVisuals.Length - 1))) / _failVisuals.Length;
+            int ballW = (width - padding - (spacing * (_failVisuals.Length - 1))) / _failVisuals.Length;
             for (int i = 0; i < _failVisuals.Length; i++)
             {
                 var ball = new Sprite(failPath, true, false);
@@ -47,20 +69,59 @@ namespace gxpengine_template.MyClasses
 
                 _failVisuals[i] = ball;
 
-                ball.x = ballW * (i % _failVisuals.Length) + (spacing * (i % _failVisuals.Length));
+                ball.x = ballW * (i % _failVisuals.Length) + (spacing * (i % _failVisuals.Length)) + padding * 0.5f;
                 ball.y = height / 2 - ball.height / 2;
+
+            }
+            _container.SetXY(x - width / 2, y - height / 2);
+
+        }
+        
+        void Update()
+        {
+            _currCooldown = Mathf.Max(_currCooldown -= Time.deltaTime * 0.001f, 0);
+
+            if (Input.GetKey(Key.NINE) && _currCooldown == 0)//touching the walls
+            {
+                _currCooldown = _cooldown;
+
+                RemoveLife();
+            }
+
+            if (_failsLeft == 0)
+            {
+                Exploded?.Invoke();
+                SpawnExplosion();
+                SaveManager.Instance.SaveHighScore(_moduleManager.Score);
+
+                Destroy();
 
             }
         }
 
         void OnFail()
         {
-            _failVisuals[0].visible = false;
+            RemoveLife();
         }
+
+        void SpawnExplosion()
+        {
+            var explosion = MyUtils.MyGame.Prefabs["Explosion"].Clone();
+            MyUtils.MyGame.CurrentScene.AddChild(explosion);
+            explosion.SetXY(x, y);
+        }
+
+        void RemoveLife()
+        {
+            if (_failsLeft > 0)
+                _failVisuals[--_failsLeft].visible = false;
+        }
+
 
         protected override void OnDestroy()
         {
             _moduleManager.ModuleFailed -= OnFail;
+            Exploded = null;
             Instance = null;
         }
     }
