@@ -27,6 +27,8 @@ namespace gxpengine_template.MyClasses.Animations
         protected AnimationManager(TiledObject data ) : base("Assets/square.png",true,false)
         {
             alpha = 0;
+            Bomb.Instance.Exploded += OnExlposion;
+
         }
 
         protected void TransitionToAnim(Animation newAnim)
@@ -63,6 +65,12 @@ namespace gxpengine_template.MyClasses.Animations
             TransitionToAnim(_animations["Idle"]);
             prevTrigger = null;
 
+        }
+
+        protected virtual void OnExlposion()
+        {
+            AddTrigger("Die", 2);
+            Bomb.Instance.Exploded -= OnExlposion;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace gxpengine_template.MyClasses.Animations
                 {"Press1",  new Animation( this,"Press1", animationSet ,startFrame: 46, frames: 23,animDelay: speed, loop: false) },
                 {"Press2",  new Animation( this,"Press2", animationSet ,startFrame: 23, frames: 23,animDelay: speed, loop: false) },
                 {"Press3",  new Animation( this,"Press3", animationSet ,startFrame: 0, frames: 23,animDelay: speed, loop: false) },
-                {"Die",     new Animation( this,"Die", animationSet ,startFrame: 19, frames: 25,animDelay: speed, loop: false) },
+                {"Die",     new Animation( this,"Die", animationSet ,startFrame: 69, frames: 14,animDelay: speed, loop: false,exitTime:744) },
 
             };
 
@@ -29,7 +29,7 @@ namespace gxpengine_template.MyClasses.Animations
             _animations["Press2"].AnimationLoopEnd += OnTriggerEnd;
             _animations["Press3"].AnimationLoopEnd += OnTriggerEnd;
 
-            currAnimation = _animations["Press1"];
+            currAnimation = _animations["Idle"];
             currAnimation.StartAnim();
         }
         protected override void OnDestroy()

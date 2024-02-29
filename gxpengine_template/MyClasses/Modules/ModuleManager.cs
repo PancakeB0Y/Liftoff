@@ -32,6 +32,7 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 _currentScore = value;
                 _scoreTextMesh.Text = value.ToString();
+                ScoreUpdate?.Invoke();
             }
         }
         int _currentScore;
@@ -49,6 +50,15 @@ namespace gxpengine_template.MyClasses.Modules
         int _currentHighScore;
         readonly TextMesh _highScoreTextMesh;
         readonly Timer[] _timers;
+
+        Dictionary<ModuleTypes, bool> _modulesSpawned = new Dictionary<ModuleTypes, bool>
+        {
+            { Module.ModuleTypes.Dpad, false },
+            { Module.ModuleTypes.OneButton, false },
+            { Module.ModuleTypes.ThreeButtons, false },
+            { Module.ModuleTypes.Switch, false }
+        };
+        bool _allModulesSpawned = false;
 
         public ModuleManager(TiledObject data) : base("Assets/square.png", true, false)
         {
@@ -82,21 +92,15 @@ namespace gxpengine_template.MyClasses.Modules
             LoadTimers(data);
 
             AddChild(new Coroutine(Init()));
+
+
+
         }
 
         void AddScore(Module module)
         {
             Score += DifficultyManager.Instance.GetMultipliedScore(module.SuccesScore);
         }
-
-        Dictionary<ModuleTypes, bool> _modulesSpawned = new Dictionary<ModuleTypes, bool>
-        {
-            { Module.ModuleTypes.Dpad, false },
-            { Module.ModuleTypes.OneButton, false },
-            { Module.ModuleTypes.ThreeButtons, false },
-            { Module.ModuleTypes.Switch, false }
-        };
-        bool _allModulesSpawned = false;
 
         IEnumerator Init()
         {
@@ -152,6 +156,7 @@ namespace gxpengine_template.MyClasses.Modules
             ModuleFailed?.Invoke();
         }
 
+
         IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
         {
             if (_modulesSpawned[moduleType])
@@ -171,6 +176,8 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 modulesOn[moduleType].End -= ReplaceModule;
                 modulesOn[moduleType].Success -= AddScore;
+                modulesOn[moduleType].Fail -= OnModuleFailed;
+
                 modulesOn[moduleType].Destroy();
             }
 
@@ -179,6 +186,7 @@ namespace gxpengine_template.MyClasses.Modules
             Module newModule = GetRandomModule(moduleType, 1);
             modulesOn[moduleType] = newModule;
             modulesOn[moduleType].StartModule();
+
             modulesOn[moduleType].End += ReplaceModule;
             modulesOn[moduleType].Success += AddScore;
             modulesOn[moduleType].Fail += OnModuleFailed;
@@ -200,6 +208,7 @@ namespace gxpengine_template.MyClasses.Modules
                     newModule.SetXY(game.width - 330, game.height / 2 - 75);
                     break;
             }
+
         }
 
         void ReplaceModule(Module.ModuleTypes moduleType)

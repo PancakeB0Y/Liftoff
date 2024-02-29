@@ -36,6 +36,7 @@ namespace gxpengine_template.MyClasses
             Difficulty = data.GetIntProperty("Difficulty", 1);
             Difficulty = (int)Mathf.Clamp(Difficulty, 0, 6);
             SuccesScore = data.GetIntProperty("SuccesScore", 10);
+            //Fail += OnFail;
 
             alpha = 0f;
             AddChild(new Coroutine(Initialize()));
@@ -77,7 +78,11 @@ namespace gxpengine_template.MyClasses
         {
 
         }
-
+        //protected void OnFail(Module m)
+        //{
+        //    Console.WriteLine("failed " + GetType());
+        //    Fail -= OnFail;
+        //}
         public virtual void StartModule()
         {
             StartTimer();

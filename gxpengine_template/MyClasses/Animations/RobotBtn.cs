@@ -19,11 +19,12 @@ namespace gxpengine_template.MyClasses.Animations
 
             _animations = new Dictionary<string, Animation>()
             {
-                {"Idle",    new Animation( this,"Idle", animationSet ,startFrame: 0, frames: 19,animDelay: 3) },
+                {"Idle",    new Animation( this,"Idle", animationSet ,startFrame: 0, frames: 18,animDelay: 3,exitTime:0) },
                 {"Press", new Animation( this,"Press", animationSet ,startFrame: 26, frames: 19,animDelay: speed, loop: false) },
-                {"Die",     new Animation( this,"Die", animationSet ,startFrame: 19, frames: 25,animDelay: speed, loop: false) },
+                {"Die",     new Animation( this,"Die", animationSet ,startFrame: 19, frames: 7,animDelay: speed, loop: false, exitTime : 744) },
 
             };
+
 
             _animations["Press"].AnimationLoopEnd += OnTriggerEnd;
 

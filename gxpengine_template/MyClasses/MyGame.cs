@@ -85,6 +85,7 @@ namespace gxpengine_template.MyClasses
             _newSceneName = CurrentScene.Name;
             StopSounds?.Invoke();
         }
+
         protected override void OnDestroy()
         {
             OnAfterStep -= LoadSceneIfNotNull;
@@ -105,7 +106,7 @@ namespace gxpengine_template.MyClasses
 
             try
             {
-                var loader = new TiledLoader("Prefabs.tmx", MyGame.main, false, autoInstance: true);
+                var loader = new TiledLoader("Assets/Prefabs.tmx", MyGame.main, false, autoInstance: true);
                 loader.LoadObjectGroups();
                 foreach (var obj in FindObjectsOfType<GameObject>())
                     if (obj is IPrefab prefab)

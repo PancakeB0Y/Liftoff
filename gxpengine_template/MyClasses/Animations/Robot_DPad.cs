@@ -16,13 +16,13 @@ namespace gxpengine_template.MyClasses.Animations
 
             _animations = new Dictionary<string, Animation>()
             {
-                {"Idle",    new Animation( this,"Idle", animationSet ,startFrame: 81, frames: 16,animDelay: 3) },
+                {"Idle",    new Animation( this,"Idle", animationSet ,startFrame: 81, frames: 15,animDelay: 3,exitTime:0) },
                 {"L_Press", new Animation( this,"L_Press", animationSet ,startFrame: 0, frames: 17,animDelay: speed, loop: false) },
                 {"T_Press", new Animation( this,"T_Press", animationSet ,startFrame: 37, frames: 13,animDelay: speed, loop: false) },
                 {"R_Press", new Animation( this,"R_Press", animationSet ,startFrame: 50, frames: 17,animDelay: speed, loop: false) },
                 {"B_Press", new Animation( this,"B_Press", animationSet ,startFrame: 17, frames: 9,animDelay: speed, loop: false) },
                 {"M_Press", new Animation( this,"M_Press", animationSet ,startFrame: 26, frames: 10,animDelay: speed, loop: false) },
-                {"Die",     new Animation( this,"Die", animationSet ,startFrame: 67, frames: 14,animDelay: speed, loop: false) },
+                {"Die",     new Animation( this,"Die", animationSet ,startFrame: 67, frames: 14,animDelay: speed, loop: false,exitTime:755) },
 
             };
 

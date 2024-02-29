@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="80" height="45" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="7">
+ <tileset firstgid="1" name="Explosion" tilewidth="550" tileheight="550" tilecount="10" columns="5">
+  <image source="Bomb_explosion_SpriteSheet.png" width="2750" height="1100"/>
+ </tileset>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="6" name="Explosion" type="gxpengine_template.MyClasses.Explosion" gid="1" x="-127.32" y="429.317" width="550" height="550">
+   <properties>
+    <property name="AnimSpeed" type="int" value="6"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

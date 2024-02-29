@@ -119,7 +119,7 @@ namespace gxpengine_template.MyClasses.Modules
                     }
                     else if (_mPieces.Length % 2 != 0 && i == (int)(_mPieces.Length / 2f))
                     {
-                        if (protoPiece.Type == PieceType.Line) continue;
+                        if (protoPiece.Type == PieceType.Line || protoPiece.Type == PieceType.Corner) continue;
 
                         _mPieces[i] = protoPiece.Clone();
                         break;

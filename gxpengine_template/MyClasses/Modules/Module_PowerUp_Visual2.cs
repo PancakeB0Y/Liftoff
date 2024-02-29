@@ -21,6 +21,7 @@ namespace gxpengine_template.MyClasses.Modules
         readonly Module_PowerUp powerUp;
         readonly Pivot _container;
         readonly float[] _chargeThreshHolds;
+        readonly float _bgPadding;
         public Module_PowerUp_Visual2(Module_PowerUp powerUp, TiledObject data)
         {
             this.powerUp = powerUp;
@@ -38,6 +39,7 @@ namespace gxpengine_template.MyClasses.Modules
                 true, false
             );
             _chargeThreshHolds = data.GetStringProperty("ChargeThreshHoldsCSV", "0.2,0.4,0.6,0.8").Split(',').Select(x => float.Parse(x, CultureInfo.InvariantCulture)).ToArray();
+            _bgPadding = data.GetIntProperty("BgPadding",20);
             AddChild(new Coroutine(Init()));
         }
 
@@ -78,7 +80,7 @@ namespace gxpengine_template.MyClasses.Modules
 
         void Update()
         {
-            _bar.y = _bg.y + powerUp.CurrentBarPersentage * _bg.height;
+            _bar.y = _bg.y + _bgPadding + powerUp.CurrentBarPersentage * (_bg.height - _bgPadding*2);
             //battery
             int i = 0;
             foreach (var threshHold in _chargeThreshHolds)
