@@ -31,7 +31,7 @@ namespace gxpengine_template.MyClasses
             timer = data.GetIntProperty("TimerSeconds", 5);
             currTime = timer;
             Difficulty = data.GetIntProperty("Difficulty", 1);
-            Difficulty = (int)Mathf.Clamp(Difficulty, 1, 3);
+            Difficulty = (int)Mathf.Clamp(Difficulty, 0, 6);
             SuccesScore = data.GetIntProperty("SuccesScore", 10);
 
             _timerText = new TextMesh("4", 400, 400);
