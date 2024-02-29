@@ -13,6 +13,10 @@ namespace gxpengine_template.MyClasses
         public Level CurrentScene { get; private set; }
         private string _newSceneName = null;
 
+        readonly Sound backgroundMusic = new Sound("Assets/Sounds/Main theme.wav", true);
+        readonly Sound buttonSound = new Sound("Assets/Sounds/ButtonSound.wav");
+        readonly Sound switchSound = new Sound("Assets/Sounds/SwitchSound.wav");
+
         //ArduinoReciever _arduinoReciever = new ArduinoReciever();
         public MyGame() : base(1366, 768, false)
         {
@@ -26,6 +30,8 @@ namespace gxpengine_template.MyClasses
             Prefabs = LoadPrefabs();
             LoadScene("Assets/LVL2.tmx");
             OnAfterStep += LoadSceneIfNotNull;
+
+            backgroundMusic.Play(false, 0, 0.1f);
         }
 
         static void Main()
@@ -38,6 +44,17 @@ namespace gxpengine_template.MyClasses
             {
                 ReloadScene();
             }
+
+            if (Input.GetKeyDown(Key.H) || Input.GetKeyDown(Key.J) || Input.GetKeyDown(Key.K) || Input.GetKeyDown(Key.C)
+                || Input.GetKeyDown(Key.W) || Input.GetKeyDown(Key.A) || Input.GetKeyDown(Key.S) || Input.GetKeyDown(Key.D) || Input.GetKeyDown(Key.SPACE))
+            {
+                buttonSound.Play();
+            }
+            if (Input.GetKeyDown(Key.B))
+            {
+                switchSound.Play();
+            }
+
             //_arduinoReciever.Update();
         }
         private void LoadSceneIfNotNull()

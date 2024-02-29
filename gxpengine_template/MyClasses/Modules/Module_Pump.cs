@@ -8,7 +8,7 @@ namespace gxpengine_template.MyClasses
     {
         //clamp 0 to 1
         public float ChargePersentage { get; private set; } = 1f;
-        public bool Charging {  get; private set; }
+        public bool Charging { get; private set; }
 
         readonly float _chargeSpeed;
         readonly float _dischargeSpeed;
@@ -48,7 +48,6 @@ namespace gxpengine_template.MyClasses
                 {
                     ChargePersentage = 1;
                 }
-
             }
             else
             {
