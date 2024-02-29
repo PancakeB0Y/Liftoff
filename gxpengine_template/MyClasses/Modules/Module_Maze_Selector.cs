@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using gxpengine_template.MyClasses.Coroutines;
 using System;
 using System.Collections;
@@ -54,7 +54,6 @@ namespace gxpengine_template.MyClasses.Modules
             else if (Input.GetKeyDown(Key.SPACE))
             {
                 _moduleLogic.RotatePiece(_currentSelection);
-
             }
         }
 

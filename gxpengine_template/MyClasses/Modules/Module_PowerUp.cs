@@ -36,7 +36,7 @@ namespace gxpengine_template.MyClasses
             ChargeZonePersentage = data.GetFloatProperty("ChargeZoneSize", 0.2f);
             ChargeZoneRandomPosition = Utils.Random(ChargeZonePersentage, 1 - ChargeZonePersentage);
             alpha = 0;
-            var visual = new Module_PowerUp_Visual2(this,data);
+            var visual = new Module_PowerUp_Visual2(this, data);
             AddChild(visual);
         }
 

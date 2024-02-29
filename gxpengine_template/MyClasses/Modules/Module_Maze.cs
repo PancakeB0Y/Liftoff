@@ -76,7 +76,10 @@ namespace gxpengine_template.MyClasses.Modules
         public void CheckPath()
         {
             if (IsPossiblePath())
+            {
+                alpha = 0;
                 RaiseSuccesEvent();
+            }
         }
 
         protected override void OnTimeEnd()

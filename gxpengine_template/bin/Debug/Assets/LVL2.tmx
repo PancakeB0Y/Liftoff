@@ -36,10 +36,10 @@
     <property name="Timer0Y" type="float" value="285"/>
     <property name="Timer1X" type="float" value="884"/>
     <property name="Timer1Y" type="float" value="45"/>
-    <property name="Timer2X" type="float" value="1317"/>
-    <property name="Timer2Y" type="float" value="290"/>
-    <property name="Timer3X" type="float" value="884"/>
-    <property name="Timer3Y" type="float" value="527"/>
+    <property name="Timer2X" type="float" value="884"/>
+    <property name="Timer2Y" type="float" value="527"/>
+    <property name="Timer3X" type="float" value="1317"/>
+    <property name="Timer3Y" type="float" value="290"/>
     <property name="TimerFilePath" value="Assets/Time_Line.png"/>
    </properties>
   </object>

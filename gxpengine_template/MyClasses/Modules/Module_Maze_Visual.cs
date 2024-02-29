@@ -13,6 +13,7 @@ namespace gxpengine_template.MyClasses.Modules
         readonly Module_Maze _mazeLogic;
         readonly Module_Maze_Selector _mazeSelector;
         readonly AnimationSprite[] _pieces;
+        readonly Sprite _mazeCompletedVisual;
         readonly Func<float, float> _easeFunc;
         readonly Pivot _container;
         readonly int _rotationTimeMs;
@@ -22,6 +23,9 @@ namespace gxpengine_template.MyClasses.Modules
         {
             _mazeLogic = mazeLogic;
             _mazeSelector = mazeSelector;
+
+            bool is3x3 = _mazeLogic.Rows == 3;
+            _mazeCompletedVisual = new Sprite(data.GetStringProperty("MazeCompletedPath", is3x3 ? "Assets/Maze/Maze_3x3_Completed.png" : "Assets/Maze/Maze_3x2_Completed.png"));
 
             int ssColumns = data.GetIntProperty("MazePiecesSpriteSheet_Columns");
             int ssRows = data.GetIntProperty("MazePiecesSpriteSheet_Rows");
@@ -37,31 +41,30 @@ namespace gxpengine_template.MyClasses.Modules
             _mazeLogic.PieceRotated += RotatePiece;
             _mazeSelector.SelectionChanged += OnSelectionChange;
 
-            AddChild(new Coroutine(Init(pieceSpriteSheetPath, ssColumns,ssRows, data)));
-
+            AddChild(new Coroutine(Init(pieceSpriteSheetPath, ssColumns, ssRows, data)));
         }
 
         IEnumerator Init(string pieceSpriteSheetPath, int ssColumns, int ssRows, TiledObject data)
         {
             yield return null;
 
-            var paddingL = data.GetFloatProperty("PaddingL",0.1f) * _mazeLogic.width;
-            var paddingR = data.GetFloatProperty("PaddingR",0.1f) * _mazeLogic.width;
-            var paddingT = data.GetFloatProperty("PaddingT",0.1f) * _mazeLogic.height;
-            var paddingB = data.GetFloatProperty("PaddingB",0.1f) * _mazeLogic.height;
-            var spacingX = data.GetFloatProperty("SpacingX",0.1f) * _mazeLogic.width;
-            var spacingY = data.GetFloatProperty("SpacingY",0.1f) * _mazeLogic.height;
+            var paddingL = data.GetFloatProperty("PaddingL", 0.1f) * _mazeLogic.width;
+            var paddingR = data.GetFloatProperty("PaddingR", 0.1f) * _mazeLogic.width;
+            var paddingT = data.GetFloatProperty("PaddingT", 0.1f) * _mazeLogic.height;
+            var paddingB = data.GetFloatProperty("PaddingB", 0.1f) * _mazeLogic.height;
+            var spacingX = data.GetFloatProperty("SpacingX", 0.1f) * _mazeLogic.width;
+            var spacingY = data.GetFloatProperty("SpacingY", 0.1f) * _mazeLogic.height;
 
-            Vector2 pos = new Vector2(_mazeLogic.x,_mazeLogic.y);
+            Vector2 pos = new Vector2(_mazeLogic.x, _mazeLogic.y);
 
             _mazeLogic.SetOrigin(0, 0);
             _mazeLogic.SetXY(pos.x, pos.y);
-            _mazeLogic.alpha = data.GetFloatProperty("BgAlpha",1);
+            _mazeLogic.alpha = data.GetFloatProperty("BgAlpha", 1);
             _container.SetXY(_mazeLogic.x, _mazeLogic.y);
 
             int mazeColumns = _mazeLogic.Columns;
-            int pieceW = Mathf.Floor((_mazeLogic.width  - paddingL - paddingR - (spacingX * (mazeColumns - 1))) / mazeColumns);
-            int pieceH = Mathf.Floor((_mazeLogic.height - paddingT - paddingB - (spacingY * (_mazeLogic.Rows - 1))) / _mazeLogic.Rows );
+            int pieceW = Mathf.Floor((_mazeLogic.width - paddingL - paddingR - (spacingX * (mazeColumns - 1))) / mazeColumns);
+            int pieceH = Mathf.Floor((_mazeLogic.height - paddingT - paddingB - (spacingY * (_mazeLogic.Rows - 1))) / _mazeLogic.Rows);
             Vector2 offset = new Vector2(pieceW * .5f + paddingL, pieceH * .5f + paddingT);
             Vector2 currSpacing = new Vector2();
 
@@ -80,6 +83,7 @@ namespace gxpengine_template.MyClasses.Modules
                 piece.SetXY(pieceW * (i % mazeColumns) + offset.x + currSpacing.x, pieceH * (i / mazeColumns) + offset.y + currSpacing.y);
             }
 
+            _container.AddChild(_mazeCompletedVisual);
         }
         void Update()
         {
@@ -112,7 +116,7 @@ namespace gxpengine_template.MyClasses.Modules
                 }
                 ).
                 OnExit(
-                ()=>
+                () =>
                     visualOfPiece.rotation = copy + 90
                 );
             visualOfPiece.AddChild(_rotationTween);
@@ -125,16 +129,16 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 case PieceType.Cross:
                     piece.SetFrame(0);
-                break;
+                    break;
                 case PieceType.Line:
                     piece.SetFrame(1);
-                break;
+                    break;
                 case PieceType.T:
                     piece.SetFrame(2);
-                break;
+                    break;
                 case PieceType.Corner:
                     piece.SetFrame(3);
-                break;
+                    break;
 
             }
 

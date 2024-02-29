@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using gxpengine_template.MyClasses.Modules;
 using TiledMapParser;
 

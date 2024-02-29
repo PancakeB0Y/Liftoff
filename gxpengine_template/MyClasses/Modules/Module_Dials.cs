@@ -57,6 +57,7 @@ namespace gxpengine_template.MyClasses
                 RaiseSuccesEvent();
             }
         }
+
         bool IsComplete()
         {
             bool hasWon = true;
@@ -106,13 +107,12 @@ namespace gxpengine_template.MyClasses
             this.speed = Utils.Random(speed - 0.2f, speed + 0.2f);
             this.keyCode = keyCode;
             WinRange = winRange;
-            //MinWinRange = Utils.Random(0, 100 - WinRange);
+
             MinWinRange = 0;
             MaxWinRange = MinWinRange + winRange;
             CurrentPercent = 0;
 
             RotateRight = Utils.Random(0, 2) == 0 ? false : true;
-            //rotateRight = true;
         }
 
         public void Move()

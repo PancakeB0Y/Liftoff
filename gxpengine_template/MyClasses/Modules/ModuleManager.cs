@@ -110,13 +110,98 @@ namespace gxpengine_template.MyClasses.Modules
 
         void LoadTimers(TiledObject data)
         {
+            get => _currentScore;
+            set
+            {
+                _currentScore = value;
+                _scoreTextMesh.Text = value.ToString();
+            }
+        }
+        int _currentScore;
+        readonly TextMesh _scoreTextMesh;
+
+        Dictionary<ModuleTypes, bool> _modulesSpawned = new Dictionary<ModuleTypes, bool>
+        {
+            { Module.ModuleTypes.Dpad, false },
+            { Module.ModuleTypes.OneButton, false },
+            { Module.ModuleTypes.ThreeButtons, false },
+            { Module.ModuleTypes.Switch, false }
+        };
+        bool _allModulesSpawned = false;
+
+        public int HighScore
+        {
+            get => _currentHighScore;
+            set
+            {
+                _currentHighScore = value;
+                _highScoreTextMesh.Text = value.ToString();
+            }
+        }
+        int _currentHighScore;
+        readonly TextMesh _highScoreTextMesh;
+        readonly Timer[] _timers;
+
+        public ModuleManager(TiledObject data) : base("Assets/square.png", true, false)
+        {
+            modulesOn = new Dictionary<Module.ModuleTypes, Module>
+            {
+                { Module.ModuleTypes.Dpad, null },
+                { Module.ModuleTypes.OneButton, null },
+                { Module.ModuleTypes.ThreeButtons, null },
+                { Module.ModuleTypes.Switch, null }
+            };
+
+            prefabsByType = new Dictionary<Module.ModuleTypes, List<Module>>
+            {
+                { Module.ModuleTypes.Switch, new List<Module>() },
+                { Module.ModuleTypes.Dpad, new List<Module>() },
+                { Module.ModuleTypes.ThreeButtons, new List<Module>() },
+                { Module.ModuleTypes.OneButton, new List<Module>() }
+            };
+
+            alpha = 0f;
+            LoadModules(out modulePrefabs);
+            prefabsByType = OrganizeByType(modulePrefabs, prefabsByType);
+
+            transitionsClose = new List<AnimationSprite>();
+            transitionsOpen = new List<AnimationSprite>();
+
+            _scoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
+            _highScoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
+
+            _timers = new Timer[4];
+            LoadTimers(data);
+
+            AddChild(new Coroutine(Init()));
+        }
+
+        void AddScore(Module module)
+        {
+            Score += DifficultyManager.Instance.GetMultipliedScore(module.SuccesScore);
+        }
+
+        IEnumerator Init()
+        {
+            yield return null;
+            MyUtils.MyGame.CurrentScene.LateAddChild(_scoreTextMesh);
+            _scoreTextMesh.SetXY(game.width - 145, 69);
+            MyUtils.MyGame.CurrentScene.LateAddChild(_highScoreTextMesh);
+            _highScoreTextMesh.SetXY(game.width - 145, game.height - 69);
+            _highScoreTextMesh.Text = SaveManager.Instance.GetHighScore().ToString();
+
+            LoadEmptyModule();
+        }
+
+        void LoadTimers(TiledObject data)
+        {
             string filePath = data.GetStringProperty("TimerFilePath");
             for (int i = 0; i < _timers.Length; i++)
             {
                 _timers[i] = new Timer(filePath, false, false);
                 _timers[i].SetXY(data.GetFloatProperty($"Timer{i}X"), data.GetFloatProperty($"Timer{i}Y"));
+                _timers[i].SetAlpha(0);
                 MyUtils.MyGame.CurrentScene.LateAddChild(_timers[i]);
-
             }
         }
 
@@ -153,6 +238,16 @@ namespace gxpengine_template.MyClasses.Modules
         IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
         {
 
+        }
+
+        IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
+        {
+            if (_modulesSpawned[moduleType])
+            {
+                LoadEmptyModule();
+            }
+            _modulesSpawned[moduleType] = true;
+
             var anim = PlayCloseAnimation(moduleType);
 
             while (anim.currentFrame < anim.frameCount)
@@ -164,7 +259,6 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 modulesOn[moduleType].End -= ReplaceModule;
                 modulesOn[moduleType].Success -= AddScore;
-
                 modulesOn[moduleType].Destroy();
             }
 
@@ -185,20 +279,67 @@ namespace gxpengine_template.MyClasses.Modules
                     newModule.SetXY(newModule.width / 2 + 80, game.height / 2);
                     break;
                 case ModuleTypes.ThreeButtons:
-                    newModule.SetXY(game.width - newModule.width + 70, game.height / 2);
+                    newModule.SetXY(game.width / 2, game.height - newModule.height - 60);
                     break;
                 case ModuleTypes.OneButton:
                     newModule.SetXY(game.width / 2, 140);
                     break;
                 case ModuleTypes.Switch:
-                    newModule.SetXY(game.width / 2 - newModule.width - 50, game.height - 220);
+                    newModule.SetXY(game.width - 330, game.height / 2 - 75);
                     break;
             }
+
+            Console.WriteLine(newModule.TotalTime);
         }
 
         void ReplaceModule(Module.ModuleTypes moduleType)
         {
             AddChild(new Coroutine(ReplaceModuleCR(moduleType)));
+        }
+
+        void LoadEmptyModule()
+        {
+            if (_allModulesSpawned) { return; }
+
+            bool areAllModulesSpawned = true;
+
+            List<ModuleTypes> notSpawnedModules = new List<ModuleTypes>();
+
+            foreach (KeyValuePair<ModuleTypes, bool> entry in _modulesSpawned)
+            {
+                if (!entry.Value)
+                {
+                    areAllModulesSpawned = false;
+                    notSpawnedModules.Add(entry.Key);
+                }
+            }
+
+            if (areAllModulesSpawned)
+            {
+                _allModulesSpawned = true;
+                return;
+            }
+
+            int randModule = Utils.Random(0, notSpawnedModules.Count);
+            switch (notSpawnedModules[randModule])
+            {
+                case ModuleTypes.Dpad:
+                    ReplaceModule(ModuleTypes.Dpad);
+                    _timers[0].SetAlpha(1);
+                    break;
+                case ModuleTypes.OneButton:
+                    ReplaceModule(ModuleTypes.OneButton);
+                    _timers[1].SetAlpha(1);
+                    break;
+                case ModuleTypes.ThreeButtons:
+                    ReplaceModule(ModuleTypes.ThreeButtons);
+                    _timers[2].SetAlpha(1);
+                    break;
+                case ModuleTypes.Switch:
+                    ReplaceModule(ModuleTypes.Switch);
+                    _timers[3].SetAlpha(1);
+                    break;
+            }
         }
 
         Module GetRandomModule(Module.ModuleTypes moduleType, int Difficulty)
@@ -267,13 +408,14 @@ namespace gxpengine_template.MyClasses.Modules
                     closeModuleAnimation.SetXY(-20, game.height / 2 - 63);
                     break;
                 case ModuleTypes.ThreeButtons:
-                    closeModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
+                    closeModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
                     break;
                 case ModuleTypes.OneButton:
                     closeModuleAnimation.SetXY(game.width / 2 - 205, -10);
                     break;
                 case ModuleTypes.Switch:
-                    closeModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
+                    closeModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
+
                     break;
             }
 
@@ -296,13 +438,13 @@ namespace gxpengine_template.MyClasses.Modules
                     openModuleAnimation.SetXY(-20, game.height / 2 - 63);
                     break;
                 case ModuleTypes.ThreeButtons:
-                    openModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
+                    openModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
                     break;
                 case ModuleTypes.OneButton:
                     openModuleAnimation.SetXY(game.width / 2 - 205, -10);
                     break;
                 case ModuleTypes.Switch:
-                    openModuleAnimation.SetXY(game.width / 2 - 200, game.height - 113);
+                    openModuleAnimation.SetXY(game.width - 404, game.height / 2 - 55);
                     break;
             }
 

@@ -31,8 +31,8 @@ namespace gxpengine_template.MyClasses.Modules
 
         readonly int _requiredGoodCount;
 
-        readonly int _wireMin = 30;
-        readonly int _wireMax = 65;
+        readonly int _wireMin = 42;
+        readonly int _wireMax = 68;
 
         readonly float _randomSpeedRange;
 
@@ -98,6 +98,7 @@ namespace gxpengine_template.MyClasses.Modules
                 {
                     _collectedFiles++;
                     GoodFiles[i].pos = -1f;
+                    _visual.LightBox(true);
                     isComplete();
                 }
             }
@@ -119,6 +120,7 @@ namespace gxpengine_template.MyClasses.Modules
                 {
                     _collectedFiles--;
                     BadFiles[i].pos = -1f;
+                    _visual.LightBox(false);
                     isComplete();
                 }
             }
@@ -236,7 +238,7 @@ namespace gxpengine_template.MyClasses.Modules
 
         void ReadInputs()
         {
-            if (Input.GetKeyDown(Key.S))
+            if (Input.GetKeyDown(Key.B))
             {
                 ChangePath();
             }
