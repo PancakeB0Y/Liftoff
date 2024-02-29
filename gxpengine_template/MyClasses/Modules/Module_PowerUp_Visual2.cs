@@ -50,7 +50,6 @@ namespace gxpengine_template.MyClasses.Modules
             var w = _bg.width;
             var h = _bg.height;
 
-
             var chargeZoneHeight = (int)(powerUp.ChargeZonePersentage * h);
             _chargeZone.SetOrigin(0, chargeZoneHeight / 2);
             _chargeZone.height = chargeZoneHeight;
@@ -60,6 +59,7 @@ namespace gxpengine_template.MyClasses.Modules
             _battery.SetXY(w + 10, 0);
             _battery.scale = 0.5f;
 
+            _bar.SetOrigin(0, _bar.height / 2);
             _bar.x += 10;
 
             _container.AddChild(_bg);
@@ -70,10 +70,12 @@ namespace gxpengine_template.MyClasses.Modules
             _container.SetXY(powerUp.x, powerUp.y);
 
         }
+
         protected override void OnDestroy()
         {
             _container.Destroy();
         }
+
         void Update()
         {
             _bar.y = _bg.y + powerUp.CurrentBarPersentage * _bg.height;

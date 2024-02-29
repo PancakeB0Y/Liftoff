@@ -19,10 +19,10 @@ namespace gxpengine_template.MyClasses
         public int Difficulty;
         public int SuccesScore { get; }
 
-        protected readonly int timer;
+        public float CurrTime => currTime;
         protected float currTime;
-
-        TextMesh _timerText;
+        public float TotalTime => timer;
+        protected readonly int timer;
 
         bool isComplete = false;
 
@@ -34,7 +34,6 @@ namespace gxpengine_template.MyClasses
             Difficulty = (int)Mathf.Clamp(Difficulty, 1, 3);
             SuccesScore = data.GetIntProperty("SuccesScore",10);
 
-            _timerText = new TextMesh("4", 400, 400);
             alpha = 0f;
             AddChild(new Coroutine(Initialize()));
         }
@@ -60,7 +59,6 @@ namespace gxpengine_template.MyClasses
                 var deltaInSeconds = Mathf.Min(Time.deltaTime * 0.001f, 0.04f);
 
                 currTime -= deltaInSeconds;
-                _timerText.Text = currTime.ToString();
                 yield return null;
             }
             OnTimeEnd();
@@ -99,6 +97,7 @@ namespace gxpengine_template.MyClasses
         protected void RaiseFailEvent()
         {
             if (isComplete) { return; }
+            isComplete = true;
             Fail?.Invoke(this);
             End?.Invoke(moduleType);
         }

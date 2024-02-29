@@ -1,6 +1,7 @@
 ﻿using GXPEngine;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace gxpengine_template.MyClasses
@@ -8,6 +9,9 @@ namespace gxpengine_template.MyClasses
     public static class MyUtils
     {
         public static MyGame MyGame => (MyGame)MyGame.main;
+
+        //public static Color MainColor => new Color();
+        public static Color MainColor => Color.FromArgb(60, 118, 22);
 
         public static bool TryGetIndex<T>(this T[] array, Predicate<T> predicate, out int index)
         {

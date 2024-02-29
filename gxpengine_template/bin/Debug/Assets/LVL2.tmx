@@ -24,10 +24,22 @@
  <objectgroup id="8" name="Managers">
   <object id="112" name="DifficultyManager" type="gxpengine_template.MyClasses.DifficultyManager" x="297.333" y="45" width="88" height="62">
    <properties>
-    <property name="ScoreThreshholdsCSV" value="F,100,E,200"/>
+    <property name="ScoreThreshholdsCSV" value="F.100,E.200"/>
    </properties>
   </object>
-  <object id="108" name="ModuleManager" type="gxpengine_template.MyClasses.Modules.ModuleManager" x="14" y="22" width="90" height="72"/>
+  <object id="108" name="ModuleManager" type="gxpengine_template.MyClasses.Modules.ModuleManager" x="14" y="22" width="90" height="72">
+   <properties>
+    <property name="Timer0X" type="float" value="436"/>
+    <property name="Timer0Y" type="float" value="285"/>
+    <property name="Timer1X" type="float" value="884"/>
+    <property name="Timer1Y" type="float" value="45"/>
+    <property name="Timer2X" type="float" value="1317"/>
+    <property name="Timer2Y" type="float" value="290"/>
+    <property name="Timer3X" type="float" value="884"/>
+    <property name="Timer3Y" type="float" value="527"/>
+    <property name="TimerFilePath" value="Assets/Time_Line.png"/>
+   </properties>
+  </object>
   <object id="119" name="SaveManager" type="gxpengine_template.MyClasses.SaveManager" x="143.333" y="207.667" width="21.3333" height="18.6667"/>
  </objectgroup>
  <objectgroup id="18" name="SceneConfig"/>

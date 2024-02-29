@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Xml.Linq;
-using GXPEngine;
-using gxpengine_template.MyClasses.Coroutines;
+﻿using GXPEngine;
 using gxpengine_template.MyClasses.Modules;
 using TiledMapParser;
 

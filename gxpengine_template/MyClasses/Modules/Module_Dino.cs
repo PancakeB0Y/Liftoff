@@ -89,7 +89,7 @@ namespace gxpengine_template.MyClasses.Modules
             _scoreReward = data.GetIntProperty("ScoreReward", 10);
             _winScore = data.GetIntProperty("WinScore", 10);
 
-            _scoreDisplay = new TextMesh("000", 100, 30);
+            _scoreDisplay = new TextMesh("000", 100, 30, Color.Green, Color.Transparent, CenterMode.Center, CenterMode.Center, textSize: 20, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
 
 
             alpha = 0f;
@@ -132,7 +132,7 @@ namespace gxpengine_template.MyClasses.Modules
 
             _scoreDisplay.SetOrigin(0, 0);
             _scoreDisplay.HorizontalAlign = CenterMode.Min;
-            _scoreDisplay.SetXY(width / 2 - _bg.width / 2 + 15, 5);
+            _scoreDisplay.SetXY(width / 2 - _bg.width / 2 + 15, 10);
             _scoreDisplay.TextColor = Color.Green;
 
 
@@ -191,7 +191,7 @@ namespace gxpengine_template.MyClasses.Modules
                     _scoreDisplay.Text = _currentScore.ToString();
                 }
 
-                if (cactus.x < (width - _bg.width) / 2)
+                if (cactus.x < (width - _bg.width) / 2 + 10)
                     cactus.LateDestroy();
 
                 if (col == null) continue;

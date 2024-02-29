@@ -2,6 +2,7 @@
 using gxpengine_template.MyClasses.Modules;
 using gxpengine_template.MyClasses.UI;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using TiledMapParser;
@@ -40,7 +41,7 @@ namespace gxpengine_template.MyClasses
             alpha = 0;
             _difficultyMultipliers = data.GetStringProperty("DifficultyMultipliersCSV", "1.0,1.1,1.2,1.3,1.4").Split(',').Select(s => float.Parse(s, CultureInfo.InvariantCulture)).ToArray();
             
-            _scoreThreshHolds = data.GetStringProperty("DifficultyMultipliersCSV", "1.0,1.1,1.2,1.3,1.4").Split(',').Select
+            _scoreThreshHolds = data.GetStringProperty("ScoreThreshHoldsCSV", "F.100,E.200").Split(',').Select
             (
                 s =>
                 {
@@ -50,7 +51,7 @@ namespace gxpengine_template.MyClasses
             
             ).ToArray();
 
-            _textMesh = new TextMesh("E", 200, 200,CenterMode.Center,CenterMode.Center, textSize: 30);
+            _textMesh = new TextMesh("E", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Center,CenterMode.Center, textSize: 30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
         }
 
         public void Start()

@@ -90,13 +90,14 @@ namespace gxpengine_template.MyClasses.UI
         CenterMode _horizontalAlign;
         CenterMode _verticalAlign;
         int _textSize;
+        Font _font;
 
         readonly EasyDraw _canvas;
 
         public TextMesh(string content, int width, int height,
             //optional params
             CenterMode horizontalAlign = CenterMode.Center, CenterMode verticalAlign = CenterMode.Center, int textSize = 10
-
+            , string fontFileName = null, FontStyle fontStyle = FontStyle.Regular, int fontSize = 12
         )
         {
             _canvas = new EasyDraw(width, height, false);
@@ -107,13 +108,15 @@ namespace gxpengine_template.MyClasses.UI
             _horizontalAlign = horizontalAlign;
             _verticalAlign = verticalAlign;
             _textSize = textSize;
+            if (fontFileName != null)
+                _font = Utils.LoadFont(fontFileName, textSize, fontStyle);
             Draw();
         }
 
         public TextMesh(string content, int width, int height, Color txtColr, Color bgColr,
             //optional params
             CenterMode horizontalAlign = CenterMode.Center, CenterMode verticalAlign = CenterMode.Center, int textSize = 10
-
+            , string fontFileName = null, FontStyle fontStyle = FontStyle.Regular, int fontSize = 12
         )
         {
             _canvas = new EasyDraw(width, height, false);
@@ -126,7 +129,8 @@ namespace gxpengine_template.MyClasses.UI
             _horizontalAlign = horizontalAlign;
             _verticalAlign = verticalAlign;
             _textSize = textSize;
-
+            if (fontFileName != null)
+                _font = Utils.LoadFont(fontFileName, textSize, fontStyle);
             Draw();
         }
 
@@ -136,6 +140,8 @@ namespace gxpengine_template.MyClasses.UI
             _canvas.TextAlign(_horizontalAlign, _verticalAlign);
             _canvas.Fill(_textColor);
             _canvas.TextSize(_textSize);
+            if(_font != null)
+                _canvas.TextFont(_font);
             _canvas.Text(_text);
         }
 

@@ -4,6 +4,7 @@ using gxpengine_template.MyClasses.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using TiledMapParser;
 using static gxpengine_template.MyClasses.Module;
@@ -46,15 +47,16 @@ namespace gxpengine_template.MyClasses.Modules
         }
         int _currentHighScore;
         readonly TextMesh _highScoreTextMesh;
+        readonly Timer[] _timers;
 
         public ModuleManager(TiledObject data) : base("Assets/square.png", true, false)
         {
             modulesOn = new Dictionary<Module.ModuleTypes, Module>
             {
-                { Module.ModuleTypes.Switch, null },
                 { Module.ModuleTypes.Dpad, null },
+                { Module.ModuleTypes.OneButton, null },
                 { Module.ModuleTypes.ThreeButtons, null },
-                { Module.ModuleTypes.OneButton, null }
+                { Module.ModuleTypes.Switch, null }
             };
 
             prefabsByType = new Dictionary<Module.ModuleTypes, List<Module>>
@@ -72,11 +74,13 @@ namespace gxpengine_template.MyClasses.Modules
             transitionsClose = new List<AnimationSprite>();
             transitionsOpen = new List<AnimationSprite>();
 
-            _scoreTextMesh = new TextMesh("0", 200, 200,CenterMode.Min,textSize:30);
-            _highScoreTextMesh = new TextMesh("0", 200, 200, CenterMode.Min, textSize: 30);
-
-
-            AddChild(new Coroutine(LoadStartingModules()));
+            _scoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min,textSize:30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
+            _highScoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
+            
+            _timers = new Timer[4];
+            LoadTimers(data);
+            
+            AddChild(new Coroutine(Init()));
         }
 
         void AddScore(Module module)
@@ -84,7 +88,7 @@ namespace gxpengine_template.MyClasses.Modules
             Score += DifficultyManager.Instance.GetMultipliedScore(module.SuccesScore);
         }
 
-        IEnumerator LoadStartingModules()
+        IEnumerator Init()
         {
             yield return null;
             MyUtils.MyGame.CurrentScene.LateAddChild(_scoreTextMesh);
@@ -97,11 +101,48 @@ namespace gxpengine_template.MyClasses.Modules
             ReplaceModule(Module.ModuleTypes.ThreeButtons);
             ReplaceModule(Module.ModuleTypes.OneButton);
             ReplaceModule(Module.ModuleTypes.Switch);
+
+        }
+
+        void LoadTimers(TiledObject data)
+        {
+            string filePath = data.GetStringProperty("TimerFilePath");
+            for (int i = 0; i < _timers.Length; i++)
+            {
+                _timers[i] = new Timer(filePath, false, false);
+                _timers[i].SetXY(data.GetFloatProperty($"Timer{i}X"), data.GetFloatProperty($"Timer{i}Y"));
+                MyUtils.MyGame.CurrentScene.LateAddChild(_timers[i]);
+
+            }
+        }
+
+        void UpdateTimers()
+        {
+            foreach (var item in modulesOn)
+            {
+                if (item.Value == null) continue;
+                float persentage = item.Value.CurrTime / item.Value.TotalTime;
+
+                switch (item.Key)
+                {
+                    case ModuleTypes.Switch:
+                        _timers[3].SetPersentage(persentage);   
+                        break;
+                    case ModuleTypes.Dpad:
+                        _timers[0].SetPersentage(persentage);
+                        break;
+                    case ModuleTypes.ThreeButtons:
+                        _timers[2].SetPersentage(persentage);   
+                        break;
+                    case ModuleTypes.OneButton:
+                        _timers[1].SetPersentage(persentage);   
+                        break;
+                }
+            }
         }
 
         IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
         {
-            Console.WriteLine("a");
             var anim = PlayCloseAnimation(moduleType);
 
             while (anim.currentFrame < anim.frameCount)
@@ -282,6 +323,7 @@ namespace gxpengine_template.MyClasses.Modules
         void Update()
         {
             AnimateTransitions();
+            UpdateTimers();
         }
 
         protected override void OnDestroy()
