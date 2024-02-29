@@ -26,6 +26,9 @@ namespace gxpengine_template.MyClasses
 
         bool isComplete = false;
 
+        readonly Sound successSound = new Sound("Assets/Sounds/ModuleSuccess.wav");
+        readonly Sound failSound = new Sound("Assets/Sounds/ModuleFail.wav");
+
         public Module(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, addCollider: false)
         {
             timer = data.GetIntProperty("TimerSeconds", 5);
@@ -92,6 +95,8 @@ namespace gxpengine_template.MyClasses
             isComplete = true;
             Success?.Invoke(this);
             End?.Invoke(moduleType);
+
+            successSound.Play();
         }
 
         protected void RaiseFailEvent()
@@ -100,6 +105,8 @@ namespace gxpengine_template.MyClasses
             isComplete = true;
             Fail?.Invoke(this);
             End?.Invoke(moduleType);
+
+            failSound.Play();
         }
 
 
