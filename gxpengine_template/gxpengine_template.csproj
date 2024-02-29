@@ -136,6 +136,12 @@
     <Compile Include="GXPEngine\Utils\Mathf.cs" />
     <Compile Include="GXPEngine\Utils\Time.cs" />
     <Compile Include="GXPEngine\Utils\Utils.cs" />
+    <Compile Include="MyClasses\Animations\Animation.cs" />
+    <Compile Include="MyClasses\Animations\AnimationManager.cs" />
+    <Compile Include="MyClasses\Animations\Robot3Btns.cs" />
+    <Compile Include="MyClasses\Animations\RobotBtn.cs" />
+    <Compile Include="MyClasses\Animations\RobotSwitch.cs" />
+    <Compile Include="MyClasses\Animations\Robot_DPad.cs" />
     <Compile Include="MyClasses\Bomb.cs" />
     <Compile Include="MyClasses\Coroutines\Coroutine.cs" />
     <Compile Include="MyClasses\Coroutines\ICoroutineStepper.cs" />
@@ -173,6 +179,7 @@
     <Compile Include="MyClasses\Modules\Timer.cs" />
     <Compile Include="MyClasses\MyGame.cs" />
     <Compile Include="MyClasses\MyUtils.cs" />
+    <Compile Include="MyClasses\Robot.cs" />
     <Compile Include="MyClasses\SaveManager.cs" />
     <Compile Include="MyClasses\SceneConfigs.cs" />
     <Compile Include="MyClasses\Tween.cs" />

@@ -1,11 +1,11 @@
 using GXPEngine;
+using gxpengine_template.MyClasses.Animations;
 using gxpengine_template.MyClasses.Coroutines;
 using gxpengine_template.MyClasses.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading.Tasks;
 using TiledMapParser;
 using static gxpengine_template.MyClasses.Module;
 
@@ -14,6 +14,7 @@ namespace gxpengine_template.MyClasses.Modules
     public class ModuleManager : Sprite
     {
         public event Action ScoreUpdate;
+        public event Action ModuleFailed;
 
         readonly Dictionary<Module.ModuleTypes, Module> modulesOn;
         readonly Dictionary<Module.ModuleTypes, List<Module>> prefabsByType;
@@ -74,13 +75,16 @@ namespace gxpengine_template.MyClasses.Modules
             transitionsClose = new List<AnimationSprite>();
             transitionsOpen = new List<AnimationSprite>();
 
-            _scoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min,textSize:30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
-            _highScoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
-            
+            _scoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
+            _highScoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
+
             _timers = new Timer[4];
             LoadTimers(data);
-            
+
             AddChild(new Coroutine(Init()));
+
+
+
         }
 
         void AddScore(Module module)
@@ -126,19 +130,24 @@ namespace gxpengine_template.MyClasses.Modules
                 switch (item.Key)
                 {
                     case ModuleTypes.Switch:
-                        _timers[3].SetPersentage(persentage);   
+                        _timers[3].SetPersentage(persentage);
                         break;
                     case ModuleTypes.Dpad:
                         _timers[0].SetPersentage(persentage);
                         break;
                     case ModuleTypes.ThreeButtons:
-                        _timers[2].SetPersentage(persentage);   
+                        _timers[2].SetPersentage(persentage);
                         break;
                     case ModuleTypes.OneButton:
-                        _timers[1].SetPersentage(persentage);   
+                        _timers[1].SetPersentage(persentage);
                         break;
                 }
             }
+        }
+
+        void OnModuleFailed(Module module)
+        {
+            ModuleFailed?.Invoke();
         }
 
         IEnumerator ReplaceModuleCR(ModuleTypes moduleType)
@@ -166,6 +175,7 @@ namespace gxpengine_template.MyClasses.Modules
             modulesOn[moduleType].StartModule();
             modulesOn[moduleType].End += ReplaceModule;
             modulesOn[moduleType].Success += AddScore;
+            modulesOn[moduleType].Fail += OnModuleFailed;
 
             MyUtils.MyGame.CurrentScene.AddChild(newModule);
 

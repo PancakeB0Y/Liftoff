@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="120">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="128">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
@@ -14,6 +14,9 @@
  </tileset>
  <tileset firstgid="13" name="Maze_Bg" tilewidth="303" tileheight="183" tilecount="1" columns="1">
   <image source="Maze/Maze_3x3.PNG" width="303" height="184"/>
+ </tileset>
+ <tileset firstgid="14" name="Maze_3x2" tilewidth="301" tileheight="128" tilecount="1" columns="1">
+  <image source="Maze/Maze_3x2.PNG" width="301" height="128"/>
  </tileset>
  <objectgroup id="10" name="WorldText"/>
  <objectgroup id="6" name="UI"/>
@@ -41,6 +44,9 @@
    </properties>
   </object>
   <object id="119" name="SaveManager" type="gxpengine_template.MyClasses.SaveManager" x="143.333" y="207.667" width="21.3333" height="18.6667"/>
+  <object id="120" name="D_Pad_Robot" type="gxpengine_template.MyClasses.Animations.Robot_DPad" x="53" y="160" width="75" height="73"/>
+  <object id="121" name="Btn_Robot" type="gxpengine_template.MyClasses.Animations.RobotBtn" x="924.5" y="150.5" width="75" height="73"/>
+  <object id="122" name="Robot3Btns" type="gxpengine_template.MyClasses.Animations.Robot3Btns" x="376.5" y="609.5" width="75" height="73"/>
  </objectgroup>
  <objectgroup id="18" name="SceneConfig"/>
 </map>

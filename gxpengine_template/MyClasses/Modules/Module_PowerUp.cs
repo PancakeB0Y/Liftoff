@@ -50,7 +50,7 @@ namespace gxpengine_template.MyClasses
         {
             var deltaInSeconds = Mathf.Min(Time.deltaTime * 0.001f, 0.04f);
 
-            if (Input.GetKey(Key.S))
+            if (Input.GetKey(Key.B))
             {
                 CurrentBarPersentage += _barMoveUpSpeed * deltaInSeconds;
 

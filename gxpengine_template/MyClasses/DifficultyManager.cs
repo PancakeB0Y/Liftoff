@@ -51,7 +51,7 @@ namespace gxpengine_template.MyClasses
             
             ).ToArray();
 
-            _textMesh = new TextMesh("E", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Center,CenterMode.Center, textSize: 30, fontFileName: "Assets/cour.ttf", fontStyle: FontStyle.Bold);
+            _textMesh = new TextMesh("E", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Center,CenterMode.Center, textSize: 30, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
         }
 
         public void Start()
