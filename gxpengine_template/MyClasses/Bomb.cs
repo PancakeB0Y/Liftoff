@@ -20,6 +20,7 @@ namespace gxpengine_template.MyClasses
         ModuleManager _moduleManager;
 
         readonly Sound _explosionSound = new Sound("Assets/Sounds/Explosion.wav");
+        readonly Sound _denySound = new Sound("Assets/Sounds/WrongSound.wav");
 
         int _failsLeft;
         readonly float _cooldown;
@@ -51,7 +52,7 @@ namespace gxpengine_template.MyClasses
 
             //alpha = 0.2f;
             AddChild(new Coroutine(Init(data)));
-            
+
         }
 
         IEnumerator Init(TiledObject data)
@@ -105,7 +106,7 @@ namespace gxpengine_template.MyClasses
                 _explosionSound.Play(false, 0, 0.2f);
                 SpawnExplosion();
                 SaveManager.Instance.SaveHighScore(_moduleManager.Score);
-                
+
                 Destroy();
             }
         }
@@ -135,6 +136,7 @@ namespace gxpengine_template.MyClasses
                 var easeFunc = EaseFuncs.Factory("EaseInOutExpo");
                 const int moveSpeedMillis = 300;
                 var copy = _failsLeft;
+                _denySound.Play(false, 0, 0.6f);
                 _failVisuals[_failsLeft].AddChild(new Tween(TweenProperty.scale, moveSpeedMillis, scaleSize, easeFunc).
                     OnExit
                     (
