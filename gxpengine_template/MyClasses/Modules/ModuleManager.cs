@@ -87,35 +87,6 @@ namespace gxpengine_template.MyClasses.Modules
 
             _scoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 38, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
             _highScoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 20, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
-        bool _allModulesSpawned = false;
-
-        public ModuleManager(TiledObject data) : base("Assets/square.png", true, false)
-        {
-            modulesOn = new Dictionary<Module.ModuleTypes, Module>
-            {
-                { Module.ModuleTypes.Dpad, null },
-                { Module.ModuleTypes.OneButton, null },
-                { Module.ModuleTypes.ThreeButtons, null },
-                { Module.ModuleTypes.Switch, null }
-            };
-
-            prefabsByType = new Dictionary<Module.ModuleTypes, List<Module>>
-            {
-                { Module.ModuleTypes.Switch, new List<Module>() },
-                { Module.ModuleTypes.Dpad, new List<Module>() },
-                { Module.ModuleTypes.ThreeButtons, new List<Module>() },
-                { Module.ModuleTypes.OneButton, new List<Module>() }
-            };
-
-            alpha = 0f;
-            LoadModules(out modulePrefabs);
-            prefabsByType = OrganizeByType(modulePrefabs, prefabsByType);
-
-            transitionsClose = new List<AnimationSprite>();
-            transitionsOpen = new List<AnimationSprite>();
-
-            _scoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
-            _highScoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
 
             _timers = new Timer[4];
             LoadTimers(data);
