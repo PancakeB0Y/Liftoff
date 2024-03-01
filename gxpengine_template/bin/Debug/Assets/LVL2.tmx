@@ -48,8 +48,8 @@
   <object id="138" name="MusicManager" type="gxpengine_template.MyClasses.MusicPlayer" x="92" y="572" width="54" height="60">
    <properties>
     <property name="Loop" type="bool" value="true"/>
-    <property name="MusicFile" value="Assets/Sound/MainTheme.wav"/>
-    <property name="Volume" type="float" value="0.05"/>
+    <property name="MusicFile" value="Assets/Sounds/MainTheme.wav"/>
+    <property name="Volume" type="float" value="0.4"/>
    </properties>
   </object>
  </objectgroup>
