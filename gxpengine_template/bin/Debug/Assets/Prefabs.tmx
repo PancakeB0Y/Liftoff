@@ -7,6 +7,7 @@
   <object id="6" name="Explosion" type="gxpengine_template.MyClasses.Explosion" gid="1" x="-127.32" y="429.317" width="550" height="550">
    <properties>
     <property name="AnimSpeed" type="int" value="6"/>
+    <property name="NextLevel" value="Assets/StartMenu.tmx"/>
    </properties>
   </object>
  </objectgroup>

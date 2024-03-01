@@ -27,8 +27,16 @@ namespace gxpengine_template.MyClasses.Modules
             _data = data;
             moduleType = ModuleTypes.Dpad;
 
-            float randW = Utils.Random(30, 80) / 100f;
-            float randH = Utils.Random(30, 80) / 100f;
+            float minRandW = data.GetIntProperty("MinWidthStretch", 30);
+            float minRandH = data.GetIntProperty("MinHeightStretch", 30);
+
+            float randW = data.GetIntProperty("MaxWidthStretch", 80);
+            float randH = data.GetIntProperty("MaxHeightStretch", 80);
+
+            randW = Utils.Random(minRandW, randW) / 100f;
+            randH = Utils.Random(minRandH, randH) / 100f;
+
+            Console.WriteLine("rand width: " + randW + " rand height: " + randH);
 
             _curW = _goalW + (Utils.Random(0, 2) == 0 ? randW : -randW);
             _curW = Mathf.Clamp(_curW, 0.1f, 1);
@@ -43,8 +51,6 @@ namespace gxpengine_template.MyClasses.Modules
         override public object Clone()
         {
             var clone = new Module_Waves(texture.filename, _cols, _rows, _data);
-            clone.width = width;
-            clone.height = height;
 
             return clone;
         }

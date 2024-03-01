@@ -34,5 +34,10 @@ namespace gxpengine_template.MyClasses
         {
             _music.Stop();
         }
+
+        protected override void OnDestroy()
+        {
+            ((MyGame)game).StopSounds -= StopMusic;
+        }
     }
 }

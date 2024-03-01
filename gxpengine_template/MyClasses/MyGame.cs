@@ -31,8 +31,6 @@ namespace gxpengine_template.MyClasses
             Prefabs = LoadPrefabs();
             LoadScene("Assets/StartMenu.tmx");
             OnAfterStep += LoadSceneIfNotNull;
-
-            //backgroundMusic.Play(false, 0, 0.1f);
         }
 
         static void Main()

@@ -19,6 +19,8 @@ namespace gxpengine_template.MyClasses
         readonly Sprite[] _failVisuals;
         ModuleManager _moduleManager;
 
+        readonly Sound _explosionSound = new Sound("Assets/Sounds/Explosion.wav");
+
         int _failsLeft;
         readonly float _cooldown;
         float _currCooldown;
@@ -76,7 +78,7 @@ namespace gxpengine_template.MyClasses
             _container.SetXY(x - width / 2, y - height / 2);
 
         }
-        
+
         void Update()
         {
             _currCooldown = Mathf.Max(_currCooldown -= Time.deltaTime * 0.001f, 0);
@@ -91,11 +93,11 @@ namespace gxpengine_template.MyClasses
             if (_failsLeft == 0)
             {
                 Exploded?.Invoke();
+                _explosionSound.Play(false, 0, 0.2f);
                 SpawnExplosion();
                 SaveManager.Instance.SaveHighScore(_moduleManager.Score);
 
                 Destroy();
-
             }
         }
 

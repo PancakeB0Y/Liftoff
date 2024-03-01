@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="157">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="165">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
@@ -257,7 +257,7 @@
    <properties>
     <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
     <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
-    <property name="DialSpeed" type="float" value="1.2"/>
+    <property name="DialSpeed" type="float" value="1"/>
     <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
     <property name="Difficulty" type="int" value="1"/>
     <property name="TimerSeconds" type="int" value="5"/>
@@ -267,7 +267,7 @@
    <properties>
     <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
     <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
-    <property name="DialSpeed" type="float" value="1.2"/>
+    <property name="DialSpeed" type="float" value="0.5"/>
     <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
     <property name="Difficulty" type="int" value="0"/>
     <property name="TimerSeconds" type="int" value="5"/>
@@ -337,6 +337,45 @@
     <property name="TimerSeconds" type="int" value="5"/>
     <property name="WinScore" type="int" value="10"/>
     <property name="WireFilePath" value="Assets/InfoCurrent/InfoCurrent_Slider.png"/>
+   </properties>
+  </object>
+  <object id="160" name="Module_Waves" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="2102.18" y="164.485" width="219.25" height="171.394">
+   <properties>
+    <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
+    <property name="Difficulty" value="0"/>
+    <property name="MaxHeightStretch" type="int" value="20"/>
+    <property name="MaxWidthStretch" type="int" value="20"/>
+    <property name="MinHeightStretch" type="int" value="10"/>
+    <property name="MinWidthStretch" type="int" value="10"/>
+    <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
+    <property name="TimerSeconds" type="int" value="10"/>
+    <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
+   </properties>
+  </object>
+  <object id="163" name="Module_Waves" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="2120.68" y="426.424" width="219.25" height="171.394">
+   <properties>
+    <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
+    <property name="Difficulty" value="1"/>
+    <property name="MaxHeightStretch" type="int" value="30"/>
+    <property name="MaxWidthStretch" type="int" value="30"/>
+    <property name="MinHeightStretch" type="int" value="20"/>
+    <property name="MinWidthStretch" type="int" value="20"/>
+    <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
+    <property name="TimerSeconds" type="int" value="10"/>
+    <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
+   </properties>
+  </object>
+  <object id="164" name="Module_Waves" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="2129.77" y="699.151" width="219.25" height="171.394">
+   <properties>
+    <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
+    <property name="Difficulty" value="2"/>
+    <property name="MaxHeightStretch" type="int" value="40"/>
+    <property name="MaxWidthStretch" type="int" value="40"/>
+    <property name="MinHeightStretch" type="int" value="30"/>
+    <property name="MinWidthStretch" type="int" value="30"/>
+    <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
+    <property name="TimerSeconds" type="int" value="10"/>
+    <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
    </properties>
   </object>
  </objectgroup>
