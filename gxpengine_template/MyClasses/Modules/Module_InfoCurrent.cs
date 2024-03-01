@@ -64,6 +64,8 @@ namespace gxpengine_template.MyClasses.Modules
 
             _visual = new Module_InfoCurrent_Visual(this, data);
             AddChild(_visual);
+
+            Console.WriteLine("good file count: " + _goodFileCount + " bad file count: " + _badFileCount);
         }
 
         override public object Clone()
@@ -89,6 +91,7 @@ namespace gxpengine_template.MyClasses.Modules
 
                 if (IsOnWire(GoodFiles[i].pos) && IsOnWrongPath)
                 {
+                    _visual.RotateFile(i, true);
                     GoodFiles[i].pos = -1f;
                     isComplete();
                     continue;
@@ -97,6 +100,7 @@ namespace gxpengine_template.MyClasses.Modules
                 if (GoodFiles[i].pos >= _maxDist)
                 {
                     _collectedFiles++;
+                    _visual.RemoveFile(i, true);
                     GoodFiles[i].pos = -1f;
                     _visual.LightBox(true);
                     isComplete();
@@ -111,6 +115,7 @@ namespace gxpengine_template.MyClasses.Modules
 
                 if (IsOnWire(BadFiles[i].pos) && IsOnWrongPath)
                 {
+                    _visual.RotateFile(i, false);
                     BadFiles[i].pos = -1f;
                     isComplete();
                     continue;
@@ -119,6 +124,7 @@ namespace gxpengine_template.MyClasses.Modules
                 if (BadFiles[i].pos >= _maxDist)
                 {
                     _collectedFiles--;
+                    _visual.RemoveFile(i, false);
                     BadFiles[i].pos = -1f;
                     _visual.LightBox(false);
                     isComplete();

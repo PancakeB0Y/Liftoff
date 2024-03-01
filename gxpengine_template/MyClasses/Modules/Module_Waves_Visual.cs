@@ -56,7 +56,7 @@ namespace gxpengine_template.MyClasses.Modules
             Vector2 pos = new Vector2(_moduleLogic.x, _moduleLogic.y);
             _moduleLogic.SetOrigin(0, 0);
             _moduleLogic.SetXY(pos.x, pos.y);
-            _container.SetXY(_moduleLogic.x, _moduleLogic.y - 27);
+            _container.SetXY(_moduleLogic.x, _moduleLogic.y - 83);
 
             _visual.SetXY(65, 25);
             _greenWave.SetXY(65, 25);

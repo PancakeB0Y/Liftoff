@@ -12,10 +12,10 @@
     <property name="NextLevel" value="Assets/LVL2.tmx"/>
    </properties>
   </object>
-  <object id="24" name="MusicPlayer" type="gxpengine_template.MyClasses.MusicPlayer" x="235" y="26" width="110" height="76">
+  <object id="24" name="MusicPlayer" type="gxpengine_template.MyClasses.MusicPlayer" x="53" y="618" width="110" height="76">
    <properties>
     <property name="Loop" type="bool" value="true"/>
-    <property name="MusicFile" value="Assets/Sounds/MainTheme.wav"/>
+    <property name="MusicFile" value="Assets/Sounds/StartScreenTheme.wav"/>
     <property name="Volume" type="float" value="0.1"/>
    </properties>
   </object>

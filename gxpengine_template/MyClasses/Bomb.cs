@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using gxpengine_template.MyClasses.Coroutines;
 using gxpengine_template.MyClasses.Modules;
 using System;
@@ -18,6 +18,8 @@ namespace gxpengine_template.MyClasses
         readonly int _failsAmount;
         readonly Sprite[] _failVisuals;
         ModuleManager _moduleManager;
+
+        readonly Sound _explosionSound = new Sound("Assets/Sounds/Explosion.wav");
 
         int _failsLeft;
         readonly float _cooldown;
@@ -77,13 +79,15 @@ namespace gxpengine_template.MyClasses
 
                 _failVisuals[i] = ball;
 
-                ball.x = ballW * (i % _failVisuals.Length) + (spacing * (i % _failVisuals.Length)) + padding * 0.5f;
-                ball.y = height / 2 - ball.height / 2;
+                ball.x = ballW * (i % _failVisuals.Length) + (spacing * (i % _failVisuals.Length)) + padding * 0.5f + 4f;
+                ball.y = height / 2 - ball.height / 2 + 3f;
 
+                ball.SetOrigin(ball.width / 2, ball.height / 2);
             }
+
             _container.SetXY(x - width / 2, y - height / 2);
         }
-        
+
         void Update()
         {
             _currCooldown = Mathf.Max(_currCooldown -= Time.deltaTime * 0.001f, 0);
@@ -98,6 +102,7 @@ namespace gxpengine_template.MyClasses
             if (_failsLeft == 0)
             {
                 Exploded?.Invoke();
+                _explosionSound.Play(false, 0, 0.2f);
                 SpawnExplosion();
                 SaveManager.Instance.SaveHighScore(_moduleManager.Score);
                 
@@ -123,13 +128,31 @@ namespace gxpengine_template.MyClasses
         void RemoveLife()
         {
             if (_failsLeft > 0)
-                _failVisuals[--_failsLeft].visible = false;
+            {
+                _failsLeft--;
+                int scaleSize = (int)(_failVisuals[_failsLeft].scale + 0.5f);
+
+                var easeFunc = EaseFuncs.Factory("EaseInOutExpo");
+                const int moveSpeedMillis = 300;
+                var copy = _failsLeft;
+                _failVisuals[_failsLeft].AddChild(new Tween(TweenProperty.scale, moveSpeedMillis, scaleSize, easeFunc).
+                    OnExit
+                    (
+                        () =>
+                        {
+                            _failVisuals[copy].visible = false;
+                        }
+
+                        )
+
+                    );
+            }
         }
 
 
         protected override void OnDestroy()
         {
-            _moduleManager.ModuleFailed -= OnFail;
+            //_moduleManager.ModuleFailed -= OnFail;
             Exploded = null;
             Instance = null;
         }

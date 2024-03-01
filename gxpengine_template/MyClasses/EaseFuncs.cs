@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using System;
 
 namespace gxpengine_template.MyClasses
@@ -8,14 +8,14 @@ namespace gxpengine_template.MyClasses
         public static float EaseOutBack(float t)
         {
             t = Mathf.Clamp(t, 0, 1);
-            return -1.5f * t * t * t + t * t + 1.5f * t; 
+            return -1.5f * t * t * t + t * t + 1.5f * t;
         }
 
         public static float Linear(float t)
         {
             return Mathf.Clamp(t, 0, 1);
         }
-        
+
         public static float EaseInSine(float t)
         {
             return 1 - Mathf.Cos((t * Mathf.PI) / 2);
@@ -33,7 +33,7 @@ namespace gxpengine_template.MyClasses
               ? 1
               : Mathf.Pow(2, -10 * x) * Mathf.Sin((x * 10f - 0.75f) * c4) + 1;
         }
-        
+
         public static float EaseInOutExpo(float x)
         {
             return x == 0
@@ -44,7 +44,7 @@ namespace gxpengine_template.MyClasses
               : (2 - Mathf.Pow(2, -20 * x + 10)) / 2;
         }
 
-        public static Func<float,float> Factory(string easeFuncName)
+        public static Func<float, float> Factory(string easeFuncName)
         {
             switch (easeFuncName)
             {

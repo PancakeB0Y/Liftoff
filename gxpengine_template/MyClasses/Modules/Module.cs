@@ -111,7 +111,7 @@ namespace gxpengine_template.MyClasses
             Fail?.Invoke(this);
             End?.Invoke(moduleType);
 
-            failSound.Play();
+            failSound.Play(false, 0, 0.5f);
         }
 
 
