@@ -74,7 +74,7 @@ namespace gxpengine_template.MyClasses.Modules
             _moveSpeed = data.GetFloatProperty("CactusMoveSpeed", 1);
             _dinoAnimDelay = (byte)data.GetIntProperty("DinoAnimDelay", 255);
             _cactiSize = data.GetIntProperty("CactiSize", 20);
-
+            _dinoGravity = data.GetFloatProperty("DinoGravity", 12);
             _bg = new Sprite(bgFilePath, true, false);
             _dino = new AnimationSprite(dinoFilePath, dinoSsCols, dinoSsRows, -1, true);
             _ground = new Ground("Assets/square.png", true);

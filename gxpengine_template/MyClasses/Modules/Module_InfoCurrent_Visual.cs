@@ -194,6 +194,8 @@ namespace gxpengine_template.MyClasses.Modules
             {
                 for (int i = 0; i < _badFiles.Count; i++)
                 {
+               
+                    if(i >= _moduleLogic.BadFiles.Length) { break; }
                     if (_moduleLogic.BadFiles[i].pos == -1)
                     {
                         _badFiles[i].alpha = 0;

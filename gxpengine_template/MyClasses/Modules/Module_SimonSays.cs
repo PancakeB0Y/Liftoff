@@ -51,7 +51,7 @@ namespace gxpengine_template.MyClasses.Modules
             }
             while (IsInAscendingOrder(_randomNumbers));
 
-            MapToEquations(chancePerDifficulty, DifficultyManager.Instance.Difficulty);
+            MapToEquations(chancePerDifficulty[0]);
 
             alpha = 0;
             var selector = new Module_SimonSays_Selector(this);
@@ -80,12 +80,12 @@ namespace gxpengine_template.MyClasses.Modules
             if (IsInAscendingOrder(_randomNumbers)) RaiseSuccesEvent();
         }
 
-        void MapToEquations(float[] chancePerDifficulty, int difficulty)
+        void MapToEquations(float chance)
         {
             int i = 0;
             foreach (var num in _randomNumbers)
             {
-                if (Utils.Random(0f, 1) > chancePerDifficulty[difficulty])
+                if (Utils.Random(0f, 1) > chance)
                 {
                     _results[i] = num.ToString();
                 }

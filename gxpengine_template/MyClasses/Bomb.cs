@@ -22,6 +22,10 @@ namespace gxpengine_template.MyClasses
         int _failsLeft;
         readonly float _cooldown;
         float _currCooldown;
+        readonly int _cameraShakeDuration;
+        readonly int _cameraShakeAmplitude;
+        Func<float, float> _shakeFunc;
+
         public Bomb(string filename, int cols, int rows, TiledObject data) : base(filename, cols, rows, -1, false, false)
         {
             if (Instance != null)
@@ -32,8 +36,11 @@ namespace gxpengine_template.MyClasses
                 Instance = this;
 
             _failsAmount = data.GetIntProperty("FailsAmount", 5);
+            _cameraShakeDuration = data.GetIntProperty("CameraShakeDuration", 200);
+            _cameraShakeAmplitude = data.GetIntProperty("CameraShakeAmplitude", 10);
+            _cooldown = data.GetIntProperty("WallTouchCooldown", 2);
+            _shakeFunc = EaseFuncs.Factory(data.GetStringProperty("CamShakeFunciton", "SinDamp"));
 
-            _cooldown = data.GetFloatProperty("WallTouchCooldown", 2);
             _currCooldown = _cooldown;
 
             _container = new Pivot();
@@ -42,6 +49,7 @@ namespace gxpengine_template.MyClasses
 
             //alpha = 0.2f;
             AddChild(new Coroutine(Init(data)));
+            
         }
 
         IEnumerator Init(TiledObject data)
@@ -74,7 +82,6 @@ namespace gxpengine_template.MyClasses
 
             }
             _container.SetXY(x - width / 2, y - height / 2);
-
         }
         
         void Update()
@@ -93,9 +100,8 @@ namespace gxpengine_template.MyClasses
                 Exploded?.Invoke();
                 SpawnExplosion();
                 SaveManager.Instance.SaveHighScore(_moduleManager.Score);
-
+                
                 Destroy();
-
             }
         }
 
@@ -108,6 +114,9 @@ namespace gxpengine_template.MyClasses
         {
             var explosion = MyUtils.MyGame.Prefabs["Explosion"].Clone();
             MyUtils.MyGame.CurrentScene.AddChild(explosion);
+            var level = MyUtils.MyGame.CurrentScene;
+            level.AddChild(new Tween(TweenProperty.x, _cameraShakeDuration, _cameraShakeAmplitude, _shakeFunc));
+            level.AddChild(new Tween(TweenProperty.y, _cameraShakeDuration, _cameraShakeAmplitude / 2, _shakeFunc));
             explosion.SetXY(x, y);
         }
 

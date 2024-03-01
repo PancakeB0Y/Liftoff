@@ -20,7 +20,9 @@ namespace gxpengine_template.MyClasses
         {
             return 1 - Mathf.Cos((t * Mathf.PI) / 2);
         }
-        
+
+        public static float SinDamp(float t) => Mathf.Sin(Mathf.PI * 4 * t) * (1 - t);
+
         public static float EaseOutElastic(float x)
         {
             float c4 = (2 * Mathf.PI) / 3;
@@ -56,6 +58,8 @@ namespace gxpengine_template.MyClasses
                     return EaseOutElastic;
                 case "EaseInOutExpo":
                     return EaseInOutExpo;
+                case "SinDamp":
+                    return SinDamp;
                 default:
                     Console.WriteLine("Warning! there's no ease func with name: " + easeFuncName);
                     return Linear;

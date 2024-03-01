@@ -1,127 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="157">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="196">
  <tileset firstgid="1" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="square.png" width="100" height="100"/>
  </tileset>
  <tileset firstgid="10" name="Maze_Bg" tilewidth="303" tileheight="183" tilecount="1" columns="1">
-  <image source="Maze/Maze_3x3.PNG" width="303" height="184"/>
+  <image source="Maze/CreateTheWay_3.3.PNG" width="303" height="184"/>
  </tileset>
- <tileset firstgid="11" name="Dials_Bg" tilewidth="314" tileheight="88" tilecount="1" columns="1">
+ <tileset firstgid="11" name="GameBackground" tilewidth="1366" tileheight="768" tilecount="1" columns="1">
+  <image source="Background_Game.PNG" width="1366" height="768"/>
+ </tileset>
+ <tileset firstgid="12" name="maze3x3" tilewidth="448" tileheight="256" tilecount="0" columns="0">
+  <image source="Maze/Maze_3x2.PNG" width="301" height="128"/>
+ </tileset>
+ <tileset firstgid="12" name="Maze3x2" tilewidth="448" tileheight="256" tilecount="0" columns="0">
+  <image source="Maze/Maze_3x2.PNG" width="301" height="128"/>
+ </tileset>
+ <tileset firstgid="12" name="Dials_Bg" tilewidth="314" tileheight="88" tilecount="1" columns="1">
   <image source="Dials/Dials_Background.png" width="314" height="88"/>
  </tileset>
- <tileset firstgid="12" name="Maze_3x2" tilewidth="301" tileheight="128" tilecount="1" columns="1">
+ <tileset firstgid="13" name="Test" tilewidth="32" tileheight="32" tilecount="9" columns="3">
+  <image source="square.png" width="100" height="100"/>
+ </tileset>
+ <tileset firstgid="22" name="Maze_Bg" tilewidth="303" tileheight="183" tilecount="1" columns="1">
+  <image source="Maze/CreateTheWay_3.3.PNG" width="303" height="184"/>
+ </tileset>
+ <tileset firstgid="23" name="Maze_3x2" tilewidth="301" tileheight="128" tilecount="1" columns="1">
   <image source="Maze/Maze_3x2.PNG" width="301" height="128"/>
  </tileset>
  <objectgroup id="10" name="WorldText"/>
  <objectgroup id="6" name="UI"/>
+ <objectgroup id="20" name="ObjectBackgrounds"/>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="111" name="dino" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="1" x="670.317" y="242.364" width="342.807" height="173.818">
-   <properties>
-    <property name="BgFilePath" value="Assets/Dino/Dino_Background.png"/>
-    <property name="CactiFilePathsCSV" value="Assets/Dino/Dino_obstacle.png"/>
-    <property name="CactusMoveSpeed" type="float" value="1"/>
-    <property name="Difficulty" type="int" value="2"/>
-    <property name="DinoAnimDelay" type="int" value="3"/>
-    <property name="DinoFilePath" value="Assets/Dino/Dino_Sprite.png"/>
-    <property name="DinoJumpPower" type="float" value="7"/>
-    <property name="DinoSS_Cols" type="int" value="4"/>
-    <property name="DinoSS_Rows" type="int" value="2"/>
-    <property name="DinoTerminalVel" type="float" value="10"/>
-    <property name="MaxSpawnDistance" type="int" value="150"/>
-    <property name="MinSpawnDistance" type="int" value="100"/>
-    <property name="ScorePenalty" type="int" value="1"/>
-    <property name="ScoreReward" type="int" value="10"/>
-    <property name="TimerSeconds" type="int" value="5"/>
-    <property name="WinScore" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="145" name="dino" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="1" x="673.347" y="-18.2425" width="342.807" height="173.818">
-   <properties>
-    <property name="BgFilePath" value="Assets/Dino/Dino_Background.png"/>
-    <property name="CactiFilePathsCSV" value="Assets/Dino/Dino_obstacle.png"/>
-    <property name="CactusMoveSpeed" type="float" value="1"/>
-    <property name="Difficulty" type="int" value="1"/>
-    <property name="DinoAnimDelay" type="int" value="3"/>
-    <property name="DinoFilePath" value="Assets/Dino/Dino_Sprite.png"/>
-    <property name="DinoJumpPower" type="float" value="7"/>
-    <property name="DinoSS_Cols" type="int" value="4"/>
-    <property name="DinoSS_Rows" type="int" value="2"/>
-    <property name="DinoTerminalVel" type="float" value="10"/>
-    <property name="MaxSpawnDistance" type="int" value="150"/>
-    <property name="MinSpawnDistance" type="int" value="100"/>
-    <property name="ScorePenalty" type="int" value="1"/>
-    <property name="ScoreReward" type="int" value="10"/>
-    <property name="TimerSeconds" type="int" value="5"/>
-    <property name="WinScore" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="124" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="11" x="1178.46" y="248.666" width="314" height="88">
+  <object id="135" name="Module_Dials_F" type="gxpengine_template.MyClasses.Module_Dials" gid="12" x="-72.3333" y="1044.85" width="314" height="88">
    <properties>
     <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
     <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
-    <property name="DialSpeed" type="float" value="1.2"/>
+    <property name="DialSpeed" type="float" value="0.5"/>
     <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
-    <property name="Difficulty" type="int" value="2"/>
-    <property name="TimerSeconds" type="int" value="5"/>
+    <property name="Difficulty" type="int" value="0"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="70"/>
    </properties>
   </object>
-  <object id="131" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="1229.05" y="814.969" width="184.333" height="164">
+  <object id="137" name="SimonSays_F" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="13" x="1996.78" y="245.432" width="378.666" height="185.333">
    <properties>
-    <property name="BarMoveDownSpeed" type="float" value="0.03"/>
-    <property name="BarMoveUpSpeed" type="float" value="1"/>
-    <property name="ChargeSpeed" type="float" value="0.1"/>
-    <property name="ChargeZoneSize" type="float" value="0.2"/>
-    <property name="Difficulty" type="int" value="1"/>
-    <property name="TimerSeconds" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="132" name="SimonSays" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="1" x="1616.73" y="-26" width="314" height="88">
-   <properties>
-    <property name="ChancePerDifficultyCSV" value="0.4,0.2,0.3"/>
+    <property name="ChancePerDifficultyCSV" value="0.0"/>
     <property name="Difficulty" type="int" value="0"/>
     <property name="EaseFuncName" value="EaseOutBack"/>
+    <property name="EquationAdderMax" type="int" value="10"/>
+    <property name="EquationAdderMin" type="int" value="1"/>
+    <property name="EquationMultMax" type="int" value="5"/>
+    <property name="EquationMultMin" type="int" value="2"/>
     <property name="MaxValue" type="int" value="11"/>
     <property name="MinValue" type="int" value="0"/>
     <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
+    <property name="SuccesScore" type="int" value="10"/>
     <property name="SwapSpeedMilllis" type="int" value="400"/>
     <property name="TextSize" type="int" value="20"/>
-    <property name="TimerSeconds" type="int" value="5"/>
+    <property name="TimerSeconds" type="int" value="80"/>
    </properties>
   </object>
-  <object id="134" name="Module_Pump" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="628.016" y="1290.35" width="380.333" height="189">
+  <object id="138" name="Module_PowerUp_F" type="gxpengine_template.MyClasses.Module_PowerUp" gid="13" x="638.37" y="217.584" width="184.333" height="164">
    <properties>
-    <property name="ArrowPath" value="Assets/Pump/Air_Arrow.PNG"/>
-    <property name="ChargeSpeed" type="float" value="0.1"/>
-    <property name="Difficulty" type="int" value="2"/>
-    <property name="DishargeSpeed" type="float" value="0.07"/>
-    <property name="EndDeg" type="int" value="320"/>
-    <property name="MeterPath" value="Assets/Pump/Air_In.PNG"/>
-    <property name="PipePath" value="Assets/Pump/Pipe.png"/>
-    <property name="PumpPath" value="Assets/Pump/Pump_Sprite.png"/>
-    <property name="StartDeg" type="int" value="40"/>
-    <property name="TimerSeconds" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="146" name="Module_Pump" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="618.925" y="981.258" width="380.333" height="189">
-   <properties>
-    <property name="ArrowPath" value="Assets/Pump/Air_Arrow.PNG"/>
-    <property name="ChargeSpeed" type="float" value="0.1"/>
-    <property name="Difficulty" type="int" value="1"/>
-    <property name="DishargeSpeed" type="float" value="0.07"/>
-    <property name="EndDeg" type="int" value="320"/>
-    <property name="MeterPath" value="Assets/Pump/Air_In.PNG"/>
-    <property name="PipePath" value="Assets/Pump/Pipe.png"/>
-    <property name="PumpPath" value="Assets/Pump/Pump_Sprite.png"/>
-    <property name="StartDeg" type="int" value="40"/>
-    <property name="TimerSeconds" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="137" name="maze2" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="10" x="166.682" y="235.773" width="303" height="183">
-   <properties>
-    <property name="BgAlpha" type="float" value="1"/>
+    <property name="BarMoveDownSpeed" type="float" value="0.1"/>
+    <property name="BarMoveUpSpeed" type="float" value="0.3"/>
+    <property name="ChargeSpeed" type="float" value="0.15"/>
+    <property name="ChargeZoneSize" type="float" value="0.6"/>
     <property name="Difficulty" type="int" value="0"/>
-    <property name="MazeCompletedPath" value="Assets/Maze/Maze_3x3_Completed.png"/>
-    <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.png"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="80"/>
+   </properties>
+  </object>
+  <object id="139" name="dino_E" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="13" x="2785.78" y="440.159" width="378.666" height="192">
+   <properties>
+    <property name="BgFilePath" value="Assets/Dino/Dino_Background.png"/>
+    <property name="CactiFilePathsCSV" value="Assets/Dino/Dino_obstacle.png"/>
+    <property name="CactusMoveSpeed" type="float" value="1"/>
+    <property name="Difficulty" type="int" value="1"/>
+    <property name="DinoAnimDelay" type="int" value="3"/>
+    <property name="DinoFilePath" value="Assets/Dino/Dino_Sprite.png"/>
+    <property name="DinoGravity" type="float" value="11.5"/>
+    <property name="DinoJumpPower" type="float" value="6"/>
+    <property name="DinoSS_Cols" type="int" value="4"/>
+    <property name="DinoSS_Rows" type="int" value="2"/>
+    <property name="DinoTerminalVel" type="float" value="6"/>
+    <property name="MaxSpawnDistance" type="int" value="150"/>
+    <property name="MinSpawnDistance" type="int" value="100"/>
+    <property name="ScorePenalty" type="int" value="2"/>
+    <property name="ScoreReward" type="int" value="10"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+    <property name="WinScore" type="int" value="110"/>
+   </properties>
+  </object>
+  <object id="140" name="Module_Pump_F" type="gxpengine_template.MyClasses.Module_Pump" gid="13" x="1135.7" y="256.417" width="380.333" height="189">
+   <properties>
+    <property name="ArrowPath" value="Assets/Pump/Air_Arrow.PNG"/>
+    <property name="ChargeSpeed" type="float" value="0.2"/>
+    <property name="Difficulty" type="int" value="0"/>
+    <property name="DishargeSpeed" type="float" value="0.07"/>
+    <property name="EndDeg" type="int" value="320"/>
+    <property name="MeterPath" value="Assets/Pump/Air_In.PNG"/>
+    <property name="PipePath" value="Assets/Pump/Pipe.png"/>
+    <property name="PumpPath" value="Assets/Pump/Pump_Sprite.png"/>
+    <property name="StartDeg" type="int" value="40"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="144" name="maze2_B" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="22" x="305.097" y="222.235" width="303" height="183">
+   <properties>
+    <property name="Difficulty" type="int" value="4"/>
+    <property name="MazePiecesSpriteSheet" value="Assets/Pieces.png"/>
     <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
     <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
     <property name="ModuleColumns" type="int" value="3"/>
@@ -134,34 +124,516 @@
     <property name="RotationTimeMs" type="int" value="500"/>
     <property name="SpacingX" type="float" value="0.054"/>
     <property name="SpacingY" type="float" value="0.073"/>
-    <property name="TimerSeconds" type="int" value="5"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="70"/>
    </properties>
   </object>
-  <object id="138" name="Module_InfoCurrent" type="gxpengine_template.MyClasses.Modules.Module_InfoCurrent" gid="1" x="1600.06" y="605.212" width="356" height="234">
+  <object id="145" name="maze2_A" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="22" x="294.461" y="438.144" width="303" height="183">
    <properties>
-    <property name="BadFileCount" type="int" value="5"/>
-    <property name="BadFilePath" value="Assets/InfoCurrent/InfoCurrent_Bad.png"/>
-    <property name="BadSpawnDist" type="int" value="100"/>
-    <property name="BgFilePath" value="Assets/InfoCurrent/InfoCurrent_Background.png"/>
-    <property name="BgWireFilePath" value="Assets/InfoCurrent/InfoCurrent_BgWire.png"/>
-    <property name="BoxFilePath" value="Assets/InfoCurrent/InfoCurrent_Box.png"/>
-    <property name="Difficulty" type="int" value="0"/>
-    <property name="GoodFileCount" type="int" value="5"/>
-    <property name="GoodFilePath" value="Assets/InfoCurrent/InfoCurrent_Good.png"/>
-    <property name="GoodSpawnDist" type="int" value="100"/>
-    <property name="RandomSpeedRange" type="float" value="0.3"/>
-    <property name="RequiredGoodCount" type="int" value="5"/>
-    <property name="Speed" type="float" value="1"/>
-    <property name="TimerSeconds" type="int" value="5"/>
-    <property name="WinScore" type="int" value="10"/>
-    <property name="WireFilePath" value="Assets/InfoCurrent/InfoCurrent_Slider.png"/>
+    <property name="Difficulty" type="int" value="5"/>
+    <property name="MazePiecesSpriteSheet" value="Assets/Pieces.png"/>
+    <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
+    <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
+    <property name="ModuleColumns" type="int" value="3"/>
+    <property name="ModuleRows" type="int" value="3"/>
+    <property name="PaddingB" type="float" value="0.074"/>
+    <property name="PaddingL" type="float" value="0.263"/>
+    <property name="PaddingR" type="float" value="0.2467"/>
+    <property name="PaddingT" type="float" value="0.1"/>
+    <property name="RotationEaseFunc" value="EaseOutBack"/>
+    <property name="RotationTimeMs" type="int" value="500"/>
+    <property name="SpacingX" type="float" value="0.054"/>
+    <property name="SpacingY" type="float" value="0.073"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="60"/>
    </properties>
   </object>
-  <object id="142" name="Maze_3x2" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="12" x="143.697" y="702.061" width="301" height="128">
+  <object id="146" name="maze2_S" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="22" x="295.309" y="647.235" width="303" height="183">
+   <properties>
+    <property name="Difficulty" type="int" value="6"/>
+    <property name="MazePiecesSpriteSheet" value="Assets/Pieces.png"/>
+    <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
+    <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
+    <property name="ModuleColumns" type="int" value="3"/>
+    <property name="ModuleRows" type="int" value="3"/>
+    <property name="PaddingB" type="float" value="0.074"/>
+    <property name="PaddingL" type="float" value="0.263"/>
+    <property name="PaddingR" type="float" value="0.2467"/>
+    <property name="PaddingT" type="float" value="0.1"/>
+    <property name="RotationEaseFunc" value="EaseOutBack"/>
+    <property name="RotationTimeMs" type="int" value="500"/>
+    <property name="SpacingX" type="float" value="0.054"/>
+    <property name="SpacingY" type="float" value="0.073"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="50"/>
+   </properties>
+  </object>
+  <object id="147" name="Module_PowerUp_E" type="gxpengine_template.MyClasses.Module_PowerUp" gid="13" x="616.279" y="414.675" width="184.333" height="164">
+   <properties>
+    <property name="BarMoveDownSpeed" type="float" value="0.12"/>
+    <property name="BarMoveUpSpeed" type="float" value="0.3"/>
+    <property name="ChargeSpeed" type="float" value="0.12"/>
+    <property name="ChargeZoneSize" type="float" value="0.5"/>
+    <property name="Difficulty" type="int" value="1"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="65"/>
+   </properties>
+  </object>
+  <object id="148" name="Module_PowerUp_D" type="gxpengine_template.MyClasses.Module_PowerUp" gid="13" x="613.916" y="621.341" width="184.333" height="164">
+   <properties>
+    <property name="BarMoveDownSpeed" type="float" value="0.14"/>
+    <property name="BarMoveUpSpeed" type="float" value="0.26"/>
+    <property name="ChargeSpeed" type="float" value="0.2"/>
+    <property name="ChargeZoneSize" type="float" value="0.45"/>
+    <property name="Difficulty" type="int" value="2"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="60"/>
+   </properties>
+  </object>
+  <object id="149" name="Module_PowerUp_C" type="gxpengine_template.MyClasses.Module_PowerUp" gid="13" x="616.946" y="834.19" width="184.333" height="164">
+   <properties>
+    <property name="BarMoveDownSpeed" type="float" value="0.18"/>
+    <property name="BarMoveUpSpeed" type="float" value="0.16"/>
+    <property name="ChargeSpeed" type="float" value="0.18"/>
+    <property name="ChargeZoneSize" type="float" value="0.4"/>
+    <property name="Difficulty" type="int" value="3"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="55"/>
+   </properties>
+  </object>
+  <object id="150" name="Module_PowerUp_A" type="gxpengine_template.MyClasses.Module_PowerUp" gid="13" x="885.067" y="405.644" width="184.333" height="164">
+   <properties>
+    <property name="BarMoveDownSpeed" type="float" value="0.2"/>
+    <property name="BarMoveUpSpeed" type="float" value="0.1"/>
+    <property name="ChargeSpeed" type="float" value="0.15"/>
+    <property name="ChargeZoneSize" type="float" value="0.25"/>
+    <property name="Difficulty" type="int" value="5"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+   </properties>
+  </object>
+  <object id="151" name="Module_PowerUp_S" type="gxpengine_template.MyClasses.Module_PowerUp" gid="13" x="886.037" y="621.826" width="184.333" height="164">
+   <properties>
+    <property name="BarMoveDownSpeed" type="float" value="0.1"/>
+    <property name="BarMoveUpSpeed" type="float" value="0.08"/>
+    <property name="ChargeSpeed" type="float" value="0.05"/>
+    <property name="ChargeZoneSize" type="float" value="0.2"/>
+    <property name="Difficulty" type="int" value="6"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+   </properties>
+  </object>
+  <object id="152" name="Module_PowerUp_B" type="gxpengine_template.MyClasses.Module_PowerUp" gid="13" x="890.037" y="226.25" width="184.333" height="164">
+   <properties>
+    <property name="BarMoveDownSpeed" type="float" value="0.18"/>
+    <property name="BarMoveUpSpeed" type="float" value="0.16"/>
+    <property name="ChargeSpeed" type="float" value="0.18"/>
+    <property name="ChargeZoneSize" type="float" value="0.3"/>
+    <property name="Difficulty" type="int" value="4"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="50"/>
+   </properties>
+  </object>
+  <object id="153" name="Module_Pump_E" type="gxpengine_template.MyClasses.Module_Pump" gid="13" x="1132.7" y="476.417" width="380.333" height="189">
+   <properties>
+    <property name="ArrowPath" value="Assets/Pump/Air_Arrow.PNG"/>
+    <property name="ChargeSpeed" type="float" value="0.18"/>
+    <property name="Difficulty" type="int" value="1"/>
+    <property name="DishargeSpeed" type="float" value="0.07"/>
+    <property name="EndDeg" type="int" value="320"/>
+    <property name="MeterPath" value="Assets/Pump/Air_In.PNG"/>
+    <property name="PipePath" value="Assets/Pump/Pipe.png"/>
+    <property name="PumpPath" value="Assets/Pump/Pump_Sprite.png"/>
+    <property name="StartDeg" type="int" value="40"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="25"/>
+   </properties>
+  </object>
+  <object id="154" name="Module_Pump_A" type="gxpengine_template.MyClasses.Module_Pump" gid="13" x="1594.7" y="498.417" width="380.333" height="189">
+   <properties>
+    <property name="ArrowPath" value="Assets/Pump/Air_Arrow.PNG"/>
+    <property name="ChargeSpeed" type="float" value="0.12"/>
+    <property name="Difficulty" type="int" value="5"/>
+    <property name="DishargeSpeed" type="float" value="0.12"/>
+    <property name="EndDeg" type="int" value="320"/>
+    <property name="MeterPath" value="Assets/Pump/Air_In.PNG"/>
+    <property name="PipePath" value="Assets/Pump/Pipe.png"/>
+    <property name="PumpPath" value="Assets/Pump/Pump_Sprite.png"/>
+    <property name="StartDeg" type="int" value="40"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="50"/>
+   </properties>
+  </object>
+  <object id="155" name="Module_Pump_C" type="gxpengine_template.MyClasses.Module_Pump" gid="13" x="1142.7" y="898.417" width="380.333" height="189">
+   <properties>
+    <property name="ArrowPath" value="Assets/Pump/Air_Arrow.PNG"/>
+    <property name="ChargeSpeed" type="float" value="0.14"/>
+    <property name="Difficulty" type="int" value="3"/>
+    <property name="DishargeSpeed" type="float" value="0.07"/>
+    <property name="EndDeg" type="int" value="320"/>
+    <property name="MeterPath" value="Assets/Pump/Air_In.PNG"/>
+    <property name="PipePath" value="Assets/Pump/Pipe.png"/>
+    <property name="PumpPath" value="Assets/Pump/Pump_Sprite.png"/>
+    <property name="StartDeg" type="int" value="40"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+   </properties>
+  </object>
+  <object id="156" name="Module_Pump_B" type="gxpengine_template.MyClasses.Module_Pump" gid="13" x="1576.7" y="268.417" width="380.333" height="189">
+   <properties>
+    <property name="ArrowPath" value="Assets/Pump/Air_Arrow.PNG"/>
+    <property name="ChargeSpeed" type="float" value="0.12"/>
+    <property name="Difficulty" type="int" value="4"/>
+    <property name="DishargeSpeed" type="float" value="0.07"/>
+    <property name="EndDeg" type="int" value="320"/>
+    <property name="MeterPath" value="Assets/Pump/Air_In.PNG"/>
+    <property name="PipePath" value="Assets/Pump/Pipe.png"/>
+    <property name="PumpPath" value="Assets/Pump/Pump_Sprite.png"/>
+    <property name="StartDeg" type="int" value="40"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="45"/>
+   </properties>
+  </object>
+  <object id="157" name="Module_Pump_D" type="gxpengine_template.MyClasses.Module_Pump" gid="13" x="1136.7" y="686.417" width="380.333" height="189">
+   <properties>
+    <property name="ArrowPath" value="Assets/Pump/Air_Arrow.PNG"/>
+    <property name="ChargeSpeed" type="float" value="0.16"/>
+    <property name="Difficulty" type="int" value="2"/>
+    <property name="DishargeSpeed" type="float" value="0.09"/>
+    <property name="EndDeg" type="int" value="320"/>
+    <property name="MeterPath" value="Assets/Pump/Air_In.PNG"/>
+    <property name="PipePath" value="Assets/Pump/Pipe.png"/>
+    <property name="PumpPath" value="Assets/Pump/Pump_Sprite.png"/>
+    <property name="StartDeg" type="int" value="40"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="30"/>
+   </properties>
+  </object>
+  <object id="158" name="Module_Pump_S" type="gxpengine_template.MyClasses.Module_Pump" gid="13" x="1594.7" y="724.417" width="380.333" height="189">
+   <properties>
+    <property name="ArrowPath" value="Assets/Pump/Air_Arrow.PNG"/>
+    <property name="ChargeSpeed" type="float" value="0.1"/>
+    <property name="Difficulty" type="int" value="6"/>
+    <property name="DishargeSpeed" type="float" value="0.14"/>
+    <property name="EndDeg" type="int" value="320"/>
+    <property name="MeterPath" value="Assets/Pump/Air_In.PNG"/>
+    <property name="PipePath" value="Assets/Pump/Pipe.png"/>
+    <property name="PumpPath" value="Assets/Pump/Pump_Sprite.png"/>
+    <property name="StartDeg" type="int" value="40"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="60"/>
+   </properties>
+  </object>
+  <object id="159" name="SimonSays_E" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="13" x="1995.66" y="444.008" width="378.666" height="185.333">
+   <properties>
+    <property name="ChancePerDifficultyCSV" value="0.0"/>
+    <property name="Difficulty" type="int" value="1"/>
+    <property name="EaseFuncName" value="EaseOutBack"/>
+    <property name="EquationAdderMax" type="int" value="10"/>
+    <property name="EquationAdderMin" type="int" value="1"/>
+    <property name="EquationMultMax" type="int" value="5"/>
+    <property name="EquationMultMin" type="int" value="2"/>
+    <property name="MaxValue" type="int" value="11"/>
+    <property name="MinValue" type="int" value="0"/>
+    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="SwapSpeedMilllis" type="int" value="400"/>
+    <property name="TextSize" type="int" value="20"/>
+    <property name="TimerSeconds" type="int" value="70"/>
+   </properties>
+  </object>
+  <object id="160" name="SimonSays_D" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="13" x="1993.84" y="641.22" width="378.666" height="185.333">
+   <properties>
+    <property name="ChancePerDifficultyCSV" value="0.15"/>
+    <property name="Difficulty" type="int" value="2"/>
+    <property name="EaseFuncName" value="EaseOutBack"/>
+    <property name="EquationAdderMax" type="int" value="10"/>
+    <property name="EquationAdderMin" type="int" value="1"/>
+    <property name="EquationMultMax" type="int" value="8"/>
+    <property name="EquationMultMin" type="int" value="2"/>
+    <property name="MaxValue" type="int" value="21"/>
+    <property name="MinValue" type="int" value="0"/>
+    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="SwapSpeedMilllis" type="int" value="400"/>
+    <property name="TextSize" type="int" value="20"/>
+    <property name="TimerSeconds" type="int" value="60"/>
+   </properties>
+  </object>
+  <object id="161" name="SimonSays_C" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="13" x="1991.17" y="833.826" width="378.666" height="185.333">
+   <properties>
+    <property name="ChancePerDifficultyCSV" value="0.30"/>
+    <property name="Difficulty" type="int" value="3"/>
+    <property name="EaseFuncName" value="EaseOutBack"/>
+    <property name="EquationAdderMax" type="int" value="15"/>
+    <property name="EquationAdderMin" type="int" value="1"/>
+    <property name="EquationMultMax" type="int" value="10"/>
+    <property name="EquationMultMin" type="int" value="2"/>
+    <property name="MaxValue" type="int" value="31"/>
+    <property name="MinValue" type="int" value="0"/>
+    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="SwapSpeedMilllis" type="int" value="400"/>
+    <property name="TextSize" type="int" value="20"/>
+    <property name="TimerSeconds" type="int" value="55"/>
+   </properties>
+  </object>
+  <object id="162" name="SimonSays_B" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="13" x="2383.17" y="241.826" width="378.666" height="185.333">
+   <properties>
+    <property name="ChancePerDifficultyCSV" value="0.50"/>
+    <property name="Difficulty" type="int" value="4"/>
+    <property name="EaseFuncName" value="EaseOutBack"/>
+    <property name="EquationAdderMax" type="int" value="20"/>
+    <property name="EquationAdderMin" type="int" value="1"/>
+    <property name="EquationMultMax" type="int" value="14"/>
+    <property name="EquationMultMin" type="int" value="2"/>
+    <property name="MaxValue" type="int" value="41"/>
+    <property name="MinValue" type="int" value="0"/>
+    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="SwapSpeedMilllis" type="int" value="400"/>
+    <property name="TextSize" type="int" value="20"/>
+    <property name="TimerSeconds" type="int" value="50"/>
+   </properties>
+  </object>
+  <object id="163" name="SimonSays_A" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="13" x="2385.84" y="433.826" width="378.666" height="185.333">
+   <properties>
+    <property name="ChancePerDifficultyCSV" value="0.65"/>
+    <property name="Difficulty" type="int" value="5"/>
+    <property name="EaseFuncName" value="EaseOutBack"/>
+    <property name="EquationAdderMax" type="int" value="25"/>
+    <property name="EquationAdderMin" type="int" value="1"/>
+    <property name="EquationMultMax" type="int" value="16"/>
+    <property name="EquationMultMin" type="int" value="2"/>
+    <property name="MaxValue" type="int" value="46"/>
+    <property name="MinValue" type="int" value="0"/>
+    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="SwapSpeedMilllis" type="int" value="400"/>
+    <property name="TextSize" type="int" value="20"/>
+    <property name="TimerSeconds" type="int" value="45"/>
+   </properties>
+  </object>
+  <object id="164" name="SimonSays_S" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="13" x="2387.17" y="636.493" width="378.666" height="185.333">
+   <properties>
+    <property name="ChancePerDifficultyCSV" value="0.80"/>
+    <property name="Difficulty" type="int" value="6"/>
+    <property name="EaseFuncName" value="EaseOutBack"/>
+    <property name="EquationAdderMax" type="int" value="30"/>
+    <property name="EquationAdderMin" type="int" value="1"/>
+    <property name="EquationMultMax" type="int" value="20"/>
+    <property name="EquationMultMin" type="int" value="2"/>
+    <property name="MaxValue" type="int" value="51"/>
+    <property name="MinValue" type="int" value="0"/>
+    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="SwapSpeedMilllis" type="int" value="400"/>
+    <property name="TextSize" type="int" value="20"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+   </properties>
+  </object>
+  <object id="165" name="dino_C" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="13" x="2769.54" y="852.917" width="378.666" height="192">
+   <properties>
+    <property name="BgFilePath" value="Assets/Dino/Dino_Background.png"/>
+    <property name="CactiFilePathsCSV" value="Assets/Dino/Dino_obstacle.png"/>
+    <property name="CactusMoveSpeed" type="float" value="1.4"/>
+    <property name="Difficulty" type="int" value="3"/>
+    <property name="DinoAnimDelay" type="int" value="3"/>
+    <property name="DinoFilePath" value="Assets/Dino/Dino_Sprite.png"/>
+    <property name="DinoGravity" type="float" value="11.5"/>
+    <property name="DinoJumpPower" type="float" value="6"/>
+    <property name="DinoSS_Cols" type="int" value="4"/>
+    <property name="DinoSS_Rows" type="int" value="2"/>
+    <property name="DinoTerminalVel" type="float" value="6"/>
+    <property name="MaxSpawnDistance" type="int" value="150"/>
+    <property name="MinSpawnDistance" type="int" value="100"/>
+    <property name="ScorePenalty" type="int" value="5"/>
+    <property name="ScoreReward" type="int" value="10"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="50"/>
+    <property name="WinScore" type="int" value="140"/>
+   </properties>
+  </object>
+  <object id="166" name="dino_B" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="13" x="3157.54" y="242.917" width="378.666" height="192">
+   <properties>
+    <property name="BgFilePath" value="Assets/Dino/Dino_Background.png"/>
+    <property name="CactiFilePathsCSV" value="Assets/Dino/Dino_obstacle.png"/>
+    <property name="CactusMoveSpeed" type="float" value="1.4"/>
+    <property name="Difficulty" type="int" value="4"/>
+    <property name="DinoAnimDelay" type="int" value="3"/>
+    <property name="DinoFilePath" value="Assets/Dino/Dino_Sprite.png"/>
+    <property name="DinoGravity" type="float" value="11.5"/>
+    <property name="DinoJumpPower" type="float" value="6"/>
+    <property name="DinoSS_Cols" type="int" value="4"/>
+    <property name="DinoSS_Rows" type="int" value="2"/>
+    <property name="DinoTerminalVel" type="float" value="6"/>
+    <property name="MaxSpawnDistance" type="int" value="150"/>
+    <property name="MinSpawnDistance" type="int" value="100"/>
+    <property name="ScorePenalty" type="int" value="8"/>
+    <property name="ScoreReward" type="int" value="10"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="60"/>
+    <property name="WinScore" type="int" value="160"/>
+   </properties>
+  </object>
+  <object id="167" name="dino_D" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="13" x="2782.54" y="646.917" width="378.666" height="192">
+   <properties>
+    <property name="BgFilePath" value="Assets/Dino/Dino_Background.png"/>
+    <property name="CactiFilePathsCSV" value="Assets/Dino/Dino_obstacle.png"/>
+    <property name="CactusMoveSpeed" type="float" value="1.2"/>
+    <property name="Difficulty" type="int" value="2"/>
+    <property name="DinoAnimDelay" type="int" value="3"/>
+    <property name="DinoFilePath" value="Assets/Dino/Dino_Sprite.png"/>
+    <property name="DinoGravity" type="float" value="11.5"/>
+    <property name="DinoJumpPower" type="float" value="6"/>
+    <property name="DinoSS_Cols" type="int" value="4"/>
+    <property name="DinoSS_Rows" type="int" value="2"/>
+    <property name="DinoTerminalVel" type="float" value="6"/>
+    <property name="MaxSpawnDistance" type="int" value="150"/>
+    <property name="MinSpawnDistance" type="int" value="100"/>
+    <property name="ScorePenalty" type="int" value="4"/>
+    <property name="ScoreReward" type="int" value="10"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="50"/>
+    <property name="WinScore" type="int" value="120"/>
+   </properties>
+  </object>
+  <object id="168" name="dino_F" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="13" x="2773.54" y="236.917" width="378.666" height="192">
+   <properties>
+    <property name="BgFilePath" value="Assets/Dino/Dino_Background.png"/>
+    <property name="CactiFilePathsCSV" value="Assets/Dino/Dino_obstacle.png"/>
+    <property name="CactusMoveSpeed" type="float" value="1"/>
+    <property name="Difficulty" type="int" value="0"/>
+    <property name="DinoAnimDelay" type="int" value="3"/>
+    <property name="DinoFilePath" value="Assets/Dino/Dino_Sprite.png"/>
+    <property name="DinoGravity" type="float" value="11.5"/>
+    <property name="DinoJumpPower" type="float" value="6"/>
+    <property name="DinoSS_Cols" type="int" value="4"/>
+    <property name="DinoSS_Rows" type="int" value="2"/>
+    <property name="DinoTerminalVel" type="float" value="6"/>
+    <property name="MaxSpawnDistance" type="int" value="150"/>
+    <property name="MinSpawnDistance" type="int" value="100"/>
+    <property name="ScorePenalty" type="int" value="1"/>
+    <property name="ScoreReward" type="int" value="10"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+    <property name="WinScore" type="int" value="100"/>
+   </properties>
+  </object>
+  <object id="169" name="dino_S" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="13" x="3177.54" y="650.917" width="378.666" height="192">
+   <properties>
+    <property name="BgFilePath" value="Assets/Dino/Dino_Background.png"/>
+    <property name="CactiFilePathsCSV" value="Assets/Dino/Dino_obstacle.png"/>
+    <property name="CactusMoveSpeed" type="float" value="2"/>
+    <property name="Difficulty" type="int" value="6"/>
+    <property name="DinoAnimDelay" type="int" value="3"/>
+    <property name="DinoFilePath" value="Assets/Dino/Dino_Sprite.png"/>
+    <property name="DinoGravity" type="float" value="11.5"/>
+    <property name="DinoJumpPower" type="float" value="6"/>
+    <property name="DinoSS_Cols" type="int" value="4"/>
+    <property name="DinoSS_Rows" type="int" value="2"/>
+    <property name="DinoTerminalVel" type="float" value="6"/>
+    <property name="MaxSpawnDistance" type="int" value="150"/>
+    <property name="MinSpawnDistance" type="int" value="100"/>
+    <property name="ScorePenalty" type="int" value="30"/>
+    <property name="ScoreReward" type="int" value="10"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="70"/>
+    <property name="WinScore" type="int" value="240"/>
+   </properties>
+  </object>
+  <object id="170" name="dino_A" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="13" x="3175.54" y="440.917" width="378.666" height="192">
+   <properties>
+    <property name="BgFilePath" value="Assets/Dino/Dino_Background.png"/>
+    <property name="CactiFilePathsCSV" value="Assets/Dino/Dino_obstacle.png"/>
+    <property name="CactusMoveSpeed" type="float" value="1.5"/>
+    <property name="Difficulty" type="int" value="5"/>
+    <property name="DinoAnimDelay" type="int" value="3"/>
+    <property name="DinoFilePath" value="Assets/Dino/Dino_Sprite.png"/>
+    <property name="DinoGravity" type="float" value="11.5"/>
+    <property name="DinoJumpPower" type="float" value="6"/>
+    <property name="DinoSS_Cols" type="int" value="4"/>
+    <property name="DinoSS_Rows" type="int" value="2"/>
+    <property name="DinoTerminalVel" type="float" value="6"/>
+    <property name="MaxSpawnDistance" type="int" value="150"/>
+    <property name="MinSpawnDistance" type="int" value="100"/>
+    <property name="ScorePenalty" type="int" value="15"/>
+    <property name="ScoreReward" type="int" value="10"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="60"/>
+    <property name="WinScore" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="171" name="Module_Dials_D" type="gxpengine_template.MyClasses.Module_Dials" gid="12" x="-84.2727" y="1322.67" width="314" height="88">
+   <properties>
+    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
+    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
+    <property name="DialSpeed" type="float" value="1"/>
+    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
+    <property name="Difficulty" type="int" value="2"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="30"/>
+   </properties>
+  </object>
+  <object id="172" name="Module_Dials_C" type="gxpengine_template.MyClasses.Module_Dials" gid="12" x="-87.303" y="1474.18" width="314" height="88">
+   <properties>
+    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
+    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
+    <property name="DialSpeed" type="float" value="1.2"/>
+    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
+    <property name="Difficulty" type="int" value="3"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="173" name="Module_Dials_E" type="gxpengine_template.MyClasses.Module_Dials" gid="12" x="-78.2121" y="1195.39" width="314" height="88">
+   <properties>
+    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
+    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
+    <property name="DialSpeed" type="float" value="0.8"/>
+    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
+    <property name="Difficulty" type="int" value="1"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="35"/>
+   </properties>
+  </object>
+  <object id="174" name="Module_Dials_B" type="gxpengine_template.MyClasses.Module_Dials" gid="12" x="270.273" y="1049.94" width="314" height="88">
+   <properties>
+    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
+    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
+    <property name="DialSpeed" type="float" value="1.5"/>
+    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
+    <property name="Difficulty" type="int" value="4"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="175" name="Module_Dials_A" type="gxpengine_template.MyClasses.Module_Dials" gid="12" x="273.303" y="1204.48" width="314" height="88">
+   <properties>
+    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
+    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
+    <property name="DialSpeed" type="float" value="2"/>
+    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
+    <property name="Difficulty" type="int" value="5"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="176" name="Module_Dials_S" type="gxpengine_template.MyClasses.Module_Dials" gid="12" x="276.333" y="1334.79" width="314" height="88">
+   <properties>
+    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
+    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
+    <property name="DialSpeed" type="float" value="2"/>
+    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
+    <property name="Difficulty" type="int" value="6"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="177" name="Maze_3x2_F" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="23" x="-11.1061" y="214.788" width="301" height="128">
    <properties>
     <property name="BgAlpha" type="float" value="1"/>
-    <property name="Difficulty" type="int" value="2"/>
-    <property name="MazeCompletedPath" value="Assets/Maze/Maze_3x2_Completed.png"/>
+    <property name="Difficulty" type="int" value="0"/>
     <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.png"/>
     <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
     <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
@@ -175,167 +647,287 @@
     <property name="RotationTimeMs" type="int" value="500"/>
     <property name="SpacingX" type="float" value="0.054"/>
     <property name="SpacingY" type="float" value="0.073"/>
-    <property name="TimerSeconds" type="int" value="5"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="100"/>
    </properties>
   </object>
-  <object id="144" name="maze2" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="10" x="172.742" y="487.288" width="303" height="183">
+  <object id="178" name="Maze_3x2_E" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="23" x="-14.1364" y="414.788" width="301" height="128">
    <properties>
     <property name="BgAlpha" type="float" value="1"/>
     <property name="Difficulty" type="int" value="1"/>
-    <property name="MazeCompletedPath" value="Assets/Maze/Maze_3x3_Completed.png"/>
     <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.png"/>
     <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
     <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
     <property name="ModuleColumns" type="int" value="3"/>
-    <property name="ModuleRows" type="int" value="3"/>
-    <property name="PaddingB" type="float" value="0.074"/>
-    <property name="PaddingL" type="float" value="0.263"/>
+    <property name="ModuleRows" type="int" value="2"/>
+    <property name="PaddingB" type="float" value="0.1"/>
+    <property name="PaddingL" type="float" value="0.241"/>
     <property name="PaddingR" type="float" value="0.2467"/>
-    <property name="PaddingT" type="float" value="0.1"/>
+    <property name="PaddingT" type="float" value="0.11"/>
     <property name="RotationEaseFunc" value="EaseOutBack"/>
     <property name="RotationTimeMs" type="int" value="500"/>
     <property name="SpacingX" type="float" value="0.054"/>
     <property name="SpacingY" type="float" value="0.073"/>
-    <property name="TimerSeconds" type="int" value="5"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="80"/>
    </properties>
   </object>
-  <object id="147" name="Module_Pump" type="gxpengine_template.MyClasses.Module_Pump" gid="1" x="652.258" y="623.682" width="380.333" height="189">
+  <object id="179" name="Maze_3x2_C" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="23" x="-2.01515" y="739.03" width="301" height="128">
    <properties>
-    <property name="ArrowPath" value="Assets/Pump/Air_Arrow.PNG"/>
-    <property name="ChargeSpeed" type="float" value="0.1"/>
-    <property name="Difficulty" type="int" value="0"/>
-    <property name="DishargeSpeed" type="float" value="0.07"/>
-    <property name="EndDeg" type="int" value="320"/>
-    <property name="MeterPath" value="Assets/Pump/Air_In.PNG"/>
-    <property name="PipePath" value="Assets/Pump/Pipe.png"/>
-    <property name="PumpPath" value="Assets/Pump/Pump_Sprite.png"/>
-    <property name="StartDeg" type="int" value="40"/>
-    <property name="TimerSeconds" type="int" value="5"/>
+    <property name="BgAlpha" type="float" value="1"/>
+    <property name="Difficulty" type="int" value="3"/>
+    <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.png"/>
+    <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
+    <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
+    <property name="ModuleColumns" type="int" value="3"/>
+    <property name="ModuleRows" type="int" value="2"/>
+    <property name="PaddingB" type="float" value="0.1"/>
+    <property name="PaddingL" type="float" value="0.241"/>
+    <property name="PaddingR" type="float" value="0.2467"/>
+    <property name="PaddingT" type="float" value="0.11"/>
+    <property name="RotationEaseFunc" value="EaseOutBack"/>
+    <property name="RotationTimeMs" type="int" value="500"/>
+    <property name="SpacingX" type="float" value="0.054"/>
+    <property name="SpacingY" type="float" value="0.073"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="60"/>
    </properties>
   </object>
-  <object id="148" name="dino" type="gxpengine_template.MyClasses.Modules.Module_Dino" gid="1" x="646.778" y="-244.485" width="342.807" height="173.818">
+  <object id="180" name="Maze_3x2_D" type="gxpengine_template.MyClasses.Modules.Module_Maze" gid="23" x="-11.1061" y="566.303" width="301" height="128">
    <properties>
-    <property name="BgFilePath" value="Assets/Dino/Dino_Background.png"/>
-    <property name="CactiFilePathsCSV" value="Assets/Dino/Dino_obstacle.png"/>
-    <property name="CactusMoveSpeed" type="float" value="1"/>
-    <property name="Difficulty" type="int" value="0"/>
-    <property name="DinoAnimDelay" type="int" value="3"/>
-    <property name="DinoFilePath" value="Assets/Dino/Dino_Sprite.png"/>
-    <property name="DinoJumpPower" type="float" value="7"/>
-    <property name="DinoSS_Cols" type="int" value="4"/>
-    <property name="DinoSS_Rows" type="int" value="2"/>
-    <property name="DinoTerminalVel" type="float" value="10"/>
-    <property name="MaxSpawnDistance" type="int" value="150"/>
-    <property name="MinSpawnDistance" type="int" value="100"/>
-    <property name="ScorePenalty" type="int" value="1"/>
-    <property name="ScoreReward" type="int" value="10"/>
-    <property name="TimerSeconds" type="int" value="5"/>
-    <property name="WinScore" type="int" value="20"/>
-   </properties>
-  </object>
-  <object id="149" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="1222.99" y="587.697" width="184.333" height="164">
-   <properties>
-    <property name="BarMoveDownSpeed" type="float" value="0.03"/>
-    <property name="BarMoveUpSpeed" type="float" value="1"/>
-    <property name="ChargeSpeed" type="float" value="0.1"/>
-    <property name="ChargeZoneSize" type="float" value="0.2"/>
-    <property name="Difficulty" type="int" value="0"/>
-    <property name="TimerSeconds" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="150" name="Module_PowerUp" type="gxpengine_template.MyClasses.Module_PowerUp" gid="1" x="1201.77" y="1063.45" width="184.333" height="164">
-   <properties>
-    <property name="BarMoveDownSpeed" type="float" value="0.03"/>
-    <property name="BarMoveUpSpeed" type="float" value="1"/>
-    <property name="ChargeSpeed" type="float" value="0.1"/>
-    <property name="ChargeZoneSize" type="float" value="0.2"/>
+    <property name="BgAlpha" type="float" value="1"/>
     <property name="Difficulty" type="int" value="2"/>
-    <property name="TimerSeconds" type="int" value="5"/>
+    <property name="MazePiecesSpriteSheet" value="Assets/Maze/ArtTiles.png"/>
+    <property name="MazePiecesSpriteSheet_Columns" type="int" value="4"/>
+    <property name="MazePiecesSpriteSheet_Rows" type="int" value="1"/>
+    <property name="ModuleColumns" type="int" value="3"/>
+    <property name="ModuleRows" type="int" value="2"/>
+    <property name="PaddingB" type="float" value="0.1"/>
+    <property name="PaddingL" type="float" value="0.241"/>
+    <property name="PaddingR" type="float" value="0.2467"/>
+    <property name="PaddingT" type="float" value="0.11"/>
+    <property name="RotationEaseFunc" value="EaseOutBack"/>
+    <property name="RotationTimeMs" type="int" value="500"/>
+    <property name="SpacingX" type="float" value="0.054"/>
+    <property name="SpacingY" type="float" value="0.073"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="70"/>
    </properties>
   </object>
-  <object id="151" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="11" x="1185.42" y="119.636" width="314" height="88">
+  <object id="181" name="Module_Waves_F" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="609.879" y="1089.88" width="356" height="196">
    <properties>
-    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
-    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
-    <property name="DialSpeed" type="float" value="1.2"/>
-    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
-    <property name="Difficulty" type="int" value="1"/>
-    <property name="TimerSeconds" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="152" name="Module_Dials" type="gxpengine_template.MyClasses.Module_Dials" gid="11" x="1206.64" y="-37.9394" width="314" height="88">
-   <properties>
-    <property name="DialGreenPath" value="Assets/Dials/Dial_Green.png"/>
-    <property name="DialRedPath" value="Assets/Dials/Dial_Red.png"/>
-    <property name="DialSpeed" type="float" value="1.2"/>
-    <property name="DialVisualPath" value="Assets/Dials/Dial_Mover.png"/>
+    <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
     <property name="Difficulty" type="int" value="0"/>
-    <property name="TimerSeconds" type="int" value="5"/>
+    <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="100"/>
+    <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
    </properties>
   </object>
-  <object id="153" name="SimonSays" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="1" x="1543" y="92.3636" width="314" height="88">
+  <object id="183" name="Module_Waves_E" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="609.879" y="1347.45" width="356" height="196">
    <properties>
-    <property name="ChancePerDifficultyCSV" value="0.4,0.2,0.3"/>
+    <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
     <property name="Difficulty" type="int" value="1"/>
-    <property name="EaseFuncName" value="EaseOutBack"/>
-    <property name="MaxValue" type="int" value="11"/>
-    <property name="MinValue" type="int" value="0"/>
-    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
-    <property name="SwapSpeedMilllis" type="int" value="400"/>
-    <property name="TextSize" type="int" value="20"/>
-    <property name="TimerSeconds" type="int" value="5"/>
+    <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="85"/>
+    <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
    </properties>
   </object>
-  <object id="154" name="SimonSays" type="gxpengine_template.MyClasses.Modules.Module_SimonSays" gid="1" x="1582.39" y="234.788" width="314" height="88">
+  <object id="184" name="Module_Waves_B" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="997.758" y="1126.24" width="356" height="196">
    <properties>
-    <property name="ChancePerDifficultyCSV" value="0.4,0.2,0.3"/>
+    <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
+    <property name="Difficulty" type="int" value="4"/>
+    <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="55"/>
+    <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
+   </properties>
+  </object>
+  <object id="185" name="Module_Waves_D" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="594.727" y="1620.18" width="356" height="196">
+   <properties>
+    <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
     <property name="Difficulty" type="int" value="2"/>
-    <property name="EaseFuncName" value="EaseOutBack"/>
-    <property name="MaxValue" type="int" value="11"/>
-    <property name="MinValue" type="int" value="0"/>
-    <property name="SimonBallPath" value="Assets/SimonSays/Balls.PNG"/>
-    <property name="SwapSpeedMilllis" type="int" value="400"/>
-    <property name="TextSize" type="int" value="20"/>
-    <property name="TimerSeconds" type="int" value="5"/>
+    <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="70"/>
+    <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
    </properties>
   </object>
-  <object id="155" name="Module_InfoCurrent" type="gxpengine_template.MyClasses.Modules.Module_InfoCurrent" gid="1" x="1618.97" y="873.909" width="356" height="234">
+  <object id="186" name="Module_Waves_C" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="591.697" y="1853.52" width="356" height="196">
    <properties>
-    <property name="BadFileCount" type="int" value="5"/>
+    <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
+    <property name="Difficulty" type="int" value="3"/>
+    <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="60"/>
+    <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
+   </properties>
+  </object>
+  <object id="187" name="Module_Waves_A" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="994.727" y="1353.52" width="356" height="196">
+   <properties>
+    <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
+    <property name="Difficulty" type="int" value="5"/>
+    <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="50"/>
+    <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
+   </properties>
+  </object>
+  <object id="188" name="Module_Waves_S" type="gxpengine_template.MyClasses.Modules.Module_Waves" gid="1" x="988.667" y="1641.39" width="356" height="196">
+   <properties>
+    <property name="BackgroundPath" value="Assets/Waves/Waves_Background.png"/>
+    <property name="Difficulty" type="int" value="6"/>
+    <property name="MoverVisualPath" value="Assets/Waves/Sine_Mover.png"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="40"/>
+    <property name="WavesVisualPath" value="Assets/Waves/Sine_Wave.png"/>
+   </properties>
+  </object>
+  <object id="189" name="Module_InfoCurrent_F" type="gxpengine_template.MyClasses.Modules.Module_InfoCurrent" gid="1" x="1486" y="1159" width="356" height="234">
+   <properties>
+    <property name="BadFileCount" type="int" value="15"/>
     <property name="BadFilePath" value="Assets/InfoCurrent/InfoCurrent_Bad.png"/>
     <property name="BadSpawnDist" type="int" value="100"/>
     <property name="BgFilePath" value="Assets/InfoCurrent/InfoCurrent_Background.png"/>
     <property name="BgWireFilePath" value="Assets/InfoCurrent/InfoCurrent_BgWire.png"/>
     <property name="BoxFilePath" value="Assets/InfoCurrent/InfoCurrent_Box.png"/>
-    <property name="Difficulty" type="int" value="1"/>
-    <property name="GoodFileCount" type="int" value="5"/>
+    <property name="Difficulty" type="int" value="0"/>
+    <property name="GoodFileCount" type="int" value="15"/>
     <property name="GoodFilePath" value="Assets/InfoCurrent/InfoCurrent_Good.png"/>
     <property name="GoodSpawnDist" type="int" value="100"/>
     <property name="RandomSpeedRange" type="float" value="0.3"/>
     <property name="RequiredGoodCount" type="int" value="5"/>
-    <property name="Speed" type="float" value="1"/>
-    <property name="TimerSeconds" type="int" value="5"/>
+    <property name="Speed" type="float" value="0.8"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="120"/>
     <property name="WinScore" type="int" value="10"/>
     <property name="WireFilePath" value="Assets/InfoCurrent/InfoCurrent_Slider.png"/>
    </properties>
   </object>
-  <object id="156" name="Module_InfoCurrent" type="gxpengine_template.MyClasses.Modules.Module_InfoCurrent" gid="1" x="1625.03" y="1216.33" width="356" height="234">
+  <object id="190" name="Module_InfoCurrent_A" type="gxpengine_template.MyClasses.Modules.Module_InfoCurrent" gid="1" x="1954" y="1471" width="356" height="234">
    <properties>
-    <property name="BadFileCount" type="int" value="5"/>
+    <property name="BadFileCount" type="int" value="30"/>
+    <property name="BadFilePath" value="Assets/InfoCurrent/InfoCurrent_Bad.png"/>
+    <property name="BadSpawnDist" type="int" value="80"/>
+    <property name="BgFilePath" value="Assets/InfoCurrent/InfoCurrent_Background.png"/>
+    <property name="BgWireFilePath" value="Assets/InfoCurrent/InfoCurrent_BgWire.png"/>
+    <property name="BoxFilePath" value="Assets/InfoCurrent/InfoCurrent_Box.png"/>
+    <property name="Difficulty" type="int" value="5"/>
+    <property name="GoodFileCount" type="int" value="30"/>
+    <property name="GoodFilePath" value="Assets/InfoCurrent/InfoCurrent_Good.png"/>
+    <property name="GoodSpawnDist" type="int" value="80"/>
+    <property name="RandomSpeedRange" type="float" value="0.3"/>
+    <property name="RequiredGoodCount" type="int" value="5"/>
+    <property name="Speed" type="float" value="1.2"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="70"/>
+    <property name="WinScore" type="int" value="20"/>
+    <property name="WireFilePath" value="Assets/InfoCurrent/InfoCurrent_Slider.png"/>
+   </properties>
+  </object>
+  <object id="191" name="Module_InfoCurrent_B" type="gxpengine_template.MyClasses.Modules.Module_InfoCurrent" gid="1" x="1934" y="1167" width="356" height="234">
+   <properties>
+    <property name="BadFileCount" type="int" value="24"/>
+    <property name="BadFilePath" value="Assets/InfoCurrent/InfoCurrent_Bad.png"/>
+    <property name="BadSpawnDist" type="int" value="90"/>
+    <property name="BgFilePath" value="Assets/InfoCurrent/InfoCurrent_Background.png"/>
+    <property name="BgWireFilePath" value="Assets/InfoCurrent/InfoCurrent_BgWire.png"/>
+    <property name="BoxFilePath" value="Assets/InfoCurrent/InfoCurrent_Box.png"/>
+    <property name="Difficulty" type="int" value="4"/>
+    <property name="GoodFileCount" type="int" value="20"/>
+    <property name="GoodFilePath" value="Assets/InfoCurrent/InfoCurrent_Good.png"/>
+    <property name="GoodSpawnDist" type="int" value="90"/>
+    <property name="RandomSpeedRange" type="float" value="0.3"/>
+    <property name="RequiredGoodCount" type="int" value="5"/>
+    <property name="Speed" type="float" value="1.2"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="60"/>
+    <property name="WinScore" type="int" value="16"/>
+    <property name="WireFilePath" value="Assets/InfoCurrent/InfoCurrent_Slider.png"/>
+   </properties>
+  </object>
+  <object id="192" name="Module_InfoCurrent_C" type="gxpengine_template.MyClasses.Modules.Module_InfoCurrent" gid="1" x="1494" y="1971" width="356" height="234">
+   <properties>
+    <property name="BadFileCount" type="int" value="25"/>
+    <property name="BadFilePath" value="Assets/InfoCurrent/InfoCurrent_Bad.png"/>
+    <property name="BadSpawnDist" type="int" value="100"/>
+    <property name="BgFilePath" value="Assets/InfoCurrent/InfoCurrent_Background.png"/>
+    <property name="BgWireFilePath" value="Assets/InfoCurrent/InfoCurrent_BgWire.png"/>
+    <property name="BoxFilePath" value="Assets/InfoCurrent/InfoCurrent_Box.png"/>
+    <property name="Difficulty" type="int" value="3"/>
+    <property name="GoodFileCount" type="int" value="18"/>
+    <property name="GoodFilePath" value="Assets/InfoCurrent/InfoCurrent_Good.png"/>
+    <property name="GoodSpawnDist" type="int" value="100"/>
+    <property name="RandomSpeedRange" type="float" value="0.3"/>
+    <property name="RequiredGoodCount" type="int" value="5"/>
+    <property name="Speed" type="float" value="1.1"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="70"/>
+    <property name="WinScore" type="int" value="14"/>
+    <property name="WireFilePath" value="Assets/InfoCurrent/InfoCurrent_Slider.png"/>
+   </properties>
+  </object>
+  <object id="193" name="Module_InfoCurrent_D" type="gxpengine_template.MyClasses.Modules.Module_InfoCurrent" gid="1" x="1486" y="1715" width="356" height="234">
+   <properties>
+    <property name="BadFileCount" type="int" value="20"/>
     <property name="BadFilePath" value="Assets/InfoCurrent/InfoCurrent_Bad.png"/>
     <property name="BadSpawnDist" type="int" value="100"/>
     <property name="BgFilePath" value="Assets/InfoCurrent/InfoCurrent_Background.png"/>
     <property name="BgWireFilePath" value="Assets/InfoCurrent/InfoCurrent_BgWire.png"/>
     <property name="BoxFilePath" value="Assets/InfoCurrent/InfoCurrent_Box.png"/>
     <property name="Difficulty" type="int" value="2"/>
-    <property name="GoodFileCount" type="int" value="5"/>
+    <property name="GoodFileCount" type="int" value="20"/>
     <property name="GoodFilePath" value="Assets/InfoCurrent/InfoCurrent_Good.png"/>
     <property name="GoodSpawnDist" type="int" value="100"/>
     <property name="RandomSpeedRange" type="float" value="0.3"/>
     <property name="RequiredGoodCount" type="int" value="5"/>
     <property name="Speed" type="float" value="1"/>
-    <property name="TimerSeconds" type="int" value="5"/>
-    <property name="WinScore" type="int" value="10"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="80"/>
+    <property name="WinScore" type="int" value="14"/>
+    <property name="WireFilePath" value="Assets/InfoCurrent/InfoCurrent_Slider.png"/>
+   </properties>
+  </object>
+  <object id="194" name="Module_InfoCurrent_E" type="gxpengine_template.MyClasses.Modules.Module_InfoCurrent" gid="1" x="1474" y="1455" width="356" height="234">
+   <properties>
+    <property name="BadFileCount" type="int" value="16"/>
+    <property name="BadFilePath" value="Assets/InfoCurrent/InfoCurrent_Bad.png"/>
+    <property name="BadSpawnDist" type="int" value="100"/>
+    <property name="BgFilePath" value="Assets/InfoCurrent/InfoCurrent_Background.png"/>
+    <property name="BgWireFilePath" value="Assets/InfoCurrent/InfoCurrent_BgWire.png"/>
+    <property name="BoxFilePath" value="Assets/InfoCurrent/InfoCurrent_Box.png"/>
+    <property name="Difficulty" type="int" value="1"/>
+    <property name="GoodFileCount" type="int" value="18"/>
+    <property name="GoodFilePath" value="Assets/InfoCurrent/InfoCurrent_Good.png"/>
+    <property name="GoodSpawnDist" type="int" value="100"/>
+    <property name="RandomSpeedRange" type="float" value="0.3"/>
+    <property name="RequiredGoodCount" type="int" value="5"/>
+    <property name="Speed" type="float" value="0.9"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="100"/>
+    <property name="WinScore" type="int" value="12"/>
+    <property name="WireFilePath" value="Assets/InfoCurrent/InfoCurrent_Slider.png"/>
+   </properties>
+  </object>
+  <object id="195" name="Module_InfoCurrent_S" type="gxpengine_template.MyClasses.Modules.Module_InfoCurrent" gid="1" x="1982" y="1763" width="356" height="234">
+   <properties>
+    <property name="BadFileCount" type="int" value="20"/>
+    <property name="BadFilePath" value="Assets/InfoCurrent/InfoCurrent_Bad.png"/>
+    <property name="BadSpawnDist" type="int" value="60"/>
+    <property name="BgFilePath" value="Assets/InfoCurrent/InfoCurrent_Background.png"/>
+    <property name="BgWireFilePath" value="Assets/InfoCurrent/InfoCurrent_BgWire.png"/>
+    <property name="BoxFilePath" value="Assets/InfoCurrent/InfoCurrent_Box.png"/>
+    <property name="Difficulty" type="int" value="6"/>
+    <property name="GoodFileCount" type="int" value="35"/>
+    <property name="GoodFilePath" value="Assets/InfoCurrent/InfoCurrent_Good.png"/>
+    <property name="GoodSpawnDist" type="int" value="60"/>
+    <property name="RandomSpeedRange" type="float" value="0.3"/>
+    <property name="RequiredGoodCount" type="int" value="5"/>
+    <property name="Speed" type="float" value="1.4"/>
+    <property name="SuccesScore" type="int" value="10"/>
+    <property name="TimerSeconds" type="int" value="80"/>
+    <property name="WinScore" type="int" value="25"/>
     <property name="WireFilePath" value="Assets/InfoCurrent/InfoCurrent_Slider.png"/>
    </properties>
   </object>

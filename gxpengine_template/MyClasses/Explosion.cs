@@ -10,6 +10,7 @@ namespace gxpengine_template.MyClasses
         {
             _data = data;
             SetCycle(0, cols * rows, (byte)data.GetIntProperty("AnimSpeed", 5));
+
         }
 
         public GameObject Clone()

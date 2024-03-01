@@ -26,9 +26,9 @@ namespace gxpengine_template.MyClasses
         public static DifficultyManager Instance { get; private set; }
         public int Difficulty { get; set; } = 0;
         readonly float[] _difficultyMultipliers;
-        TextMesh _textMesh;
+        readonly TextMesh _textMesh;
         ModuleManager _moduleManager;
-        DifficultyThreshold[] _scoreThreshHolds;
+        readonly DifficultyThreshold[] _scoreThreshHolds;
 
         public DifficultyManager(TiledObject data) : base("Assets/square.png", true, false)
         {
@@ -52,7 +52,7 @@ namespace gxpengine_template.MyClasses
             
             ).ToArray();
 
-            _textMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Center,CenterMode.Center, textSize: 30, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
+            _textMesh = new TextMesh("F", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Center,CenterMode.Center, textSize: 38, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
         }
 
         public void Start()
@@ -65,8 +65,7 @@ namespace gxpengine_template.MyClasses
 
         private void OnScoreUpdate()
         {
-            Console.WriteLine("score update");
-            string letter = "E";
+            string letter = "F";
             foreach (var threshHold in _scoreThreshHolds)
             {
                 if (_moduleManager.Score < threshHold.Score)

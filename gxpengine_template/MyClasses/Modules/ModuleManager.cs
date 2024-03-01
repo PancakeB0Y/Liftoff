@@ -85,8 +85,8 @@ namespace gxpengine_template.MyClasses.Modules
             transitionsClose = new List<AnimationSprite>();
             transitionsOpen = new List<AnimationSprite>();
 
-            _scoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
-            _highScoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 30, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
+            _scoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 38, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
+            _highScoreTextMesh = new TextMesh("0", 200, 200, MyUtils.MainColor, Color.Transparent, CenterMode.Min, textSize: 20, fontFileName: "Assets/Courier New Bold.ttf", fontStyle: FontStyle.Bold);
 
             _timers = new Timer[4];
             LoadTimers(data);
@@ -106,9 +106,9 @@ namespace gxpengine_template.MyClasses.Modules
         {
             yield return null;
             MyUtils.MyGame.CurrentScene.LateAddChild(_scoreTextMesh);
-            _scoreTextMesh.SetXY(game.width - 145, 69);
+            _scoreTextMesh.SetXY(game.width - 145, 74);
             MyUtils.MyGame.CurrentScene.LateAddChild(_highScoreTextMesh);
-            _highScoreTextMesh.SetXY(game.width - 145, game.height - 69);
+            _highScoreTextMesh.SetXY(game.width - 148, game.height - 78);
             _highScoreTextMesh.Text = SaveManager.Instance.GetHighScore().ToString();
 
             LoadEmptyModule();
