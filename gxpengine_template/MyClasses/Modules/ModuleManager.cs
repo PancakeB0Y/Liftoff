@@ -401,6 +401,7 @@ namespace gxpengine_template.MyClasses.Modules
         protected override void OnDestroy()
         {
             ScoreUpdate = null;
+            ModuleFailed = null;
         }
     }
 }

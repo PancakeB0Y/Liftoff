@@ -3,11 +3,11 @@ using System;
 
 namespace gxpengine_template.MyClasses
 {
-    public enum TweenProperty { x, y, rotation };
+    public enum TweenProperty { x, y, rotation, scale, scaleX, scaleY };
 
     public class Tween : GameObject
     {
-        
+
         // parameters:
         TweenProperty target;
         int totalTimeMs;
@@ -36,7 +36,7 @@ namespace gxpengine_template.MyClasses
         /// with a value change of [delta].
         /// After tweening is done, this Tween destroys itself.
         /// </summary>
-        public Tween(TweenProperty target, int timeMs, int delta, Func<float,float> easeFunc)
+        public Tween(TweenProperty target, int timeMs, int delta, Func<float, float> easeFunc)
         {
             GetCurveValue = easeFunc;
             this.target = target;
@@ -48,7 +48,7 @@ namespace gxpengine_template.MyClasses
         {
             if (parent == null) return;
 
-            if(!_started)
+            if (!_started)
             {
                 _onStartAction?.Invoke();
                 _started = true;
@@ -89,6 +89,15 @@ namespace gxpengine_template.MyClasses
                 case TweenProperty.rotation:
                     parent.rotation += outputDelta;
                     break;
+                case TweenProperty.scale:
+                    parent.scale += outputDelta;
+                    break;
+                case TweenProperty.scaleX:
+                    parent.scaleX += outputDelta;
+                    break;
+                case TweenProperty.scaleY:
+                    parent.scaleY += outputDelta;
+                    break;
             }
 
             lastCurveValue = newCurveValue;
@@ -96,7 +105,7 @@ namespace gxpengine_template.MyClasses
 
         protected override void OnDestroy()
         {
-            if(!_completed)
+            if (!_completed)
             {
                 _onExitAction?.Invoke();
                 _completed = true;
@@ -137,5 +146,5 @@ namespace gxpengine_template.MyClasses
         }
     }
 
-        
+
 }

@@ -71,12 +71,13 @@ namespace gxpengine_template.MyClasses
 
                 _failVisuals[i] = ball;
 
-                ball.x = ballW * (i % _failVisuals.Length) + (spacing * (i % _failVisuals.Length)) + padding * 0.5f;
-                ball.y = height / 2 - ball.height / 2;
+                ball.x = ballW * (i % _failVisuals.Length) + (spacing * (i % _failVisuals.Length)) + padding * 0.5f + 4f;
+                ball.y = height / 2 - ball.height / 2 + 3f;
 
+                ball.SetOrigin(ball.width / 2, ball.height / 2);
             }
-            _container.SetXY(x - width / 2, y - height / 2);
 
+            _container.SetXY(x - width / 2, y - height / 2);
         }
 
         void Update()
@@ -116,13 +117,23 @@ namespace gxpengine_template.MyClasses
         void RemoveLife()
         {
             if (_failsLeft > 0)
-                _failVisuals[--_failsLeft].visible = false;
+            {
+                int scaleSize = (int)(_failVisuals[_failsLeft - 1].scale + 0.5f);
+
+                var easeFunc = EaseFuncs.Factory("EaseInOutExpo");
+                const int moveSpeedMillis = 300;
+                _failVisuals[_failsLeft - 1].AddChild(new Tween(TweenProperty.scale, moveSpeedMillis, scaleSize, easeFunc).
+                    OnExit
+                    (
+                        () => _failVisuals[--_failsLeft].visible = false)
+                    );
+            }
         }
 
 
         protected override void OnDestroy()
         {
-            _moduleManager.ModuleFailed -= OnFail;
+            //_moduleManager.ModuleFailed -= OnFail;
             Exploded = null;
             Instance = null;
         }
