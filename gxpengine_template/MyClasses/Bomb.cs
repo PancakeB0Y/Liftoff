@@ -118,14 +118,22 @@ namespace gxpengine_template.MyClasses
         {
             if (_failsLeft > 0)
             {
-                int scaleSize = (int)(_failVisuals[_failsLeft - 1].scale + 0.5f);
+                _failsLeft--;
+                int scaleSize = (int)(_failVisuals[_failsLeft].scale + 0.5f);
 
                 var easeFunc = EaseFuncs.Factory("EaseInOutExpo");
                 const int moveSpeedMillis = 300;
-                _failVisuals[_failsLeft - 1].AddChild(new Tween(TweenProperty.scale, moveSpeedMillis, scaleSize, easeFunc).
+                var copy = _failsLeft;
+                _failVisuals[_failsLeft].AddChild(new Tween(TweenProperty.scale, moveSpeedMillis, scaleSize, easeFunc).
                     OnExit
                     (
-                        () => _failVisuals[--_failsLeft].visible = false)
+                        () =>
+                        {
+                            _failVisuals[copy].visible = false;
+                        }
+
+                        )
+
                     );
             }
         }

@@ -36,8 +36,6 @@ namespace gxpengine_template.MyClasses.Modules
             randW = Utils.Random(minRandW, randW) / 100f;
             randH = Utils.Random(minRandH, randH) / 100f;
 
-            Console.WriteLine("rand width: " + randW + " rand height: " + randH);
-
             _curW = _goalW + (Utils.Random(0, 2) == 0 ? randW : -randW);
             _curW = Mathf.Clamp(_curW, 0.1f, 1);
             _curH = _goalH + (Utils.Random(0, 2) == 0 ? randH : -randH);

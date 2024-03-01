@@ -92,9 +92,6 @@ namespace gxpengine_template.MyClasses.Modules
             LoadTimers(data);
 
             AddChild(new Coroutine(Init()));
-
-
-
         }
 
         void AddScore(Module module)

@@ -62,7 +62,7 @@ namespace gxpengine_template.MyClasses.Modules
             }
 
             _badFiles = new List<Sprite>();
-            for (int i = 0; i < _moduleLogic.GoodFiles.Length; i++)
+            for (int i = 0; i < _moduleLogic.BadFiles.Length; i++)
             {
                 _badFiles.Add(new Sprite(badFilePath, true, false));
             }
@@ -178,7 +178,7 @@ namespace gxpengine_template.MyClasses.Modules
                 {
                     if (_moduleLogic.GoodFiles[i].pos == -1)
                     {
-                        _goodFiles[i].alpha = 0;
+                        //_goodFiles[i].alpha = 0;
                         continue;
                     }
 
@@ -196,7 +196,7 @@ namespace gxpengine_template.MyClasses.Modules
                 {
                     if (_moduleLogic.BadFiles[i].pos == -1)
                     {
-                        _badFiles[i].alpha = 0;
+                        //_badFiles[i].alpha = 0;
                         continue;
                     }
 
@@ -206,6 +206,43 @@ namespace gxpengine_template.MyClasses.Modules
                         _badFiles[i].x = _badStartPos.X - _moduleLogic.BadFiles[i].pos * _distMult;
                     }
                 }
+            }
+        }
+
+        public void RotateFile(int index, bool isGood)
+        {
+            int rotation = (int)(15);
+
+            var easeFunc = EaseFuncs.Factory("EaseInOutExpo");
+            const int moveSpeedMillis = 250;
+
+            if (isGood)
+            {
+                _goodFiles[index].AddChild(new Tween(TweenProperty.rotation, moveSpeedMillis, rotation, easeFunc).
+                OnExit
+                (
+                    () => _goodFiles[index].alpha = 0)
+                );
+            }
+            else
+            {
+                _badFiles[index].AddChild(new Tween(TweenProperty.rotation, moveSpeedMillis, rotation, easeFunc).
+                OnExit
+                (
+                    () => _badFiles[index].alpha = 0)
+                );
+            }
+        }
+
+        public void RemoveFile(int index, bool isGood)
+        {
+            if (isGood)
+            {
+                _goodFiles[index].alpha = 0;
+            }
+            else
+            {
+                _badFiles[index].alpha = 0;
             }
         }
 
