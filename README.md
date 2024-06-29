@@ -48,7 +48,7 @@ Done by using [Tiled](https://www.mapeditor.org/) level editor
 
 ## Controls
   
-  Disclaimer: The keybinds are unconventional because they had to be mapped onto a physical controller
+  Disclaimer: The keybinds are unconventional because they had to be mapped onto a custom physical controller
 - **3 Button minigames:** Press H, J or K to interact with the corresponding elements
 - **1 Button minigames:** Press C to interact with the corresponding element
 - **Switch minigames:** Press or let go of B to interact with the corresponding element
