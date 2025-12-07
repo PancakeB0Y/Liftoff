@@ -59,3 +59,6 @@ Done by: @AndriiTaizhkorob, @Connor Smith
 
 ## Art
 Done by: @Larissa Landstra, @Nikki Joren
+
+## Programming
+Done by: [Nikola Goev](https://www.linkedin.com/in/nikola-goev-827645266/), [Stefan Carpeliuc](https://www.linkedin.com/in/stefan-carpeliuc-b2880427b)
